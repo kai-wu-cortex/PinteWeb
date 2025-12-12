@@ -40,7 +40,8 @@ import {
   Settings,
   Truck,
   Headphones,
-  Phone
+  Phone,
+  X
 } from 'lucide-react';
 
 // --- HERO CAROUSEL DATA ---
@@ -185,6 +186,119 @@ const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
   }
 };
 
+// --- SOLUTION DATA STRUCTURE ---
+// Defining specific solution verticals as requested by the user
+interface SolutionData {
+    id: string;
+    title: string;
+    series: string; // Links to parent series (PK, PC, etc) for left sidebar info
+    img: string;
+    featuresOverride?: string[]; // Optional specific features
+}
+
+const SOLUTIONS_DATA: Record<string, SolutionData> = {
+    'pkg_bags': {
+        id: 'pkg_bags',
+        title: '包装与手提袋专用烫金解决方案',
+        series: 'PK',
+        img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1000&auto=format&fit=crop' // Bag
+    },
+    'special_paper': {
+        id: 'special_paper',
+        title: '印刷特种纸烫金解决方案',
+        series: 'PK',
+        img: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=1000&auto=format&fit=crop' // Book/Paper
+    },
+    'leather': {
+        id: 'leather',
+        title: '皮革烫金解决方案',
+        series: 'PK',
+        img: 'https://images.unsplash.com/photo-1550586041-fbf79acb969c?q=80&w=1000&auto=format&fit=crop' // Leather
+    },
+    'plastic_surface': {
+        id: 'plastic_surface',
+        title: '塑胶产品表面烫金解决方案',
+        series: 'PC',
+        img: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=1000&auto=format&fit=crop' // Cups/Plastic
+    },
+    'digital_cold': {
+        id: 'digital_cold',
+        title: '数码/丝印冷烫解决方案',
+        series: 'PC',
+        img: 'https://images.unsplash.com/photo-1633479397988-700951a239f6?q=80&w=1000&auto=format&fit=crop' // Holographic
+    },
+    'bottles': {
+        id: 'bottles',
+        title: '酒瓶/酒瓶盖烫印解决方案',
+        series: 'PC',
+        img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1000&auto=format&fit=crop' // Wine
+    },
+    'gift_pkg': {
+        id: 'gift_pkg',
+        title: '印刷礼品包装解决方案',
+        series: 'PLPY',
+        img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop' // Gift Box
+    },
+    'reverse_uv': {
+        id: 'reverse_uv',
+        title: '逆向UV/触感膜解决方案',
+        series: 'PJ', // Assuming PJ is for UV/Paper/Plastic hybrid
+        img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop' // Portrait/Magazine
+    }
+};
+
+// Series-level info for the left sidebar of the solution detail view
+const SERIES_INFO: Record<string, { title: string, rollImg: string, features: string[] }> = {
+    'PK': {
+        title: 'PK 系列解决方案',
+        rollImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop', // Gold Roll
+        features: [
+            '色彩表现力极佳',
+            '分切性能好离型稳定',
+            '遮盖力较好',
+            '多种质感亮面与哑面',
+            '色差控制优秀',
+            '不同底材适用广'
+        ]
+    },
+    'PC': {
+        title: 'PC 塑胶系列解决方案',
+        rollImg: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=600&auto=format&fit=crop', // Silver Roll
+        features: [
+            '双组份色层耐腐蚀高亮度',
+            '分切性能好离型稳定',
+            '兼容UV丝印/数码',
+            '适配特殊载体PVC、APET',
+            '耐磨性能优秀',
+            '不同底材适用广'
+        ]
+    },
+    'PLPY': {
+        title: 'PL、PY 颜料箔解决方案',
+        rollImg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop', // Color Roll
+        features: [
+            '色彩表现力极佳',
+            '分切性能好离型稳定',
+            '遮盖力较好',
+            '不同底材适用广',
+            '多种质感亮面与哑面',
+            '色差控制优秀'
+        ]
+    },
+    'PJ': {
+        title: 'PJ 纸塑通用解决方案',
+        rollImg: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=600&auto=format&fit=crop', // Holographic Roll
+        features: [
+            '色彩表现力极佳',
+            '分切性能好离型稳定',
+            '遮盖力较好',
+            '纸塑通用',
+            '耐磨性能优秀',
+            '色差控制优秀'
+        ]
+    }
+};
+
 // --- REUSABLE COMPONENTS ---
 
 const AccordionItem: React.FC<{ title: string; isOpen: boolean; onClick: () => void }> = ({ title, isOpen, onClick }) => (
@@ -322,22 +436,16 @@ const NAV_MENU_ITEMS = [
    { id: Section.CONTACT, label: '联系我们' },
 ];
 
-const SOLUTION_MENU_ITEMS = [
-  { title: "经销商/批发商", icon: Users, desc: "1V1 援助服务" },
-  { title: "设计师/工作室", icon: PenTool, desc: "36小时方案匹配" },
-  { title: "个人电子商务", icon: Laptop, desc: "小批量快速发货" },
-  { title: "OEM/ODM代工", icon: Factory, desc: "专业设备代加工" }
-];
-
-
 // --- MAIN APP COMPONENT ---
 
 const App: React.FC = () => {
   const [activeProduct, setActiveProduct] = useState<ProductId | null>(null);
+  const [activeSolution, setActiveSolution] = useState<string | null>(null);
   const [detailTab, setDetailTab] = useState<'overview' | 'specs' | 'apps'>('overview');
   const [scrolled, setScrolled] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [heroImageIndex, setHeroImageIndex] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Manual Control Timeout Ref
   // Using ReturnType<typeof setInterval> to avoid NodeJS namespace issues in browser
@@ -382,13 +490,138 @@ const App: React.FC = () => {
 
   const scrollToSection = (id: Section) => {
     setActiveProduct(null);
+    setActiveSolution(null); // Clear solution view
     setTimeout(() => {
       const element = document.getElementById(id);
       if (element) element.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
-  // --- PRODUCT DETAIL VIEW (Kept Light & Clean) ---
+  // --- SOLUTION DETAIL VIEW (New Layout based on Reference) ---
+  const SolutionDetailView = ({ solutionId }: { solutionId: string }) => {
+    const solution = SOLUTIONS_DATA[solutionId];
+    if (!solution) return null;
+    
+    const series = SERIES_INFO[solution.series] || SERIES_INFO['PK']; // Default fallback
+
+    return (
+        <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in fade-in duration-500">
+           {/* Simple Header for Detail Page */}
+           <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-neutral-100">
+             <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+                <button 
+                 onClick={() => { setActiveSolution(null); scrollToSection(Section.SOLUTIONS); }}
+                 className="flex items-center gap-2 text-neutral-600 hover:text-pinte-blue font-medium transition-colors"
+                >
+                  <ArrowLeft size={20} />
+                  <span>返回解决方案</span>
+                </button>
+                <div className="flex items-center gap-2">
+                    <Hexagon className="text-pinte-blue fill-pinte-blue" size={20} />
+                    <span className="font-bold">{solution.title}</span>
+                </div>
+                <div className="w-20"></div> {/* Spacer */}
+             </div>
+           </div>
+
+           <div className="max-w-[1400px] mx-auto px-6 py-12">
+               <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+                   
+                   {/* LEFT COLUMN: Series Info & Features (Sticky) */}
+                   <div className="lg:w-1/3 shrink-0">
+                       <div className="sticky top-28 space-y-8">
+                           {/* Series Title */}
+                           <div>
+                               <p className="text-pinte-blue text-sm font-bold tracking-widest uppercase mb-2">Core Technology</p>
+                               <h1 className="text-4xl font-display font-bold text-blue-600 leading-tight">
+                                   {series.title}
+                               </h1>
+                           </div>
+
+                           {/* Features List */}
+                           <div className="bg-white p-8 rounded-3xl border border-neutral-100 shadow-sm">
+                               <ul className="space-y-6">
+                                   {series.features.map((feature, idx) => (
+                                       <li key={idx} className="flex items-center gap-4 group">
+                                           <div className="w-6 h-6 rounded-full border-2 border-neutral-200 flex items-center justify-center text-transparent group-hover:border-pinte-blue group-hover:bg-pinte-blue group-hover:text-white transition-all">
+                                               <CheckCircle2 size={14} />
+                                           </div>
+                                           <span className="font-medium text-lg text-neutral-700 group-hover:text-neutral-900 transition-colors">
+                                               {feature}
+                                           </span>
+                                       </li>
+                                   ))}
+                               </ul>
+                           </div>
+
+                           {/* Roll Image Card */}
+                           <div className="bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm relative overflow-hidden group">
+                               <p className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                                   <Layers size={18} className="text-pinte-blue"/>
+                                   <span>标准卷材展示</span>
+                               </p>
+                               <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+                                   <img 
+                                       src={series.rollImg} 
+                                       alt="Foil Roll" 
+                                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                   />
+                               </div>
+                               <div className="mt-4 text-sm text-neutral-500">
+                                   <p>涵盖常用色、定制色达 <strong className="text-neutral-900">60+种</strong></p>
+                                   <p className="text-xs opacity-70 mt-1">原料100% 进口，配方100%自研</p>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   {/* RIGHT COLUMN: Specific Application Details */}
+                   <div className="lg:w-2/3">
+                        <div className="space-y-12">
+                            {/* Main Application Image */}
+                            <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-neutral-200 group">
+                                <img 
+                                    src={solution.img} 
+                                    alt={solution.title} 
+                                    className="w-full h-[500px] lg:h-[700px] object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                                <div className="absolute bottom-0 left-0 p-8 md:p-12 text-white">
+                                    <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 leading-tight">{solution.title}</h2>
+                                    <p className="text-white/80 text-lg max-w-xl leading-relaxed">
+                                        针对该特定应用场景的专业解决方案，确保极佳的附着力与视觉表现。
+                                        {solution.series === 'PK' && " 特别针对粗糙表面与重油墨纸张优化。"}
+                                        {solution.series === 'PC' && " 完美适配塑胶表面，耐酒精测试。"}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            {/* Application Description / Grid (Mocking more content) */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="bg-white p-8 rounded-3xl border border-neutral-100">
+                                    <h3 className="font-bold text-xl mb-4">应用优势</h3>
+                                    <p className="text-neutral-600 leading-relaxed">
+                                        采用品特独家研发的涂层技术，不仅提升了生产效率，更大幅降低了不良率。
+                                        无论是大面积实地烫印，还是精细线条表现，都能游刃有余。
+                                    </p>
+                                </div>
+                                <div className="bg-pinte-blue text-white p-8 rounded-3xl flex flex-col justify-center items-center text-center">
+                                    <h3 className="font-bold text-xl mb-2">获取详细方案书</h3>
+                                    <p className="text-white/80 text-sm mb-6">Download the technical datasheet.</p>
+                                    <button className="bg-white text-pinte-blue px-6 py-2.5 rounded-full font-bold hover:bg-neutral-100 transition-colors">
+                                        下载 PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+    );
+  }
+
+  // --- PRODUCT DETAIL VIEW (Existing) ---
   const ProductDetailView = ({ product }: { product: ProductDetail }) => (
     <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in fade-in duration-500">
       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
@@ -526,6 +759,11 @@ const App: React.FC = () => {
       </div>
     </div>
   );
+  
+  // Render specific view if active
+  if (activeSolution) {
+      return <SolutionDetailView solutionId={activeSolution} />;
+  }
 
   if (activeProduct) {
     return <ProductDetailView product={PRODUCT_DATA[activeProduct]} />;
@@ -568,23 +806,27 @@ const App: React.FC = () => {
                       )}
                   </button>
                   
-                  {/* === SOLUTIONS DROPDOWN === */}
+                  {/* === SOLUTIONS DROPDOWN (UPDATED WITH IMAGES) === */}
                   {item.id === Section.SOLUTIONS && (
-                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[500px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 cursor-default">
-                        <div className="bg-white rounded-2xl shadow-xl border border-neutral-100 p-2 relative">
+                     <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[700px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 cursor-default">
+                        <div className="bg-white rounded-2xl shadow-xl border border-neutral-100 p-4 relative">
                              {/* Arrow Tip */}
                              <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rotate-45 border-l border-t border-neutral-100"></div>
                              
                              {/* Grid Content */}
-                             <div className="grid grid-cols-2 gap-2">
-                                {SOLUTION_MENU_ITEMS.map((sol, idx) => (
-                                   <div key={idx} onClick={() => scrollToSection(Section.SOLUTIONS)} className="p-3 hover:bg-neutral-50 rounded-xl cursor-pointer transition-colors flex items-center gap-3">
-                                      <div className="w-10 h-10 bg-blue-50 text-pinte-blue rounded-full flex items-center justify-center shrink-0">
-                                         <sol.icon size={20}/>
+                             <div className="grid grid-cols-2 gap-3">
+                                {Object.values(SOLUTIONS_DATA).map((sol) => (
+                                   <div 
+                                      key={sol.id} 
+                                      onClick={(e) => { e.stopPropagation(); setActiveSolution(sol.id); }} 
+                                      className="group/sol flex items-start gap-4 p-3 hover:bg-neutral-50 rounded-xl cursor-pointer transition-colors"
+                                   >
+                                      <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-neutral-100">
+                                        <img src={sol.img} alt={sol.title} className="w-full h-full object-cover group-hover/sol:scale-110 transition-transform duration-500" />
                                       </div>
-                                      <div>
-                                         <div className="font-bold text-neutral-900 text-sm">{sol.title}</div>
-                                         <div className="text-xs text-neutral-500">{sol.desc}</div>
+                                      <div className="py-1">
+                                         <div className="font-bold text-neutral-900 text-sm group-hover/sol:text-pinte-blue transition-colors line-clamp-1">{sol.title}</div>
+                                         <div className="text-xs text-neutral-400 mt-1 uppercase tracking-wider">{sol.series} Series</div>
                                       </div>
                                    </div>
                                 ))}
@@ -630,12 +872,62 @@ const App: React.FC = () => {
             ))}
          </div>
 
-         <div className="pr-2">
-             <button className="bg-pinte-blue text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-pinte-dark transition-colors flex items-center gap-2 shadow-lg shadow-pinte-blue/20">
+         <div className="pr-2 flex items-center gap-4">
+             <button className="hidden md:flex bg-pinte-blue text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-pinte-dark transition-colors items-center gap-2 shadow-lg shadow-pinte-blue/20">
                 获取报价
+             </button>
+
+             {/* Mobile Menu Button */}
+             <button 
+                className="md:hidden p-2 rounded-full hover:bg-white/10 transition-colors"
+                onClick={() => setMobileMenuOpen(true)}
+             >
+                <Menu size={24} className={scrolled ? 'text-neutral-900' : 'text-white'} />
              </button>
          </div>
       </nav>
+
+      {/* === MOBILE MENU OVERLAY === */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-white animate-in slide-in-from-right duration-300 flex flex-col">
+          <div className="flex justify-between items-center p-6 border-b border-neutral-100">
+            <div className="flex items-center gap-2">
+               <Hexagon className="text-pinte-blue fill-pinte-blue" size={24} />
+               <span className="font-display font-bold text-xl tracking-tight text-neutral-900">PINTE</span>
+            </div>
+            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 rounded-full">
+              <X size={24} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+             {NAV_MENU_ITEMS.map((item) => (
+                <div key={item.id} className="border-b border-neutral-50 pb-4 last:border-0">
+                  <button 
+                     onClick={() => { scrollToSection(item.id); setMobileMenuOpen(false); }}
+                     className="text-2xl font-bold text-neutral-900 mb-2 flex items-center justify-between w-full hover:text-pinte-blue transition-colors"
+                  >
+                    {item.label}
+                    <ChevronRight size={20} className="text-neutral-300" />
+                  </button>
+                  {/* Mobile Solutions List */}
+                  {item.id === Section.SOLUTIONS && (
+                      <div className="pl-4 mt-2 space-y-4">
+                          {Object.values(SOLUTIONS_DATA).map((sol) => (
+                              <div key={sol.id} onClick={() => { setActiveSolution(sol.id); setMobileMenuOpen(false); }} className="flex items-center gap-3">
+                                  <img src={sol.img} className="w-10 h-10 rounded-lg object-cover" alt="icon"/>
+                                  <span className="text-neutral-600 text-sm font-medium">{sol.title}</span>
+                              </div>
+                          ))}
+                      </div>
+                  )}
+                </div>
+             ))}
+             <button className="bg-pinte-blue text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg shadow-pinte-blue/20 mt-4">
+                获取报价
+             </button>
+          </div>
+        </div>
+      )}
 
       {/* === HERO SECTION (Carousel) === */}
       <section id={Section.HOME} className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
