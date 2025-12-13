@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ChatWidget from './components/ChatWidget';
 import TechParticles from './components/TechParticles';
+import QuoteRequest from './components/QuoteRequest';
+import ProductShowcase from './components/ProductShowcase';
+import { PinteLogo } from './components/PinteLogo';
 import { Section, ProductId, ProductDetail } from './types';
 import { 
   ArrowRight, 
@@ -41,14 +44,19 @@ import {
   Truck,
   Headphones,
   Phone,
-  X
+  X,
+  LayoutGrid,
+  MapPin,
+  Linkedin,
+  Facebook,
+  Twitter
 } from 'lucide-react';
 
 // --- HERO CAROUSEL DATA ---
 const HERO_SLIDES = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop", // Abstract Fluid Gold/Dark
+    image: "https://images.unsplash.com/photo-1635246738596-3393952a2656?q=80&w=2000&auto=format&fit=crop", // Abstract Fluid Gold/Dark
     title: <span>Mastery in <br/><span className="text-pinte-gold">Surface Aesthetics</span></span>,
     subtitle: "PREMIUM HOT STAMPING FOIL",
     description: "品特(PINTE) 专注于研发高端烫金材料，赋予包装卓越的视觉冲击力与品牌价值。从咖啡底到数码冷烫，定义光影艺术。",
@@ -441,6 +449,8 @@ const NAV_MENU_ITEMS = [
 const App: React.FC = () => {
   const [activeProduct, setActiveProduct] = useState<ProductId | null>(null);
   const [activeSolution, setActiveSolution] = useState<string | null>(null);
+  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const [showCatalog, setShowCatalog] = useState(false);
   const [detailTab, setDetailTab] = useState<'overview' | 'specs' | 'apps'>('overview');
   const [scrolled, setScrolled] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
@@ -458,6 +468,11 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // --- AUTO SCROLL TO TOP ON VIEW CHANGE ---
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeProduct, activeSolution, isQuoteOpen, showCatalog]);
 
   const startAutoSlide = () => {
     if (autoSlideRef.current) clearInterval(autoSlideRef.current);
@@ -491,6 +506,8 @@ const App: React.FC = () => {
   const scrollToSection = (id: Section) => {
     setActiveProduct(null);
     setActiveSolution(null); // Clear solution view
+    setIsQuoteOpen(false); // Clear quote view
+    setShowCatalog(false); // Clear catalog view
     setTimeout(() => {
       const element = document.getElementById(id);
       if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -517,7 +534,7 @@ const App: React.FC = () => {
                   <span>返回解决方案</span>
                 </button>
                 <div className="flex items-center gap-2">
-                    <Hexagon className="text-pinte-blue fill-pinte-blue" size={20} />
+                    <PinteLogo originalColors className="h-8 w-auto" />
                     <span className="font-bold">{solution.title}</span>
                 </div>
                 <div className="w-20"></div> {/* Spacer */}
@@ -761,12 +778,25 @@ const App: React.FC = () => {
   );
   
   // Render specific view if active
+  if (isQuoteOpen) {
+    return <QuoteRequest onBack={() => setIsQuoteOpen(false)} />;
+  }
+
   if (activeSolution) {
       return <SolutionDetailView solutionId={activeSolution} />;
   }
 
+  // Moved Active Product Check before Show Catalog to ensure nested details can be viewed from catalog list
   if (activeProduct) {
     return <ProductDetailView product={PRODUCT_DATA[activeProduct]} />;
+  }
+
+  if (showCatalog) {
+      return <ProductShowcase 
+               onBack={() => setShowCatalog(false)} 
+               products={PRODUCT_DATA} 
+               onItemClick={(id) => setActiveProduct(id)}
+             />;
   }
 
   return (
@@ -783,7 +813,10 @@ const App: React.FC = () => {
         }
       `}>
          <div className="flex items-center gap-2 pl-6">
-            <Hexagon className={`transition-colors ${scrolled ? 'text-pinte-blue fill-pinte-blue' : 'text-white fill-white'}`} size={24} />
+            <PinteLogo 
+              originalColors={scrolled} 
+              className={`h-8 w-auto transition-colors duration-300 ${scrolled ? '' : 'text-white'}`} 
+            />
             <span className={`font-display font-bold text-xl tracking-tight transition-colors ${scrolled ? 'text-neutral-900' : 'text-white'}`}>PINTE</span>
          </div>
          
@@ -860,7 +893,7 @@ const App: React.FC = () => {
                              </div>
                              {/* Footer Link */}
                              <div className="mt-4 pt-3 border-t border-neutral-100 text-center">
-                                <button onClick={() => scrollToSection(Section.PRODUCTS)} className="text-xs font-bold text-pinte-blue hover:text-pinte-dark uppercase tracking-widest flex items-center justify-center gap-1">
+                                <button onClick={() => setShowCatalog(true)} className="text-xs font-bold text-pinte-blue hover:text-pinte-dark uppercase tracking-widest flex items-center justify-center gap-1">
                                    View All Products <ArrowRight size={12}/>
                                 </button>
                              </div>
@@ -873,7 +906,10 @@ const App: React.FC = () => {
          </div>
 
          <div className="pr-2 flex items-center gap-4">
-             <button className="hidden md:flex bg-pinte-blue text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-pinte-dark transition-colors items-center gap-2 shadow-lg shadow-pinte-blue/20">
+             <button 
+               onClick={() => setIsQuoteOpen(true)}
+               className="hidden md:flex bg-pinte-blue text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-pinte-dark transition-colors items-center gap-2 shadow-lg shadow-pinte-blue/20"
+             >
                 获取报价
              </button>
 
@@ -892,7 +928,7 @@ const App: React.FC = () => {
         <div className="fixed inset-0 z-[60] bg-white animate-in slide-in-from-right duration-300 flex flex-col">
           <div className="flex justify-between items-center p-6 border-b border-neutral-100">
             <div className="flex items-center gap-2">
-               <Hexagon className="text-pinte-blue fill-pinte-blue" size={24} />
+               <PinteLogo className="h-8 w-auto text-neutral-900" />
                <span className="font-display font-bold text-xl tracking-tight text-neutral-900">PINTE</span>
             </div>
             <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 rounded-full">
@@ -920,9 +956,21 @@ const App: React.FC = () => {
                           ))}
                       </div>
                   )}
+                  {/* Mobile Product Link for Catalog */}
+                  {item.id === Section.PRODUCTS && (
+                    <button 
+                      onClick={() => { setShowCatalog(true); setMobileMenuOpen(false); }}
+                      className="text-sm font-bold text-pinte-blue mt-2 pl-4 flex items-center gap-2"
+                    >
+                      View Full Catalog <ArrowRight size={14}/>
+                    </button>
+                  )}
                 </div>
              ))}
-             <button className="bg-pinte-blue text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg shadow-pinte-blue/20 mt-4">
+             <button 
+               onClick={() => { setIsQuoteOpen(true); setMobileMenuOpen(false); }}
+               className="bg-pinte-blue text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg shadow-pinte-blue/20 mt-4"
+             >
                 获取报价
              </button>
           </div>
@@ -1169,12 +1217,18 @@ const App: React.FC = () => {
                    Excellence in <br/>
                    Surface Finishing.
                 </h2>
-                <div className="lg:pl-12">
-                   <p className="text-neutral-500 text-lg leading-relaxed mb-8">
+                <div className="lg:pl-12 flex flex-col items-start gap-8">
+                   <p className="text-neutral-500 text-lg leading-relaxed">
                       发现您梦想中的包装效果。无论是粗糙纸张还是光滑塑胶，我们都有完美的解决方案。
                       解锁产品新外观，让设计毫不费力地呈现。
                    </p>
-                   <div className="h-px bg-neutral-200 w-full"></div>
+                   <button 
+                      onClick={() => setShowCatalog(true)}
+                      className="group flex items-center gap-2 text-pinte-blue font-bold text-sm tracking-widest uppercase border-b-2 border-pinte-blue/20 pb-1 hover:border-pinte-blue transition-all"
+                   >
+                     View Full Product Catalog
+                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                   </button>
                 </div>
              </div>
  
@@ -1478,7 +1532,7 @@ const App: React.FC = () => {
             {/* Brand & Copyright */}
             <div>
               <div className="flex items-center gap-2 mb-6">
-                 <Hexagon className="text-pinte-blue fill-pinte-blue" size={32} />
+                 <PinteLogo originalColors className="h-8 w-auto" />
                  <span className="font-display font-bold text-2xl tracking-tight">PINTE</span>
               </div>
               <p className="text-neutral-500 leading-relaxed mb-6">
