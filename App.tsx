@@ -49,34 +49,37 @@ import {
   MapPin,
   Linkedin,
   Facebook,
-  Twitter
+  Twitter,
+  Target,
+  Sparkles,
+  HeartHandshake
 } from 'lucide-react';
 
 // --- HERO CAROUSEL DATA ---
 const HERO_SLIDES = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1635246738596-3393952a2656?q=80&w=2000&auto=format&fit=crop", // Abstract Fluid Gold/Dark
-    title: <span>Mastery in <br/><span className="text-pinte-gold">Surface Aesthetics</span></span>,
-    subtitle: "PREMIUM HOT STAMPING FOIL",
-    description: "品特(PINTE) 专注于研发高端烫金材料，赋予包装卓越的视觉冲击力与品牌价值。从咖啡底到数码冷烫，定义光影艺术。",
-    buttonText: "Explore Products"
+    image: 'https://youke2.picui.cn/s1/2025/12/13/693d082b27fe1.png', // Abstract Fluid Gold/Dark
+    title: <span>专注 <br/><span className="text-pinte-gold">"烫金表面美学"</span></span>,
+    subtitle: "做高端烫金膜专家",
+    description: "品特®专注于研发高端烫金材料，赋予包装卓越的视觉冲击力与品牌价值。从电化铝，颜料箔到数码冷烫，定义光影艺术。",
+    buttonText: "产品中心"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2000&auto=format&fit=crop", // Industrial/Factory High Tech
-    title: <span>20,000m² <br/><span className="text-blue-400">Production Base</span></span>,
-    subtitle: "ADVANCED MANUFACTURING",
-    description: "拥有35条自动化涂布生产线与国家级实验室，月均产能超180万米。ISO9001体系认证，确保每一卷产品的极致稳定性。",
-    buttonText: "Factory Tour"
+    image: "https://youke2.picui.cn/s1/2025/12/13/693d2eb71c6ee.jpg", // Industrial/Factory High Tech
+    title: <span>20,000m² <br/><span className="text-blue-400">自有研发基地</span></span>,
+    subtitle: "先进的涂布生产设备",
+    description: "拥有超3条自动化涂布生产线与产品研发实验室，月均产能超180万米。ISO9001体系认证，确保每一卷产品的极致稳定性。",
+    buttonText: "在线看厂"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1518112390430-f4ab02e9c2c8?q=80&w=2000&auto=format&fit=crop", // Abstract Tech/Green
-    title: <span>Sustainable <br/><span className="text-green-400">Innovation</span></span>,
-    subtitle: "ECO-FRIENDLY SOLUTIONS",
-    description: "致力于环保材料研发，提供无污染、可回收的冷烫与数码增效方案。符合 RoHS, EN71-3, ASTM 标准，助力绿色未来。",
-    buttonText: "Sustainability"
+    image: "https://youke2.picui.cn/s1/2025/12/13/693d305bf17b7.jpg", // Abstract Tech/Green
+    title: <span>值得信赖的 <br/><span className="text-green-400">OEM/ODM 烫金制造商</span></span>,
+    subtitle: "以技术为核心，以品质为根本，以客户为中心，以信誉为资本",
+    description: "代代相传的四个理念是我们服务的信念",
+    buttonText: "合作咨询"
   }
 ];
 
@@ -87,7 +90,7 @@ const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
     name: 'PK 咖啡底系列',
     subtitle: 'COFFEE GLUE SERIES',
     description: '专为粗糙表面设计，拥有极佳的遮盖率与上烫性。在重油墨纸张上也能保持光泽，不会氧化发黑。',
-    heroImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
+    heroImage: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251216/DQQZuxMUEECg/qdqqd/_1765866836300.png',
     features: [
       { title: '重油墨不氧化', desc: '特有涂层配方，防止在深色/重油墨表面氧化。', icon: Zap },
       { title: '强附着力', desc: '针对粗纹纸、压纹皮革等不平整表面优化。', icon: Layers },
@@ -109,7 +112,7 @@ const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
     name: 'PC 塑胶系列',
     subtitle: 'PLASTIC SERIES',
     description: '采用特制PC胶底，专攻塑胶材质。具有卓越的耐酒精性与分切性。可完美通过百格测试。',
-    heroImage: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=1000&auto=format&fit=crop',
+    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410046cf35c.png',
     features: [
       { title: '耐酒精', desc: '烫印后可耐酒精擦拭，符合化妆品包材标准。', icon: Droplet },
       { title: '分切性好', desc: '烫印边缘整齐，无毛边，无金粉脱落。', icon: Box },
@@ -131,7 +134,7 @@ const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
     name: 'PL/PY 颜料箔',
     subtitle: 'PIGMENT FOILS',
     description: '以颜料为原料的非镀铝产品。解决印刷油墨遮盖力不足的问题，色彩饱满，呈现纯正色彩。',
-    heroImage: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop',
+    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png',
     features: [
       { title: '高遮盖力', desc: '轻松遮盖深色底材，不透底。', icon: Layers },
       { title: '色彩纯正', desc: '无金属光泽干扰，还原设计本色。', icon: Star },
@@ -153,7 +156,7 @@ const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
     name: '数码/冷烫系列',
     subtitle: 'DIGITAL & COLD FOIL',
     description: '无需制版，直接在UV光油或数码墨层上进行固化转移。适合个性化定制与小批量生产。',
-    heroImage: 'https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=1000&auto=format&fit=crop',
+    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/694100f7bd175.jpg',
     features: [
       { title: '无需制版', desc: '数码文件直接输出，立等可取。', icon: Zap },
       { title: '立体感强', desc: '配合堆金工艺，实现浮雕般效果。', icon: Layers },
@@ -175,7 +178,7 @@ const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
     name: '金葱粉系列',
     subtitle: 'PREMIUM GLITTER',
     description: '25年生产经验，六角形切片，耐高温、耐溶剂。光泽度持久，不褪色。',
-    heroImage: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=1000&auto=format&fit=crop',
+    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410140d4733.jpg',
     features: [
       { title: '耐溶剂', desc: '在指甲油、胶水中不褪色、不溶化。', icon: Droplet },
       { title: '形状规则', desc: '标准正六角形，边缘整齐。', icon: Box },
@@ -283,7 +286,7 @@ const SERIES_INFO: Record<string, { title: string, rollImg: string, features: st
     },
     'PLPY': {
         title: 'PL、PY 颜料箔解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop', // Color Roll
+        rollImg: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png', // Color Roll
         features: [
             '色彩表现力极佳',
             '分切性能好离型稳定',
@@ -360,10 +363,93 @@ const FAQItem = ({ q, a }: { q: string, a: string }) => {
   );
 };
 
-// --- MATRIX TEXT EFFECT COMPONENT ---
+// --- NUMBER TICKER COMPONENT (New) ---
+const NumberTicker = ({ 
+  targetValue, 
+  label, 
+  icon: Icon, 
+  suffix = '',
+  duration = 2000,
+  textClassName = "text-3xl md:text-4xl text-neutral-900" 
+}: { 
+  targetValue: string, 
+  label?: string, 
+  icon?: any,
+  suffix?: string,
+  duration?: number,
+  textClassName?: string
+}) => {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  
+  // Extract number from string (e.g. "180,000+" -> 180000)
+  const finalNumber = parseInt(targetValue.replace(/,/g, '').replace(/\+/g, '')) || 0;
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function: easeOutExpo
+      const easeValue = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      
+      setCount(Math.floor(easeValue * finalNumber));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [hasAnimated, finalNumber, duration]);
+
+  const formattedCount = count.toLocaleString();
+
+  return (
+    <div ref={elementRef} className="text-center group">
+      {Icon && (
+        <div className="flex justify-center mb-4">
+          <div className="w-12 h-12 bg-blue-50 text-pinte-blue rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:bg-pinte-blue group-hover:text-white">
+            <Icon size={24} />
+          </div>
+        </div>
+      )}
+      <div className={`font-display font-bold mb-2 tracking-tight ${textClassName}`}>
+        {formattedCount}{suffix}
+      </div>
+      {label && <p className="text-sm font-medium text-neutral-500 uppercase tracking-widest">{label}</p>}
+    </div>
+  );
+};
+
+// --- MATRIX TEXT EFFECT COMPONENT (Keeping for non-numeric text) ---
 const MatrixText = ({ targetText, label, icon: Icon }: { targetText: string, label: string, icon?: any }) => {
   const [displayText, setDisplayText] = useState('');
-  const [isHovered, setIsHovered] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -372,7 +458,6 @@ const MatrixText = ({ targetText, label, icon: Icon }: { targetText: string, lab
 
   const animate = useCallback(() => {
     let iteration = 0;
-    const maxIterations = 15; // Number of scrambles before fixing
 
     const interval = setInterval(() => {
       setDisplayText(
@@ -382,20 +467,18 @@ const MatrixText = ({ targetText, label, icon: Icon }: { targetText: string, lab
             if (index < iteration) {
               return targetText[index];
             }
-            // Preserve spaces or special chars immediately for layout stability
             if (char === ' ' || char === '+') return char;
             return chars[Math.floor(Math.random() * chars.length)];
           })
           .join('')
       );
 
-      // Slower pace for effect
       if (iteration >= targetText.length) {
         clearInterval(interval);
-        setDisplayText(targetText); // Ensure final exact match
+        setDisplayText(targetText); 
       }
 
-      iteration += 1 / 3; // Slow down the reveal
+      iteration += 1 / 3; 
     }, 30);
   }, [targetText]);
 
@@ -418,7 +501,7 @@ const MatrixText = ({ targetText, label, icon: Icon }: { targetText: string, lab
   }, [animate, hasAnimated]);
 
   return (
-    <div ref={elementRef} className="text-center group" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <div ref={elementRef} className="text-center group">
       {Icon && (
         <div className="flex justify-center mb-4">
           <div className="w-12 h-12 bg-blue-50 text-pinte-blue rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:bg-pinte-blue group-hover:text-white">
@@ -456,6 +539,7 @@ const App: React.FC = () => {
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [heroImageIndex, setHeroImageIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   // Manual Control Timeout Ref
   // Using ReturnType<typeof setInterval> to avoid NodeJS namespace issues in browser
@@ -923,60 +1007,6 @@ const App: React.FC = () => {
          </div>
       </nav>
 
-      {/* === MOBILE MENU OVERLAY === */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-white animate-in slide-in-from-right duration-300 flex flex-col">
-          <div className="flex justify-between items-center p-6 border-b border-neutral-100">
-            <div className="flex items-center gap-2">
-               <PinteLogo className="h-8 w-auto text-neutral-900" />
-               <span className="font-display font-bold text-xl tracking-tight text-neutral-900">PINTE</span>
-            </div>
-            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 rounded-full">
-              <X size={24} />
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
-             {NAV_MENU_ITEMS.map((item) => (
-                <div key={item.id} className="border-b border-neutral-50 pb-4 last:border-0">
-                  <button 
-                     onClick={() => { scrollToSection(item.id); setMobileMenuOpen(false); }}
-                     className="text-2xl font-bold text-neutral-900 mb-2 flex items-center justify-between w-full hover:text-pinte-blue transition-colors"
-                  >
-                    {item.label}
-                    <ChevronRight size={20} className="text-neutral-300" />
-                  </button>
-                  {/* Mobile Solutions List */}
-                  {item.id === Section.SOLUTIONS && (
-                      <div className="pl-4 mt-2 space-y-4">
-                          {Object.values(SOLUTIONS_DATA).map((sol) => (
-                              <div key={sol.id} onClick={() => { setActiveSolution(sol.id); setMobileMenuOpen(false); }} className="flex items-center gap-3">
-                                  <img src={sol.img} className="w-10 h-10 rounded-lg object-cover" alt="icon"/>
-                                  <span className="text-neutral-600 text-sm font-medium">{sol.title}</span>
-                              </div>
-                          ))}
-                      </div>
-                  )}
-                  {/* Mobile Product Link for Catalog */}
-                  {item.id === Section.PRODUCTS && (
-                    <button 
-                      onClick={() => { setShowCatalog(true); setMobileMenuOpen(false); }}
-                      className="text-sm font-bold text-pinte-blue mt-2 pl-4 flex items-center gap-2"
-                    >
-                      View Full Catalog <ArrowRight size={14}/>
-                    </button>
-                  )}
-                </div>
-             ))}
-             <button 
-               onClick={() => { setIsQuoteOpen(true); setMobileMenuOpen(false); }}
-               className="bg-pinte-blue text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg shadow-pinte-blue/20 mt-4"
-             >
-                获取报价
-             </button>
-          </div>
-        </div>
-      )}
-
       {/* === HERO SECTION (Carousel) === */}
       <section id={Section.HOME} className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
          {/* Background Carousel */}
@@ -1055,23 +1085,34 @@ const App: React.FC = () => {
             </div>
          </div>
 
-         {/* Floating Project Card (Bottom Right) */}
+         {/* Floating Project Card (Bottom Right) with VIDEO MODAL */}
          <div className="absolute bottom-12 right-6 md:right-12 z-20 hidden md:block animate-in slide-in-from-right-8 duration-1000">
-            <div className="bg-white/10 backdrop-blur-md p-4 rounded-[2rem] border border-white/20 w-[300px] group cursor-pointer hover:bg-white/20 transition-all shadow-lg">
+            <div 
+               onClick={() => setShowVideoModal(true)}
+               className="bg-white/10 backdrop-blur-md p-4 rounded-[2rem] border border-white/20 w-[300px] group cursor-pointer hover:bg-white/20 transition-all shadow-lg"
+            >
                <div className="h-32 rounded-3xl overflow-hidden mb-4 relative">
-                  <img 
-                     src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=600&auto=format&fit=crop" 
+                  <video 
+                     src="https://file.icve.com.cn/file_doc/qdqqd/4691765858373657.mov" 
                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                     alt="Project"
+                     autoPlay 
+                     muted 
+                     loop 
+                     playsInline
                   />
-                  <div className="absolute top-2 right-2 bg-white/90 p-1.5 rounded-full">
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/10">
+                     <div className="w-10 h-10 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/40">
+                        <Play size={16} fill="currentColor" />
+                     </div>
+                  </div>
+                  <div className="absolute top-2 right-2 bg-white/90 p-1.5 rounded-full shadow-sm">
                      <ArrowUpRight size={14} className="text-neutral-900"/>
                   </div>
                </div>
                <div className="flex justify-between items-end px-2">
                   <div>
-                     <p className="text-white/60 text-xs uppercase tracking-wider mb-1">Featured Case</p>
-                     <p className="text-white font-bold text-lg">Luxury Packaging</p>
+                     <p className="text-white/60 text-xs uppercase tracking-wider mb-1">在线看厂</p>
+                     <p className="text-white font-bold text-lg">高端烫金膜产线</p>
                   </div>
                   <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all">
                      <ArrowRight size={16}/>
@@ -1079,16 +1120,42 @@ const App: React.FC = () => {
                </div>
             </div>
          </div>
+
+         {/* VIDEO MODAL */}
+         {showVideoModal && (
+            <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-300">
+              <div className="relative w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                 <button 
+                    onClick={() => setShowVideoModal(false)}
+                    className="absolute top-6 right-6 z-20 w-12 h-12 bg-black/50 hover:bg-black/80 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-colors border border-white/10"
+                 >
+                    <X size={24} />
+                 </button>
+                 <iframe 
+                   width="100%" 
+                   height="100%" 
+                   src="https://www.youtube.com/embed/zhcXEjjlAsg?autoplay=1" 
+                   title="YouTube video player" 
+                   frameBorder="0" 
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                   allowFullScreen
+                   className="w-full h-full"
+                 ></iframe>
+              </div>
+              {/* Click outside to close */}
+              <div className="absolute inset-0 -z-10 cursor-pointer" onClick={() => setShowVideoModal(false)}></div>
+            </div>
+         )}
       </section>
 
-      {/* === COMPANY STRENGTH (MATRIX EFFECT) === */}
+      {/* === COMPANY STRENGTH (MATRIX EFFECT + NUMBER TICKER) === */}
       <section className="py-16 bg-white border-b border-neutral-100">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-4">
-            <MatrixText targetText="1999" label="公司成立于" icon={Building2} />
-            <MatrixText targetText="180,000+" label="月均出货(米)" icon={TrendingUp} />
-            <MatrixText targetText="20,000+" label="厂房面积(㎡)" icon={Factory} />
-            <MatrixText targetText="10+" label="专利技术" icon={Lightbulb} />
+            <NumberTicker targetValue="1999" label="公司成立于" icon={Building2} />
+            <NumberTicker targetValue="180,000+" suffix="+" label="月均出货(米)" icon={TrendingUp} />
+            <NumberTicker targetValue="20,000+" suffix="+" label="厂房面积(㎡)" icon={Factory} />
+            <NumberTicker targetValue="10+" suffix="+" label="专利技术" icon={Lightbulb} />
             <MatrixText targetText="ISO/SGS/BSCI" label="多项国际认证" icon={Award} />
           </div>
         </div>
@@ -1174,32 +1241,74 @@ const App: React.FC = () => {
            <div className="max-w-[1200px] mx-auto bg-white rounded-[3rem] shadow-2xl shadow-neutral-900/10 p-12 md:p-20 flex flex-col lg:flex-row gap-16 lg:items-start">
               
               {/* Left Side: Slogan */}
-              <div className="lg:w-1/2">
-                <span className="text-pinte-blue font-bold tracking-widest text-sm uppercase mb-4 block">Company Profile</span>
-                <h2 className="text-4xl lg:text-5xl font-display font-bold text-neutral-900 leading-[1.2] mb-6">
-                  集<span className="text-pinte-blue">研发、生产、销售</span>于一体的<br/>
-                  高新技术企业
-                </h2>
-                <p className="text-xl text-neutral-500 font-medium">
-                  An high-tech enterprise integrating <span className="text-pinte-blue">R&D, production and sales</span>
-                </p>
+              <div className="lg:w-1/2 flex flex-col justify-between">
+                <div>
+                  <span className="text-pinte-blue font-bold tracking-widest text-sm uppercase mb-4 block">Company Profile</span>
+                  <h2 className="text-4xl lg:text-5xl font-display font-bold text-neutral-900 leading-[1.2] mb-6">
+                    集<span className="text-pinte-blue">研发、生产、销售</span>于一体的<br/>
+                    高新技术企业
+                  </h2>
+                  <p className="text-xl text-neutral-500 font-medium mb-8">
+                    An high-tech enterprise integrating <span className="text-pinte-blue">R&D, production and sales</span>
+                  </p>
+                  
+                  {/* New Vision Text */}
+                  <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-100 mb-8">
+                     <p className="text-neutral-700 leading-relaxed font-medium">
+                        品特的愿景是成为全球烫金膜领域的卓越引领者。使命是将高端，高质，易用的烫金膜带给每一位追求品质与创新的行业伙伴，让他们的产品焕发独特光彩。
+                     </p>
+                  </div>
+
+                  {/* Key Point Icons */}
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                     {[
+                        {icon: Target, title: "卓越引领", desc: "Vision"},
+                        {icon: ShieldCheck, title: "高端品质", desc: "High Quality"},
+                        {icon: Sparkles, title: "创新易用", desc: "Innovation"},
+                        {icon: HeartHandshake, title: "合作共赢", desc: "Partnership"}
+                     ].map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-3">
+                           <div className="w-10 h-10 rounded-full bg-blue-50 text-pinte-blue flex items-center justify-center">
+                              <item.icon size={18}/>
+                           </div>
+                           <div>
+                              <p className="font-bold text-neutral-900 text-sm">{item.title}</p>
+                              <p className="text-neutral-400 text-xs uppercase tracking-wider">{item.desc}</p>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+
+
+                </div>
               </div>
 
               {/* Right Side: Description & Stats */}
               <div className="lg:w-1/2 lg:pl-12 border-l border-neutral-100">
                 <div className="flex items-baseline gap-3 mb-8">
-                    <span className="text-7xl font-bold font-display text-pinte-blue">25+</span>
+                    {/* Number Ticker for 25+ */}
+                    <NumberTicker 
+                       targetValue="25+" 
+                       suffix="+" 
+                       duration={2500}
+                       textClassName="text-7xl lg:text-8xl text-pinte-blue leading-none"
+                    />
                     <div className="flex flex-col">
                         <span className="text-xl font-bold text-neutral-900">YEARS</span>
                         <span className="text-neutral-400 text-sm">研发生产经验</span>
                     </div>
                 </div>
-                <p className="text-neutral-600 leading-relaxed text-justify mb-6 text-lg">
-                  东莞佰仕特工艺制品有限公司烫金事业部在2020年这个充满机遇与挑战的年份应运而生。旗下的“品特”品牌，犹如一颗闪耀的明珠，专注于高端烫金膜的生产。佰仕特秉持彼此成就、合作共赢的核心理念，在经营方式上精益求精。
-                </p>
-                <p className="text-neutral-600 leading-relaxed text-justify">
-                  “做好”产品，意味着从源头把控质量；“做全”产品种类，以适应不同客户需求；“做专”技术研发，提升工艺水平；“做快”响应速度，确保客户时间成本最小化。
-                </p>
+                <div className="space-y-6 text-neutral-600 leading-relaxed text-lg text-justify">
+                   <p>
+                      东莞佰仕特工艺制品有限公司烫金事业部在2020年这个充满机遇与挑战的年份应运而生。旗下的“品特”品牌，犹如一颗闪耀的明珠，专注于高端烫金膜的生产，其产品涵盖了咖啡底、PC底以及颜料箔等多种类型。
+                   </p>
+                   <p>
+                      自 1998 年成立以来，我们以金葱粉为起点深耕葱粉领域，如今已成为行业内品类最全、技术领先的标杆企业。200000㎡自有车间与全自动化生产线，确保稳定供应与卓越质感。
+                   </p>
+                   <p>
+                      依托 “全、专、快、精、优” 核心能力：多色多尺寸定制适配包装、服装、车辆等全领域，精准温控与专利技术保障色彩稳定、离型可靠，高效响应与全流程品控让合作更省心。从金葱粉的绚烂点缀到烫金膜的高端质感，佰仕特始终以 “彼此成就、合作共赢” 为理念，用专业工艺为您的产品赋能。
+                   </p>
+                </div>
               </div>
 
            </div>
@@ -1213,20 +1322,20 @@ const App: React.FC = () => {
              {/* Split Header */}
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20 items-end">
                 <h2 className="text-5xl md:text-6xl font-display font-bold text-neutral-900 leading-[1.1]">
-                   Discover <br/>
-                   Excellence in <br/>
-                   Surface Finishing.
+                   发现<br/>
+                   梦中的<br/>
+                   包装效果<br/>
                 </h2>
                 <div className="lg:pl-12 flex flex-col items-start gap-8">
                    <p className="text-neutral-500 text-lg leading-relaxed">
-                      发现您梦想中的包装效果。无论是粗糙纸张还是光滑塑胶，我们都有完美的解决方案。
-                      解锁产品新外观，让设计毫不费力地呈现。
+                      无论是粗糙纸张还是光滑塑胶，抑或是酒瓶盖，UV，特种纸，甚至汽车用品，我们都有完美的解决方案。
+                      解锁色彩新范式，让烫印毫不费力地呈现。
                    </p>
                    <button 
                       onClick={() => setShowCatalog(true)}
                       className="group flex items-center gap-2 text-pinte-blue font-bold text-sm tracking-widest uppercase border-b-2 border-pinte-blue/20 pb-1 hover:border-pinte-blue transition-all"
                    >
-                     View Full Product Catalog
+                     查看产品目录
                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                    </button>
                 </div>
