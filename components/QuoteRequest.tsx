@@ -83,9 +83,10 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
     // Prepare template parameters matching your EmailJS template variables
     // Added 'to_email' to resolve "The recipients address is empty" error
     const templateParams = {
-      to_name: "PINTE Sales Team",
+      subject:"PINTE Thanks for your feedback. We will reply you soon. -PINTE hot stamping foil",
+      to_name: formData.name,
       to_email: formData.email, // Explicitly setting the recipient email
-      from_name: formData.name,
+      from_name: "PINTE 销售团队 / PINTE SALES TEAM",
       from_email: "cortexwu@gmail.com",
       company: formData.company,
       phone: formData.phone,
