@@ -42,3 +42,42 @@ export interface ProductDetail {
   colors: string[];
   temp: { flat: string; round: string };
 }
+
+// Updated CatalogItem for specific product pages
+export interface CatalogItem {
+  id: string;
+  name: string; 
+  subtitle?: string;
+  description: string; 
+  content?: string; // Long form description for the specific page
+  image: string; 
+  tags?: string[]; 
+  // Detailed fields for the specific view
+  features?: { title: string; desc: string; icon?: any }[]; 
+  params?: { label: string; value: string }[];
+  applications?: string[];
+  temp?: { flat: string; round: string };
+  detailImage?: string; // New field for the long technical image
+}
+
+export interface SolutionData {
+    id: string;
+    title: string;
+    series: string;
+    img: string;
+    description: string;
+    features: string[];
+    painPoints?: string[];
+}
+
+export interface CulturePost {
+  id: string;
+  image: string;
+  title: string;
+  desc: string;
+  date: string;
+  author: string;
+  avatar: string;
+  likes: number;
+  tags: string[];
+}

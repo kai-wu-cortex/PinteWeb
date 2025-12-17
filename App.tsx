@@ -4,8 +4,13 @@ import ChatWidget from './components/ChatWidget';
 import TechParticles from './components/TechParticles';
 import QuoteRequest from './components/QuoteRequest';
 import ProductShowcase from './components/ProductShowcase';
+import ItemDetailView from './components/ItemDetailView'; // New component import
+import CompanyCulture from './components/CompanyCulture'; // New Component
+import { DebugPanel } from './components/DebugPanel'; // New Debug Panel
 import { PinteLogo } from './components/PinteLogo';
-import { Section, ProductId, ProductDetail } from './types';
+import { Section, ProductId, ProductDetail, CatalogItem, SolutionData } from './types';
+import * as Content from './data/content'; // Import all content as a single object for state management
+
 import { 
   ArrowRight, 
   Menu,
@@ -52,281 +57,20 @@ import {
   Twitter,
   Target,
   Sparkles,
-  HeartHandshake
+  HeartHandshake,
+  Cpu,
+  Crown,
+  Trophy // Added Trophy
 } from 'lucide-react';
 
-// --- HERO CAROUSEL DATA ---
-const HERO_SLIDES = [
-  {
-    id: 1,
-    image: 'https://youke2.picui.cn/s1/2025/12/13/693d082b27fe1.png', // Abstract Fluid Gold/Dark
-    title: <span>专注 <br/><span className="text-pinte-gold">"烫金表面美学"</span></span>,
-    subtitle: "做高端烫金膜专家",
-    description: "品特®专注于研发高端烫金材料，赋予包装卓越的视觉冲击力与品牌价值。从电化铝，颜料箔到数码冷烫，定义光影艺术。",
-    buttonText: "产品中心"
-  },
-  {
-    id: 2,
-    image: "https://youke2.picui.cn/s1/2025/12/13/693d2eb71c6ee.jpg", // Industrial/Factory High Tech
-    title: <span>20,000m² <br/><span className="text-blue-400">自有研发基地</span></span>,
-    subtitle: "先进的涂布生产设备",
-    description: "拥有超3条自动化涂布生产线与产品研发实验室，月均产能超180万米。ISO9001体系认证，确保每一卷产品的极致稳定性。",
-    buttonText: "在线看厂"
-  },
-  {
-    id: 3,
-    image: "https://youke2.picui.cn/s1/2025/12/13/693d305bf17b7.jpg", // Abstract Tech/Green
-    title: <span>值得信赖的 <br/><span className="text-green-400">OEM/ODM 烫金制造商</span></span>,
-    subtitle: "以技术为核心，以品质为根本，以客户为中心，以信誉为资本",
-    description: "代代相传的四个理念是我们服务的信念",
-    buttonText: "合作咨询"
-  }
-];
-
-// --- PRODUCT DATA ---
-const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
-  PK: {
-    id: 'PK',
-    name: 'PK 咖啡底系列',
-    subtitle: 'COFFEE GLUE SERIES',
-    description: '专为粗糙表面设计，拥有极佳的遮盖率与上烫性。在重油墨纸张上也能保持光泽，不会氧化发黑。',
-    heroImage: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251216/DQQZuxMUEECg/qdqqd/_1765866836300.png',
-    features: [
-      { title: '重油墨不氧化', desc: '特有涂层配方，防止在深色/重油墨表面氧化。', icon: Zap },
-      { title: '强附着力', desc: '针对粗纹纸、压纹皮革等不平整表面优化。', icon: Layers },
-      { title: '离型稳定', desc: '剥离干净，边缘锐利，适合大面积烫印。', icon: CheckCircle2 },
-    ],
-    params: [
-      { label: '厚度', value: '12μm / 15μm' },
-      { label: '标准卷', value: '0.64m x 120m' },
-      { label: '类型', value: '通用型 / 强力型' },
-      { label: '耐抗性', value: '抗氧化 / 耐刮擦' },
-    ],
-    substrates: ['粗纹纸', '特种纸', '人造皮 (PU/PVC)', '真皮', '充皮纸', '触感纸'],
-    applications: ['高档酒盒', '化妆品包装', '皮具吊牌', '精装书封面'],
-    colors: ['亮金', '亮银', '哑金', '哑银', '玫瑰金'],
-    temp: { flat: '95 - 105°C', round: '140 - 170°C' }
-  },
-  PC: {
-    id: 'PC',
-    name: 'PC 塑胶系列',
-    subtitle: 'PLASTIC SERIES',
-    description: '采用特制PC胶底，专攻塑胶材质。具有卓越的耐酒精性与分切性。可完美通过百格测试。',
-    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410046cf35c.png',
-    features: [
-      { title: '耐酒精', desc: '烫印后可耐酒精擦拭，符合化妆品包材标准。', icon: Droplet },
-      { title: '分切性好', desc: '烫印边缘整齐，无毛边，无金粉脱落。', icon: Box },
-      { title: '兼容UV', desc: '支持在UV光油表面进行后续烫印。', icon: Layers },
-    ],
-    params: [
-      { label: '厚度', value: '12μm' },
-      { label: '标准卷', value: '0.64m x 120m' },
-      { label: '光泽度', value: '高亮 / 镜面' },
-      { label: '测试', value: '3M胶带百格测试' },
-    ],
-    substrates: ['ABS', 'PS', 'PVC', 'PMMA (亚克力)', 'PP', 'PE软管'],
-    applications: ['口红管', '粉饼盒', '睫毛膏管', '洗面奶软管', '电器面板'],
-    colors: ['金属色', '全息色', '拉丝纹'],
-    temp: { flat: '100 - 160°C', round: '180 - 230°C' }
-  },
-  PLPY: {
-    id: 'PLPY',
-    name: 'PL/PY 颜料箔',
-    subtitle: 'PIGMENT FOILS',
-    description: '以颜料为原料的非镀铝产品。解决印刷油墨遮盖力不足的问题，色彩饱满，呈现纯正色彩。',
-    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png',
-    features: [
-      { title: '高遮盖力', desc: '轻松遮盖深色底材，不透底。', icon: Layers },
-      { title: '色彩纯正', desc: '无金属光泽干扰，还原设计本色。', icon: Star },
-      { title: '双重质感', desc: '提供 PL(亮面) 和 PY(哑面) 两种选择。', icon: CheckCircle2 },
-    ],
-    params: [
-      { label: '类型', value: '颜料箔 (Pigment)' },
-      { label: '表面', value: 'Glossy (PL) / Matte (PY)' },
-      { label: '标准卷', value: '0.64m x 120m' },
-      { label: '环保', value: 'ROHS / EN71-3' },
-    ],
-    substrates: ['铜版纸', '白卡纸', '艺术纸', '充皮纸', '皮革'],
-    applications: ['贺卡', '礼品盒', '吊牌', '铅笔杆', '日期打码'],
-    colors: ['黑', '白', '红', '蓝', '以及Pantone定制色'],
-    temp: { flat: '100 - 150°C', round: '150 - 190°C' }
-  },
-  DIGITAL: {
-    id: 'DIGITAL',
-    name: '数码/冷烫系列',
-    subtitle: 'DIGITAL & COLD FOIL',
-    description: '无需制版，直接在UV光油或数码墨层上进行固化转移。适合个性化定制与小批量生产。',
-    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/694100f7bd175.jpg',
-    features: [
-      { title: '无需制版', desc: '数码文件直接输出，立等可取。', icon: Zap },
-      { title: '立体感强', desc: '配合堆金工艺，实现浮雕般效果。', icon: Layers },
-      { title: '精细度高', desc: '极细线条与网点也能完美呈现。', icon: CheckCircle2 },
-    ],
-    params: [
-      { label: '工艺', value: 'UV冷烫 / 数码烫' },
-      { label: '设备', value: 'MGI / Scodix / 丝印机' },
-      { label: '速度', value: '高速固化' },
-      { label: '光泽', value: '极高亮度' },
-    ],
-    substrates: ['UV光油表面', '数码碳粉层', '冷烫胶水层'],
-    applications: ['个性化名片', '少量包装打样', '日化标签', '创意印刷品'],
-    colors: ['亮金', '亮银', '全息素面'],
-    temp: { flat: 'UV 固化', round: '冷压转移' }
-  },
-  GLITTER: {
-    id: 'GLITTER',
-    name: '金葱粉系列',
-    subtitle: 'PREMIUM GLITTER',
-    description: '25年生产经验，六角形切片，耐高温、耐溶剂。光泽度持久，不褪色。',
-    heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410140d4733.jpg',
-    features: [
-      { title: '耐溶剂', desc: '在指甲油、胶水中不褪色、不溶化。', icon: Droplet },
-      { title: '形状规则', desc: '标准正六角形，边缘整齐。', icon: Box },
-      { title: '规格齐全', desc: '从 1/4" 到 1/500" 多种粒径可选。', icon: Star },
-    ],
-    params: [
-      { label: '材质', value: 'PET / PVC / 铝材' },
-      { label: '耐温', value: '180°C - 260°C' },
-      { label: '形状', value: '六角 / 四角 / 条状 / 异形' },
-      { label: '环保', value: 'EN71-3 / ASTM' },
-    ],
-    substrates: ['纸张', '布料', '塑胶', '指甲油', '油墨'],
-    applications: ['圣诞饰品', '丝网印刷', '美甲', '注塑', '贺卡'],
-    colors: ['镭射', '七彩', '金银', '幻彩'],
-    temp: { flat: '常温', round: '注塑高温' }
-  }
-};
-
-// --- SOLUTION DATA STRUCTURE ---
-// Defining specific solution verticals as requested by the user
-interface SolutionData {
-    id: string;
-    title: string;
-    series: string; // Links to parent series (PK, PC, etc) for left sidebar info
-    img: string;
-    featuresOverride?: string[]; // Optional specific features
-}
-
-const SOLUTIONS_DATA: Record<string, SolutionData> = {
-    'pkg_bags': {
-        id: 'pkg_bags',
-        title: '包装与手提袋专用烫金解决方案',
-        series: 'PK',
-        img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1000&auto=format&fit=crop' // Bag
-    },
-    'special_paper': {
-        id: 'special_paper',
-        title: '印刷特种纸烫金解决方案',
-        series: 'PK',
-        img: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=1000&auto=format&fit=crop' // Book/Paper
-    },
-    'leather': {
-        id: 'leather',
-        title: '皮革烫金解决方案',
-        series: 'PK',
-        img: 'https://images.unsplash.com/photo-1550586041-fbf79acb969c?q=80&w=1000&auto=format&fit=crop' // Leather
-    },
-    'plastic_surface': {
-        id: 'plastic_surface',
-        title: '塑胶产品表面烫金解决方案',
-        series: 'PC',
-        img: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=1000&auto=format&fit=crop' // Cups/Plastic
-    },
-    'digital_cold': {
-        id: 'digital_cold',
-        title: '数码/丝印冷烫解决方案',
-        series: 'PC',
-        img: 'https://images.unsplash.com/photo-1633479397988-700951a239f6?q=80&w=1000&auto=format&fit=crop' // Holographic
-    },
-    'bottles': {
-        id: 'bottles',
-        title: '酒瓶/酒瓶盖烫印解决方案',
-        series: 'PC',
-        img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1000&auto=format&fit=crop' // Wine
-    },
-    'gift_pkg': {
-        id: 'gift_pkg',
-        title: '印刷礼品包装解决方案',
-        series: 'PLPY',
-        img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop' // Gift Box
-    },
-    'reverse_uv': {
-        id: 'reverse_uv',
-        title: '逆向UV/触感膜解决方案',
-        series: 'PJ', // Assuming PJ is for UV/Paper/Plastic hybrid
-        img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop' // Portrait/Magazine
-    }
-};
-
-// Series-level info for the left sidebar of the solution detail view
-const SERIES_INFO: Record<string, { title: string, rollImg: string, features: string[] }> = {
-    'PK': {
-        title: 'PK 系列解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop', // Gold Roll
-        features: [
-            '色彩表现力极佳',
-            '分切性能好离型稳定',
-            '遮盖力较好',
-            '多种质感亮面与哑面',
-            '色差控制优秀',
-            '不同底材适用广'
-        ]
-    },
-    'PC': {
-        title: 'PC 塑胶系列解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=600&auto=format&fit=crop', // Silver Roll
-        features: [
-            '双组份色层耐腐蚀高亮度',
-            '分切性能好离型稳定',
-            '兼容UV丝印/数码',
-            '适配特殊载体PVC、APET',
-            '耐磨性能优秀',
-            '不同底材适用广'
-        ]
-    },
-    'PLPY': {
-        title: 'PL、PY 颜料箔解决方案',
-        rollImg: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png', // Color Roll
-        features: [
-            '色彩表现力极佳',
-            '分切性能好离型稳定',
-            '遮盖力较好',
-            '不同底材适用广',
-            '多种质感亮面与哑面',
-            '色差控制优秀'
-        ]
-    },
-    'PJ': {
-        title: 'PJ 纸塑通用解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=600&auto=format&fit=crop', // Holographic Roll
-        features: [
-            '色彩表现力极佳',
-            '分切性能好离型稳定',
-            '遮盖力较好',
-            '纸塑通用',
-            '耐磨性能优秀',
-            '色差控制优秀'
-        ]
-    }
+// === ICON MAP FOR DYNAMIC CONTENT ===
+const ICON_MAP: Record<string, any> = {
+  Layers, Zap, CheckCircle2, Droplet, Box, Star, Cpu, Crown, Users, HeartHandshake,
+  Building2, TrendingUp, Factory, Lightbulb, Award, Palette, Scissors, Microscope, Truck, Headphones, Settings,
+  PenTool, Laptop, MapPin, Globe, Mail, Phone
 };
 
 // --- REUSABLE COMPONENTS ---
-
-const AccordionItem: React.FC<{ title: string; isOpen: boolean; onClick: () => void }> = ({ title, isOpen, onClick }) => (
-  <div className="border-b border-neutral-200 py-6 group cursor-pointer" onClick={onClick}>
-    <div className="flex justify-between items-center">
-      <h3 className="text-xl font-bold text-neutral-900 group-hover:text-pinte-blue transition-colors">{title}</h3>
-      <div className={`p-2 rounded-full border transition-all ${isOpen ? 'bg-pinte-blue border-pinte-blue text-white rotate-45' : 'border-neutral-300 text-neutral-500'}`}>
-        <ArrowUpRight size={20} />
-      </div>
-    </div>
-    <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-40 mt-4' : 'max-h-0'}`}>
-      <p className="text-neutral-500 leading-relaxed">
-        品特(PINTE)致力于提供最优质的烫金解决方案。我们拥有25年的行业经验，产品远销全球，通过多项国际环保认证。
-      </p>
-    </div>
-  </div>
-);
 
 const TestimonialCard = ({ name, role, text, stars }: { name: string, role: string, text: string, stars: number }) => (
   <div className="bg-white p-8 rounded-[2rem] border border-neutral-100 shadow-sm hover:shadow-md transition-shadow">
@@ -367,14 +111,14 @@ const FAQItem = ({ q, a }: { q: string, a: string }) => {
 const NumberTicker = ({ 
   targetValue, 
   label, 
-  icon: Icon, 
+  iconName, 
   suffix = '',
   duration = 2000,
   textClassName = "text-3xl md:text-4xl text-neutral-900" 
 }: { 
   targetValue: string, 
   label?: string, 
-  icon?: any,
+  iconName?: string,
   suffix?: string,
   duration?: number,
   textClassName?: string
@@ -383,6 +127,8 @@ const NumberTicker = ({
   const elementRef = useRef<HTMLDivElement>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
   
+  const Icon = iconName ? ICON_MAP[iconName] : null;
+
   // Extract number from string (e.g. "180,000+" -> 180000)
   const finalNumber = parseInt(targetValue.replace(/,/g, '').replace(/\+/g, '')) || 0;
 
@@ -530,13 +276,17 @@ const NAV_MENU_ITEMS = [
 // --- MAIN APP COMPONENT ---
 
 const App: React.FC = () => {
+  // === CONTENT STATE MANAGEMENT FOR DEBUG CMS ===
+  const [content, setContent] = useState(Content);
+
   const [activeProduct, setActiveProduct] = useState<ProductId | null>(null);
+  const [activeCatalogItemId, setActiveCatalogItemId] = useState<string | null>(null); // State for specific item
   const [activeSolution, setActiveSolution] = useState<string | null>(null);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [showCatalog, setShowCatalog] = useState(false);
+  const [showCulture, setShowCulture] = useState(false); // New State for Company Culture Page
   const [detailTab, setDetailTab] = useState<'overview' | 'specs' | 'apps'>('overview');
   const [scrolled, setScrolled] = useState(false);
-  const [openAccordion, setOpenAccordion] = useState<number | null>(0);
   const [heroImageIndex, setHeroImageIndex] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
@@ -544,6 +294,19 @@ const App: React.FC = () => {
   // Manual Control Timeout Ref
   // Using ReturnType<typeof setInterval> to avoid NodeJS namespace issues in browser
   const autoSlideRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // PURCHASE NOTICES DATA
+  const NOTICES = [
+    { id: '01', title: '尺寸误差说明', text: '由于测量方法的不同可能导致 1-2cm 的误差，属正常公差范围。' },
+    { id: '02', title: '关于色差', text: '我们已将色差调至接近实物，但不同显示器下显示的颜色依然会有所差异，请以实物为准。' },
+    { id: '03', title: '烫印工艺建议', text: '为获取最佳烫印质量，需依据被烫物特性及建议条件，对温度、速度及压力进行调整。建议烫印前校正烫印版（如添加垫片、清洗版面）。' },
+    { id: '04', title: '标准卷储存', text: '标准支建议以垂直方式摆放；若采用水平方式，请使用原箱原封装摆放，避免受压变形。' },
+    { id: '05', title: '大卷膜储存', text: '大卷膜建议以水平悬挂的方式摆放，并且要避免直接接触地面或其他物品，防止受潮或损伤。' },
+    { id: '06', title: '氧化/起斑规避', text: '烫金后出现氧化或起斑问题，建议尽量规避在重油墨和珠光纸上直接烫金，否则请在纸张的表面做好保护处理。' },
+    { id: '07', title: '表面干燥', text: '在烫印之前，务必确保油墨或其他表面处理工艺（如UV、光油）已完全干燥/固化。' },
+    { id: '08', title: '样品申请须知', text: '索要样品前，请向客服沟通烫印底材、前后工艺、底材颜色及烫印面积。我司将提供专业建议。大货采购前请务必确认烫印效果。' },
+    { id: '09', title: '分切服务说明', text: '有分切需求请提前告知，我司原则上不提供分切服务（除特定定制订单外）。' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -556,12 +319,12 @@ const App: React.FC = () => {
   // --- AUTO SCROLL TO TOP ON VIEW CHANGE ---
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [activeProduct, activeSolution, isQuoteOpen, showCatalog]);
+  }, [activeProduct, activeCatalogItemId, activeSolution, isQuoteOpen, showCatalog, showCulture]);
 
   const startAutoSlide = () => {
     if (autoSlideRef.current) clearInterval(autoSlideRef.current);
     autoSlideRef.current = setInterval(() => {
-      setHeroImageIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+      setHeroImageIndex((prev) => (prev + 1) % content.HERO_SLIDES.length);
     }, 6000); // 6 seconds per slide
   };
 
@@ -576,9 +339,9 @@ const App: React.FC = () => {
     // Reset Timer on manual interaction
     startAutoSlide(); 
     if (direction === 'next') {
-      setHeroImageIndex((prev) => (prev + 1) % HERO_SLIDES.length);
+      setHeroImageIndex((prev) => (prev + 1) % content.HERO_SLIDES.length);
     } else {
-      setHeroImageIndex((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+      setHeroImageIndex((prev) => (prev - 1 + content.HERO_SLIDES.length) % content.HERO_SLIDES.length);
     }
   };
 
@@ -589,9 +352,11 @@ const App: React.FC = () => {
 
   const scrollToSection = (id: Section) => {
     setActiveProduct(null);
+    setActiveCatalogItemId(null);
     setActiveSolution(null); // Clear solution view
     setIsQuoteOpen(false); // Clear quote view
     setShowCatalog(false); // Clear catalog view
+    setShowCulture(false); // Clear culture view
     setTimeout(() => {
       const element = document.getElementById(id);
       if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -600,10 +365,10 @@ const App: React.FC = () => {
 
   // --- SOLUTION DETAIL VIEW (New Layout based on Reference) ---
   const SolutionDetailView = ({ solutionId }: { solutionId: string }) => {
-    const solution = SOLUTIONS_DATA[solutionId];
+    const solution = content.SOLUTIONS_DATA[solutionId];
     if (!solution) return null;
     
-    const series = SERIES_INFO[solution.series] || SERIES_INFO['PK']; // Default fallback
+    const series = content.SERIES_INFO[solution.series] || content.SERIES_INFO['PK']; // Default fallback
 
     return (
         <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in fade-in duration-500">
@@ -690,9 +455,7 @@ const App: React.FC = () => {
                                 <div className="absolute bottom-0 left-0 p-8 md:p-12 text-white">
                                     <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 leading-tight">{solution.title}</h2>
                                     <p className="text-white/80 text-lg max-w-xl leading-relaxed">
-                                        针对该特定应用场景的专业解决方案，确保极佳的附着力与视觉表现。
-                                        {solution.series === 'PK' && " 特别针对粗糙表面与重油墨纸张优化。"}
-                                        {solution.series === 'PC' && " 完美适配塑胶表面，耐酒精测试。"}
+                                        {solution.description /* DATA DRIVEN TEXT */}
                                     </p>
                                 </div>
                             </div>
@@ -701,10 +464,20 @@ const App: React.FC = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-white p-8 rounded-3xl border border-neutral-100">
                                     <h3 className="font-bold text-xl mb-4">应用优势</h3>
-                                    <p className="text-neutral-600 leading-relaxed">
+                                    <p className="text-neutral-600 leading-relaxed mb-4">
                                         采用品特独家研发的涂层技术，不仅提升了生产效率，更大幅降低了不良率。
                                         无论是大面积实地烫印，还是精细线条表现，都能游刃有余。
                                     </p>
+                                    {/* Data Driven Features for Solution */}
+                                    {solution.features && (
+                                        <ul className="space-y-2">
+                                            {solution.features.map((f, i) => (
+                                                <li key={i} className="flex items-center gap-2 text-sm text-neutral-600 font-medium">
+                                                    <CheckCircle2 size={16} className="text-pinte-blue"/> {f}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
                                 </div>
                                 <div className="bg-pinte-blue text-white p-8 rounded-3xl flex flex-col justify-center items-center text-center">
                                     <h3 className="font-bold text-xl mb-2">获取详细方案书</h3>
@@ -722,7 +495,7 @@ const App: React.FC = () => {
     );
   }
 
-  // --- PRODUCT DETAIL VIEW (Existing) ---
+  // --- PRODUCT DETAIL VIEW (Context: For generic category view if needed) ---
   const ProductDetailView = ({ product }: { product: ProductDetail }) => (
     <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in fade-in duration-500">
       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
@@ -772,15 +545,18 @@ const App: React.FC = () => {
 
         {detailTab === 'overview' && (
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in slide-in-from-bottom-4">
-              {product.features.map((feature, i) => (
-                 <div key={i} className="bg-white p-8 rounded-[2rem] border border-neutral-100 shadow-sm hover:shadow-md transition-all">
-                    <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-pinte-blue mb-6">
-                       <feature.icon size={24} />
-                    </div>
-                    <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                    <p className="text-neutral-500 leading-relaxed">{feature.desc}</p>
-                 </div>
-              ))}
+              {product.features.map((feature, i) => {
+                 const IconComponent = ICON_MAP[feature.icon] || Star;
+                 return (
+                   <div key={i} className="bg-white p-8 rounded-[2rem] border border-neutral-100 shadow-sm hover:shadow-md transition-all">
+                      <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-pinte-blue mb-6">
+                         <IconComponent size={24} />
+                      </div>
+                      <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                      <p className="text-neutral-500 leading-relaxed">{feature.desc}</p>
+                   </div>
+                 );
+              })}
            </div>
         )}
         
@@ -869,17 +645,40 @@ const App: React.FC = () => {
   if (activeSolution) {
       return <SolutionDetailView solutionId={activeSolution} />;
   }
+  
+  // === RENDER COMPANY CULTURE PAGE ===
+  if (showCulture) {
+    return <CompanyCulture onBack={() => setShowCulture(false)} posts={content.CULTURE_POSTS} />;
+  }
 
-  // Moved Active Product Check before Show Catalog to ensure nested details can be viewed from catalog list
+  // === NEW: RENDER SPECIFIC CATALOG ITEM VIEW ===
+  if (activeCatalogItemId) {
+      // Find the item across all categories
+      let selectedItem: CatalogItem | undefined;
+      for (const catId of Object.keys(content.CATALOG_DATA)) {
+          const found = content.CATALOG_DATA[catId as ProductId].find(i => i.id === activeCatalogItemId);
+          if (found) {
+              selectedItem = found;
+              break;
+          }
+      }
+
+      if (selectedItem) {
+          return <ItemDetailView item={selectedItem} onBack={() => setActiveCatalogItemId(null)} />;
+      }
+  }
+
+  // Fallback / Legacy behavior (if category is selected but not specific item)
   if (activeProduct) {
-    return <ProductDetailView product={PRODUCT_DATA[activeProduct]} />;
+    return <ProductDetailView product={content.PRODUCT_DATA[activeProduct]} />;
   }
 
   if (showCatalog) {
       return <ProductShowcase 
                onBack={() => setShowCatalog(false)} 
-               products={PRODUCT_DATA} 
-               onItemClick={(id) => setActiveProduct(id)}
+               products={content.PRODUCT_DATA} 
+               catalog={content.CATALOG_DATA}
+               onItemClick={(id) => setActiveCatalogItemId(id)} // Pass specific item ID
              />;
   }
 
@@ -932,7 +731,7 @@ const App: React.FC = () => {
                              
                              {/* Grid Content */}
                              <div className="grid grid-cols-2 gap-3">
-                                {Object.values(SOLUTIONS_DATA).map((sol) => (
+                                {Object.values(content.SOLUTIONS_DATA).map((sol) => (
                                    <div 
                                       key={sol.id} 
                                       onClick={(e) => { e.stopPropagation(); setActiveSolution(sol.id); }} 
@@ -961,7 +760,7 @@ const App: React.FC = () => {
                              
                              {/* Product Grid */}
                              <div className="grid grid-cols-2 gap-3">
-                                {Object.values(PRODUCT_DATA).map((product) => (
+                                {Object.values(content.PRODUCT_DATA).map((product) => (
                                    <div 
                                       key={product.id} 
                                       onClick={(e) => { e.stopPropagation(); setActiveProduct(product.id); }} 
@@ -1007,11 +806,13 @@ const App: React.FC = () => {
          </div>
       </nav>
 
+      {/* ... (Rest of the APP components - Hero, etc - kept same, only changing Solution section render) ... */}
+
       {/* === HERO SECTION (Carousel) === */}
       <section id={Section.HOME} className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
          {/* Background Carousel */}
          <div className="absolute inset-0 z-0">
-            {HERO_SLIDES.map((slide, index) => (
+            {content.HERO_SLIDES.map((slide, index) => (
               <div 
                 key={slide.id}
                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === heroImageIndex ? 'opacity-100' : 'opacity-0'}`}
@@ -1045,7 +846,7 @@ const App: React.FC = () => {
          
          {/* Carousel Indicators */}
          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-            {HERO_SLIDES.map((_, index) => (
+            {content.HERO_SLIDES.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setHeroSlideManual(index)}
@@ -1058,15 +859,17 @@ const App: React.FC = () => {
          <div className="max-w-[1200px] mx-auto px-6 w-full relative z-10 pt-20">
             <div className="max-w-2xl text-white">
                 {/* Dynamic Content Rendering */}
-                {HERO_SLIDES.map((slide, index) => (
+                {content.HERO_SLIDES.map((slide, index) => (
                     index === heroImageIndex && (
                         <div key={slide.id} className="animate-in fade-in slide-in-from-bottom-8 duration-700">
                            <p className="text-white/80 font-bold tracking-widest text-sm uppercase mb-4 animate-in fade-in duration-1000 delay-100">
                              {slide.subtitle}
                            </p>
-                           <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 tracking-tight animate-in fade-in slide-in-from-left-4 duration-700 delay-200">
-                              {slide.title}
-                           </h1>
+                           {/* Using dangerouslySetInnerHTML to support bold/span tags from CMS */}
+                           <h1 
+                             className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 tracking-tight animate-in fade-in slide-in-from-left-4 duration-700 delay-200"
+                             dangerouslySetInnerHTML={{ __html: slide.title }}
+                           />
                            <p className="text-lg text-white/90 mb-10 max-w-lg leading-relaxed font-light animate-in fade-in duration-700 delay-300">
                               {slide.description}
                            </p>
@@ -1121,7 +924,7 @@ const App: React.FC = () => {
             </div>
          </div>
 
-         {/* VIDEO MODAL */}
+        {/* VIDEO MODAL */}
          {showVideoModal && (
             <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 animate-in fade-in duration-300">
               <div className="relative w-full max-w-5xl aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10">
@@ -1131,16 +934,12 @@ const App: React.FC = () => {
                  >
                     <X size={24} />
                  </button>
-                 <iframe 
-                   width="100%" 
-                   height="100%" 
-                   src="https://www.youtube.com/embed/zhcXEjjlAsg?autoplay=1" 
-                   title="YouTube video player" 
-                   frameBorder="0" 
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                   allowFullScreen
-                   className="w-full h-full"
-                 ></iframe>
+                 <video 
+                   src="https://file.icve.com.cn/file_doc/qdqqd/4691765858373657.mov" 
+                   className="w-full h-full object-contain" 
+                   controls 
+                   autoPlay
+                 />
               </div>
               {/* Click outside to close */}
               <div className="absolute inset-0 -z-10 cursor-pointer" onClick={() => setShowVideoModal(false)}></div>
@@ -1152,10 +951,15 @@ const App: React.FC = () => {
       <section className="py-16 bg-white border-b border-neutral-100">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-4">
-            <NumberTicker targetValue="1999" label="公司成立于" icon={Building2} />
-            <NumberTicker targetValue="180,000+" suffix="+" label="月均出货(米)" icon={TrendingUp} />
-            <NumberTicker targetValue="20,000+" suffix="+" label="厂房面积(㎡)" icon={Factory} />
-            <NumberTicker targetValue="10+" suffix="+" label="专利技术" icon={Lightbulb} />
+            {content.COMPANY_STATS.map((stat, i) => (
+                <NumberTicker 
+                   key={i}
+                   targetValue={stat.targetValue} 
+                   suffix={stat.suffix}
+                   label={stat.label} 
+                   iconName={stat.icon} 
+                />
+            ))}
             <MatrixText targetText="ISO/SGS/BSCI" label="多项国际认证" icon={Award} />
           </div>
         </div>
@@ -1219,7 +1023,7 @@ const App: React.FC = () => {
         <div className="w-full h-[80vh] min-h-[600px] relative z-0">
            <div className="absolute inset-0 overflow-hidden">
              <img 
-                src="https://28882593.s21i.faiusr.com/2/ABUIABACGAAgoJGfkgYorsS7tAUwtAM4jQQ.jpg.webp" 
+                src="https://youke2.picui.cn/s1/2025/12/16/6941049ede1f3.jpg" 
                 className="w-full h-full object-cover"
                 alt="Company Panorama"
                 style={{ objectPosition: 'center' }} 
@@ -1245,7 +1049,7 @@ const App: React.FC = () => {
                 <div>
                   <span className="text-pinte-blue font-bold tracking-widest text-sm uppercase mb-4 block">Company Profile</span>
                   <h2 className="text-4xl lg:text-5xl font-display font-bold text-neutral-900 leading-[1.2] mb-6">
-                    集<span className="text-pinte-blue">研发、生产、销售</span>于一体的<br/>
+                    集<span className="text-pinte-blue">研发、生产、销售</span><br/>于一体的<br/>
                     高新技术企业
                   </h2>
                   <p className="text-xl text-neutral-500 font-medium mb-8">
@@ -1259,27 +1063,28 @@ const App: React.FC = () => {
                      </p>
                   </div>
 
-                  {/* Key Point Icons */}
-                  <div className="grid grid-cols-2 gap-4 mb-8">
-                     {[
-                        {icon: Target, title: "卓越引领", desc: "Vision"},
-                        {icon: ShieldCheck, title: "高端品质", desc: "High Quality"},
-                        {icon: Sparkles, title: "创新易用", desc: "Innovation"},
-                        {icon: HeartHandshake, title: "合作共赢", desc: "Partnership"}
-                     ].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
-                           <div className="w-10 h-10 rounded-full bg-blue-50 text-pinte-blue flex items-center justify-center">
-                              <item.icon size={18}/>
-                           </div>
-                           <div>
-                              <p className="font-bold text-neutral-900 text-sm">{item.title}</p>
-                              <p className="text-neutral-400 text-xs uppercase tracking-wider">{item.desc}</p>
-                           </div>
-                        </div>
-                     ))}
+                  {/* 4 Leading Advantages Grid (Replaced Key Points) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    {content.COMPANY_ADVANTAGES.map((item, i) => {
+                       const Icon = ICON_MAP[item.icon] || Cpu;
+                       return (
+                       <div 
+                          key={i} 
+                          className="group p-4 rounded-2xl bg-white border border-neutral-100 hover:border-pinte-blue/30 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default"
+                       >
+                          <div className="w-12 h-12 bg-pinte-blue text-white rounded-xl flex items-center justify-center mb-4 shadow-md shadow-pinte-blue/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                             <Icon size={24} />
+                          </div>
+                          <h4 className="font-bold text-lg text-neutral-900 mb-1 group-hover:text-pinte-blue transition-colors">{item.title}</h4>
+                          <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-3">{item.en}</p>
+                          <p className="text-xs text-neutral-500 leading-relaxed text-justify opacity-80 group-hover:opacity-100 transition-opacity">
+                             {item.desc}
+                          </p>
+                       </div>
+                    )})}
                   </div>
 
-
+                  
                 </div>
               </div>
 
@@ -1288,7 +1093,7 @@ const App: React.FC = () => {
                 <div className="flex items-baseline gap-3 mb-8">
                     {/* Number Ticker for 25+ */}
                     <NumberTicker 
-                       targetValue="25+" 
+                       targetValue="28+" 
                        suffix="+" 
                        duration={2500}
                        textClassName="text-7xl lg:text-8xl text-pinte-blue leading-none"
@@ -1298,13 +1103,19 @@ const App: React.FC = () => {
                         <span className="text-neutral-400 text-sm">研发生产经验</span>
                     </div>
                 </div>
-                <div className="space-y-6 text-neutral-600 leading-relaxed text-lg text-justify">
+                <div className="text-s text-neutral-500 leading-relaxed text-justify opacity-80 group-hover:opacity-100 transition-opacity">
                    <p>
                       东莞佰仕特工艺制品有限公司烫金事业部在2020年这个充满机遇与挑战的年份应运而生。旗下的“品特”品牌，犹如一颗闪耀的明珠，专注于高端烫金膜的生产，其产品涵盖了咖啡底、PC底以及颜料箔等多种类型。
                    </p>
+                   <br/>
                    <p>
                       自 1998 年成立以来，我们以金葱粉为起点深耕葱粉领域，如今已成为行业内品类最全、技术领先的标杆企业。200000㎡自有车间与全自动化生产线，确保稳定供应与卓越质感。
                    </p>
+                   <br/>
+                   <p>
+                   佰仕特秉持彼此成就、合作共赢的核心理念，在经营方式上精益求精。“做好”产品，意味着从源头把控质量，选用优质原材料，精心打磨每一个生产环节；“做全”产品种类，以适应不同客户在各个领域的多样化需求；“做专”技术研发，不断投入精力和资源，提升工艺水平，让产品更具竞争力；“做快”响应速度，无论是客户的咨询还是订单处理，都以高效的方式进行，确保客户的时间成本最小化；“做精”产品品质，对每一个细节都严格要求，追求极致的完美；“做优”服务质量，提供全方位的售前售后服务，让客户感受到无微不至的关怀。通过这一系列的努力，佰仕特烫金事业部立志为客户创造更多价值，在行业中稳健发展，与客户携手迈向更加辉煌的未来。
+                   </p>
+                   <br/>
                    <p>
                       依托 “全、专、快、精、优” 核心能力：多色多尺寸定制适配包装、服装、车辆等全领域，精准温控与专利技术保障色彩稳定、离型可靠，高效响应与全流程品控让合作更省心。从金葱粉的绚烂点缀到烫金膜的高端质感，佰仕特始终以 “彼此成就、合作共赢” 为理念，用专业工艺为您的产品赋能。
                    </p>
@@ -1344,7 +1155,7 @@ const App: React.FC = () => {
              {/* Product Cards Grid - UPDATED STYLE */}
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {(['PK', 'PC', 'PLPY'] as ProductId[]).map((id) => {
-                    const product = PRODUCT_DATA[id];
+                    const product = content.PRODUCT_DATA[id];
                     // Map generic icons
                     const Icon = id === 'PK' ? Layers : id === 'PC' ? Box : Palette;
                     
@@ -1427,11 +1238,10 @@ const App: React.FC = () => {
                  <span className="text-orange-400 font-bold tracking-widest text-sm uppercase">Our Services</span>
               </div>
               <h2 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-tight">
-                Comprehensive <br/> Service Solutions
+                一站式烫金服务 <br/> 解决方案
               </h2>
               <p className="text-white/80 text-lg leading-relaxed max-w-xl">
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                 我们不仅提供优质的烫金材料，更提供全方位的技术支持与加工服务。
+              我们不仅提供优质的烫金材料，更提供全方位的技术支持与定制服务。
               </p>
             </div>
             <div className="hidden lg:block pb-2">
@@ -1444,8 +1254,8 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
              {[
                { icon: Palette, title: '色彩定制', en: 'Color Matching', desc: 'Pantone 专色调配，99% 还原度' },
-               { icon: Scissors, title: '精密分切', en: 'Precision Slitting', desc: '最小分切宽度 6mm，切面平整' },
-               { icon: Microscope, title: '实验室检测', en: 'Lab Testing', desc: '耐磨、耐酒精、拉力等多项测试' },
+               { icon: Scissors, title: '精密分切', en: 'Precision Slitting', desc: '最小分切宽度 10mm，切面平整' },
+               { icon: Microscope, title: '实验室检测', en: 'Lab Testing', desc: '耐磨、耐酒精、3M胶带拉力等多项测试' },
                { icon: Truck, title: '全球物流', en: 'Global Shipping', desc: '海陆空多式联运，快速通关' },
                { icon: Headphones, title: '技术支持', en: 'Technical Support', desc: '7x24小时 工程师在线解答' },
                { icon: Settings, title: '设备调试', en: 'Machine Setup', desc: '协助客户优化烫金机参数设置' },
@@ -1499,19 +1309,19 @@ const App: React.FC = () => {
              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {[
                   { 
-                     img: "https://images.unsplash.com/photo-1565514020176-db79339a6a5d?q=80&w=400&auto=format&fit=crop", 
+                     img: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMGFhZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jYWxlbmRhci1jaGVjazItaWNvbiBsdWNpZGUtY2FsZW5kYXItY2hlY2stMiI+PHBhdGggZD0iTTggMnY0Ii8+PHBhdGggZD0iTTE2IDJ2NCIvPjxwYXRoIGQ9Ik0yMSAxNFY2YTIgMiAwIDAgMC0yLTJINWEyIDIgMCAwIDAtMiAydjE0YTIgMiAwIDAgMCAyIDJoOCIvPjxwYXRoIGQ9Ik0zIDEwaDE4Ii8+PHBhdGggZD0ibTE2IDIwIDIgMiA0LTQiLz48L3N2Zz4=", 
                      label: "日均涂布产量", 
                      value: "60,000", 
                      unit: "米/Day" 
                   },
                   { 
-                     img: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?q=80&w=400&auto=format&fit=crop", 
+                     img: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMGFhZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1iYWRnZS1qYXBhbmVzZS15ZW4taWNvbiBsdWNpZGUtYmFkZ2UtamFwYW5lc2UteWVuIj48cGF0aCBkPSJNMy44NSA4LjYyYTQgNCAwIDAgMSA0Ljc4LTQuNzcgNCA0IDAgMCAxIDYuNzQgMCA0IDQgMCAwIDEgNC43OCA0Ljc4IDQgNCAwIDAgMSAwIDYuNzQgNCA0IDAgMCAxLTQuNzcgNC43OCA0IDQgMCAwIDEtNi43NSAwIDQgNCAwIDAgMS00Ljc4LTQuNzcgNCA0IDAgMCAxIDAtNi43NloiLz48cGF0aCBkPSJtOSA4IDMgM3Y3Ii8+PHBhdGggZD0ibTEyIDExIDMtMyIvPjxwYXRoIGQ9Ik05IDEyaDYiLz48cGF0aCBkPSJNOSAxNmg2Ii8+PC9zdmc+", 
                      label: "研发投入占比", 
                      value: "15", 
-                     unit: "% YoY" 
+                     unit: "%/年" 
                   },
                   { 
-                     img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=400&auto=format&fit=crop", 
+                     img: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMGFhZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1kYXRhYmFzZS16YXAtaWNvbiBsdWNpZGUtZGF0YWJhc2UtemFwIj48ZWxsaXBzZSBjeD0iMTIiIGN5PSI1IiByeD0iOSIgcnk9IjMiLz48cGF0aCBkPSJNMyA1VjE5QTkgMyAwIDAgMCAxNSAyMS44NCIvPjxwYXRoIGQ9Ik0yMSA1VjgiLz48cGF0aCBkPSJNMjEgMTJMMTggMTdIMjJMMTkgMjIiLz48cGF0aCBkPSJNMyAxMkE5IDMgMCAwIDAgMTQuNTkgMTQuODciLz48L3N2Zz4=", 
                      label: "库存周转效率", 
                      value: "98.5", 
                      unit: "% Rate" 
@@ -1519,7 +1329,7 @@ const App: React.FC = () => {
                 ].map((item, i) => (
                    <div key={i} className="flex gap-6 items-start">
                       <div className="w-24 h-24 rounded-2xl overflow-hidden shrink-0">
-                         <img src={item.img} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" alt={item.label} />
+                         <img src={item.img} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700 p-4 bg-blue/10 rounded-xl" alt={item.label} />
                       </div>
                       <div>
                          <p className="text-neutral-500 text-sm font-medium mb-1">{item.label}</p>
@@ -1539,42 +1349,99 @@ const App: React.FC = () => {
         </div>
       </section>
  
-       {/* === ACCORDION SECTION (Switch to PINTE) === */}
+       {/* === ACCORDION SECTION REPLACEMENT (New Independent Cards) === */}
        <section className="py-24 px-6 bg-neutral-50">
-          <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+          <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
              <div>
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-12 leading-tight">
-                   Switch to PINTE for a <br/>
-                   greener future.
+                <h2 className="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6 leading-tight">
+                   选择品特<br/>
+                   用专业打造人人认可的产品
                 </h2>
-                <div className="space-y-2">
-                   {[
-                      'Company Mission Statement',
-                      'Sustainability Commitment',
-                      'Our Achievements',
-                      'Global Partners'
-                   ].map((title, i) => (
-                      <AccordionItem 
-                         key={i} 
-                         title={title} 
-                         isOpen={openAccordion === i} 
-                         onClick={() => setOpenAccordion(openAccordion === i ? null : i)}
-                      />
-                   ))}
+                <p className="text-neutral-500 text-lg mb-12">
+                   二十余年深耕烫金领域，我们不仅提供材料，更传递价值。
+                </p>
+                
+                {/* New Grid Layout for Corporate Culture */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+                   {/* Vision */}
+                   <div className="flex flex-col gap-4 group">
+                      <div className="w-14 h-14 bg-white rounded-2xl border border-neutral-100 flex items-center justify-center text-pinte-blue shadow-sm group-hover:scale-110 group-hover:bg-pinte-blue group-hover:text-white transition-all duration-300">
+                         <Target size={28} />
+                      </div>
+                      <div>
+                         <h4 className="text-xl font-bold text-neutral-900 mb-1">公司愿景</h4>
+                         <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Our Vision</p>
+                         <p className="text-neutral-600 leading-relaxed text-sm">
+                            成为全球烫金膜领域的卓越引领者，让每一份包装都传递独特的品牌价值。
+                         </p>
+                      </div>
+                   </div>
+
+                   {/* Values */}
+                   <div className="flex flex-col gap-4 group">
+                      <div className="w-14 h-14 bg-white rounded-2xl border border-neutral-100 flex items-center justify-center text-pinte-blue shadow-sm group-hover:scale-110 group-hover:bg-pinte-blue group-hover:text-white transition-all duration-300">
+                         <HeartHandshake size={28} />
+                      </div>
+                      <div>
+                         <h4 className="text-xl font-bold text-neutral-900 mb-1">公司价值观</h4>
+                         <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Core Values</p>
+                         <p className="text-neutral-600 leading-relaxed text-sm">
+                            彼此成就，合作共赢。我们深知客户的成功就是我们的成功，始终坚持以品质建立信任。
+                         </p>
+                      </div>
+                   </div>
+
+                   {/* Achievements */}
+                   <div className="flex flex-col gap-4 group">
+                      <div className="w-14 h-14 bg-white rounded-2xl border border-neutral-100 flex items-center justify-center text-pinte-blue shadow-sm group-hover:scale-110 group-hover:bg-pinte-blue group-hover:text-white transition-all duration-300">
+                         <Trophy size={28} />
+                      </div>
+                      <div>
+                         <h4 className="text-xl font-bold text-neutral-900 mb-1">我们的成就</h4>
+                         <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Our Achievements</p>
+                         <p className="text-neutral-600 leading-relaxed text-sm">
+                            拥有 20,000㎡ 现代化生产基地，日产能突破 60,000 米，产品畅销全球 50 多个国家。
+                         </p>
+                      </div>
+                   </div>
+
+                   {/* Partners */}
+                   <div className="flex flex-col gap-4 group">
+                      <div className="w-14 h-14 bg-white rounded-2xl border border-neutral-100 flex items-center justify-center text-pinte-blue shadow-sm group-hover:scale-110 group-hover:bg-pinte-blue group-hover:text-white transition-all duration-300">
+                         <Globe size={28} />
+                      </div>
+                      <div>
+                         <h4 className="text-xl font-bold text-neutral-900 mb-1">全球合作伙伴</h4>
+                         <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-3">Global Partners</p>
+                         <p className="text-neutral-600 leading-relaxed text-sm">
+                            与多家国际知名印刷包装企业建立长期战略合作，共同推动表面装饰工艺的技术革新。
+                         </p>
+                      </div>
+                   </div>
                 </div>
              </div>
-             <div className="relative">
-                <div className="aspect-square rounded-[3rem] overflow-hidden sticky top-32">
+             
+             {/* Right Side Image */}
+             <div className="relative h-full min-h-[500px]">
+                <div className="aspect-[4/5] rounded-[3rem] overflow-hidden sticky top-32 shadow-2xl shadow-neutral-200">
                    <img 
-                      src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1000&auto=format&fit=crop" 
-                      className="w-full h-full object-cover" 
+                      src="https://s3plus.meituan.net/opapisdk/op_ticket_1_5677168484_1765950617863_qdqqd_jqs18c.JPG" 
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" 
                       alt="Green Future"
                    />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-10 text-white">
-                      <h3 className="text-3xl font-bold mb-2">Empower your packaging</h3>
-                      <p className="opacity-80">With our sustainable foil solutions.</p>
-                      <button className="mt-6 bg-white text-neutral-900 px-6 py-2 rounded-full text-sm font-bold w-fit hover:bg-blue-50 transition-colors">
-                         Explore More
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-10 text-white">
+                      <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-6 border border-white/20">
+                         <Trophy size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-3xl font-bold mb-2">公司文化建设</h3>
+                      <p className="opacity-80 leading-relaxed">
+                         致力于为每位员工带来家的体验。
+                      </p>
+                      <button 
+                         onClick={() => setShowCulture(true)}
+                         className="mt-8 bg-white text-neutral-900 px-8 py-3 rounded-full text-sm font-bold w-fit hover:bg-blue-50 transition-colors flex items-center gap-2"
+                      >
+                         了解更多 <ArrowRight size={16}/>
                       </button>
                    </div>
                 </div>
@@ -1586,7 +1453,7 @@ const App: React.FC = () => {
        <section className="py-24 px-6 bg-white">
           <div className="max-w-[1200px] mx-auto">
               <div className="mb-16">
-                <h2 className="text-4xl font-display font-bold text-neutral-900 mb-4">What our customers are saying</h2>
+                <h2 className="text-4xl font-display font-bold text-neutral-900 mb-4">客户声音</h2>
                 <p className="text-neutral-500 max-w-xl">我们致力于为全球客户提供最优质的烫金膜产品，听听他们怎么说。</p>
               </div>
               
@@ -1612,6 +1479,43 @@ const App: React.FC = () => {
               </div>
           </div>
        </section>
+
+       {/* === PURCHASE NOTES (Grid Style) === */}
+       <section className="py-24 px-6 bg-white">
+          <div className="max-w-[1200px] mx-auto">
+             <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-6 border-b-2 border-neutral-900 pb-6">
+                <div>
+                   <span className="text-neutral-500 font-bold tracking-widest text-xs uppercase mb-2 block">Important Information</span>
+                   <h2 className="text-3xl md:text-5xl font-display font-bold text-neutral-900 leading-none uppercase">
+                      购买与使用<br/>须知事项
+                   </h2>
+                </div>
+                <div className="text-right hidden md:block">
+                   <p className="text-neutral-900 font-bold text-lg">READ CAREFULLY</p>
+                   <p className="text-neutral-400 text-xs uppercase tracking-wide">Before Purchase</p>
+                </div>
+             </div>
+
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-neutral-200">
+                {NOTICES.map((note) => (
+                   <div key={note.id} className="relative p-8 border-r border-b border-neutral-200 group hover:bg-neutral-50 transition-colors">
+                      <div className="flex justify-between items-start mb-6">
+                         <span className="font-display font-bold text-4xl text-neutral-200 group-hover:text-pinte-blue transition-colors duration-300">
+                            {note.id}
+                         </span>
+                         <div className="w-2 h-2 bg-neutral-200 rounded-full group-hover:bg-pinte-blue transition-colors"></div>
+                      </div>
+                      <h3 className="font-bold text-lg text-neutral-900 mb-3 uppercase tracking-tight">
+                         {note.title}
+                      </h3>
+                      <p className="text-sm text-neutral-500 leading-relaxed text-justify font-medium">
+                         {note.text}
+                      </p>
+                   </div>
+                ))}
+             </div>
+          </div>
+       </section>
  
        {/* === FAQ SECTION (Minimal) === */}
        <section className="py-24 px-6 bg-neutral-50">
@@ -1621,15 +1525,18 @@ const App: React.FC = () => {
                 <p className="text-neutral-500 mb-8">
                    Still have a question? Contact us via chat or email.
                 </p>
-                <button className="bg-pinte-blue text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-pinte-dark transition-colors">
+                <button 
+                  onClick={() => setIsQuoteOpen(true)}
+                  className="bg-pinte-blue text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-pinte-dark transition-colors"
+                >
                    Contact Support
                 </button>
              </div>
              <div className="lg:col-span-2 space-y-4">
-                <FAQItem q="How long does it take to ship orders?" a="常规产品现货当天发货，定制产品通常需要 3-5 个工作日。" />
-                <FAQItem q="Do you provide free samples?" a="是的，我们提供免费的 A4 样张或 15m 小卷供测试，您只需支付运费。" />
-                <FAQItem q="What certificates do you have?" a="我们通过了 ISO9001, RoHS, EN71-3, ASTM-F963 等多项国际认证。" />
-                <FAQItem q="Can you customize colors?" a="可以，我们支持 Pantone 调色，起订量通常为 5000m。" />
+                <FAQItem q="常规发货时间是多久?" a="常规产品现货当天/隔天发货，定制产品通常需要 5-14 个工作日。" />
+                <FAQItem q="品特提供免费的样品吗?" a="是的，我们提供免费64cm x 20m规格的卷材供测试，您只需支付运费。" />
+                <FAQItem q="佰仕特·品特有哪些资格证书" a="我们通过了 ISO9001, RoHS, EN71-3, ASTM-F963 等多项国际认证。" />
+                <FAQItem q="颜色可以定制吗?" a="可以，我们支持 Pantone 调色。" />
              </div>
           </div>
        </section>
@@ -1645,8 +1552,8 @@ const App: React.FC = () => {
                  <span className="font-display font-bold text-2xl tracking-tight">PINTE</span>
               </div>
               <p className="text-neutral-500 leading-relaxed mb-6">
-                 Mastery in Surface Aesthetics. <br/>
-                 Providing premium hot stamping foil solutions since 1999.
+                 做高端烫金膜专家 <br/>
+                 以技术为核心，以品质为根本，以客户为中心，以信誉为资本
               </p>
               <div className="flex gap-4">
                  {/* Social Icons Placeholders */}
@@ -1657,52 +1564,52 @@ const App: React.FC = () => {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-bold text-lg mb-6 text-neutral-900">Quick Links</h4>
+              <h4 className="font-bold text-lg mb-6 text-neutral-900">快速链接</h4>
               <ul className="space-y-4 text-neutral-600 font-medium">
-                 <li><button onClick={() => scrollToSection(Section.HOME)} className="hover:text-pinte-blue transition-colors">Home</button></li>
-                 <li><button onClick={() => scrollToSection(Section.PRODUCTS)} className="hover:text-pinte-blue transition-colors">Products</button></li>
-                 <li><button onClick={() => scrollToSection(Section.SOLUTIONS)} className="hover:text-pinte-blue transition-colors">Solutions</button></li>
-                 <li><button onClick={() => scrollToSection(Section.ABOUT)} className="hover:text-pinte-blue transition-colors">About Us</button></li>
+                 <li><button onClick={() => scrollToSection(Section.HOME)} className="hover:text-pinte-blue transition-colors">主页</button></li>
+                 <li><button onClick={() => scrollToSection(Section.PRODUCTS)} className="hover:text-pinte-blue transition-colors">产品info</button></li>
+                 <li><button onClick={() => scrollToSection(Section.SOLUTIONS)} className="hover:text-pinte-blue transition-colors">解决方案</button></li>
+                 <li><button onClick={() => scrollToSection(Section.ABOUT)} className="hover:text-pinte-blue transition-colors">关于我们</button></li>
               </ul>
             </div>
 
             {/* Contact Info */}
             <div>
-              <h4 className="font-bold text-lg mb-6 text-neutral-900">Contact Us</h4>
+              <h4 className="font-bold text-lg mb-6 text-neutral-900">联系我们</h4>
               <ul className="space-y-4 text-neutral-600">
                  <li className="flex items-start gap-3">
                     <Building2 className="shrink-0 mt-1 text-pinte-blue" size={18}/>
-                    <span>No. 123, Industrial Road, Chang'an Town, Dongguan City, Guangdong, China</span>
+                    <span>广东省东莞市长安镇涌头工业区佰仕特工艺制品有限公司</span>
                  </li>
                  <li className="flex items-center gap-3">
                     <Mail className="shrink-0 text-pinte-blue" size={18}/>
-                    <a href="mailto:sales@bestglitter.com" className="hover:text-pinte-blue">sales@bestglitter.com</a>
+                    <a href="mailto:sales@bestglitter.com" className="hover:text-pinte-blue">sales9@bestglitter.com</a>
                  </li>
                  <li className="flex items-center gap-3">
                     <Phone className="shrink-0 text-pinte-blue" size={18}/>
-                    <a href="tel:+8613922543175" className="hover:text-pinte-blue">+86-13922543175</a>
+                    <a href="tel:+8613192267509" className="hover:text-pinte-blue">+86-13192267509</a>
                  </li>
               </ul>
             </div>
 
             {/* WeChat QR Code */}
             <div>
-              <h4 className="font-bold text-lg mb-6 text-neutral-900">WeChat Official</h4>
+              <h4 className="font-bold text-lg mb-6 text-neutral-900">微信名片</h4>
               <div className="bg-white p-4 rounded-2xl border border-neutral-100 shadow-sm inline-block">
                  {/* Generating a dummy QR code */}
                  <img 
-                   src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.pinte.cn&color=1e40af" 
+                   src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://u.wechat.com/MHPZfF2HCiCARXbjSIeIcBY?s=2&color=1e40af" 
                    alt="WeChat QR Code" 
                    className="w-32 h-32 mb-3"
                  />
-                 <p className="text-center text-xs text-neutral-400 font-medium uppercase tracking-wider">Scan to Follow</p>
+                 <p className="text-center text-xs text-neutral-400 font-medium uppercase tracking-wider">扫码与我们联系</p>
               </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-4">
-             <p className="text-neutral-400 text-sm">© 2024 Dongguan Best Craftwork Products Co., Ltd. All rights reserved.</p>
+             <p className="text-neutral-400 text-sm">© 2026 Dongguan Best Craftwork Products Co., Ltd. All rights reserved.</p>
              <div className="flex gap-8 text-sm font-medium text-neutral-500">
                 <a href="#" className="hover:text-pinte-blue transition-colors">Privacy Policy</a>
                 <a href="#" className="hover:text-pinte-blue transition-colors">Terms of Service</a>
@@ -1713,6 +1620,11 @@ const App: React.FC = () => {
       </footer>
        
        <ChatWidget />
+       {/* Debug Panel for CMS editing */}
+       <DebugPanel 
+         data={content} 
+         onUpdate={(newData) => setContent(newData)} 
+       />
      </div>
    );
  };
