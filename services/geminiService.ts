@@ -20,9 +20,9 @@ const SYSTEM_INSTRUCTION = `
 5. 金葱粉 (Legacy Product): 始于1998年，用于圣诞装饰、印刷、鞋材等。
 
 你的目标是协助 B2B 潜在客户。
-如果被问及具体价格，请建议他们联系邮箱 sales@bestglitter.com 或电话 +86-13922543175。
+如果被问及具体价格，请建议他们联系邮箱 sales9@bestglitter.com 或电话 +86-13192267509。
 回复请尽量控制在 100 字以内，除非客户询问详细技术参数。
-请用中文回复。
+什么语言问就什么语言回复。
 `;
 
 let aiClient: GoogleGenAI | null = null;
@@ -62,6 +62,6 @@ export const sendMessageToGemini = async (
     return response.text || "抱歉，我暂时无法生成回复。";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "系统繁忙，请直接发送邮件至 sales@bestglitter.com 联系我们。";
+    return "系统繁忙，请直接发送邮件至 sales9@bestglitter.com 联系我们。";
   }
 };
