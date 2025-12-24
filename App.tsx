@@ -269,7 +269,7 @@ const NAV_MENU_ITEMS = [
    { id: Section.SOLUTIONS, label: '解决方案', hasDropdown: true },
    { id: Section.ABOUT, label: '关于品特' },
    { id: Section.PRODUCTS, label: '产品中心', hasDropdown: true },
-   { id: Section.DISTRIBUTORS, label: '代理商' },
+   
    { id: Section.CONTACT, label: '联系我们' },
 ];
 
@@ -1620,11 +1620,11 @@ const App: React.FC = () => {
       </footer>
        
        <ChatWidget />
-       {/* Debug Panel for CMS editing */}
-       <DebugPanel 
+       {/* Debug Panel for CMS editing<DebugPanel 
          data={content} 
          onUpdate={(newData) => setContent(newData)} 
-       />
+       /> */}
+       
      </div>
    );
  };

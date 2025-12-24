@@ -43,7 +43,7 @@ export const PRODUCT_DATA: Record<ProductId, ProductDetail> = {
     name: 'PK 咖啡底系列',
     subtitle: 'COFFEE GLUE SERIES',
     description: '专为粗糙表面设计，拥有极佳的遮盖率与上烫性。在重油墨纸张上也能保持光泽，不会氧化发黑。',
-    heroImage: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251216/DQQZuxMUEECg/qdqqd/_1765866836300.png',
+    heroImage: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251224/lzJYBRXaoHox/qdqqd/_1766548594013.png',
     features: [
       { title: '重油墨不氧化', desc: '特有涂层配方，防止在深色/重油墨表面氧化。', icon: "Zap" },
       { title: '强附着力', desc: '针对粗纹纸、压纹皮革等不平整表面优化。', icon: "Layers" },
@@ -345,7 +345,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'pkg_bags',
         title: '包装与手提袋专用烫金解决方案',
         series: 'PK',
-        img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://file.zhuyitai.com/feedback/202512/24/efd06e420c0627bacd3de58c4543a5ed.png',
         description: '针对纸袋折痕处易掉金粉的痛点，我们开发了高柔韧性配方。即使在反复折叠测试中，烫金层依然完整如初。',
         features: ['耐折叠', '耐磨擦', '适合大面积实地'],
         painPoints: ['折痕掉粉', '手提处磨损']
@@ -354,7 +354,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'special_paper',
         title: '印刷特种纸烫金解决方案',
         series: 'PK',
-        img: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://zkaicc.huilan.com/aicc/api/aicc-file/miniofile/preViewPicture/aicc/qdqqd_1766550933958.jpg',
         description: '特种纸通常纹理较深，普通烫金膜难以完全覆盖。PK系列强力型具有优秀的填充能力，确保在布纹、皮纹纸上也能烫出平整光亮的图案。',
         features: ['强填充性', '边缘锐利', '不透底'],
         painPoints: ['露底', '毛边', '附着力差']
@@ -363,7 +363,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'leather',
         title: '皮革烫金解决方案',
         series: 'PK',
-        img: 'https://images.unsplash.com/photo-1550586041-fbf79acb969c?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://s3plus.meituan.net/opapisdk/op_ticket_1_5677168484_1766554818194_qdqqd_yef3rf.png',
         description: '专为 PU、PVC 人造革及真皮设计。耐老化性能优异，不仅初粘力强，且在长期使用中不会脱落或变色。',
         features: ['耐揉搓', '耐老化', '低温柔韧性'],
         painPoints: ['老化脱落', '弯曲开裂']
@@ -372,7 +372,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'plastic_surface',
         title: '塑胶产品表面烫金解决方案',
         series: 'PC',
-        img: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://static.eeo.cn/upload/images/20251224/879db4806f00ea484679.png',
         description: '解决塑料表面能低、难附着的问题。PC系列在注塑件、挤出管材上表现卓越，通过百格测试与酒精测试。',
         features: ['通过百格测试', '耐指纹', '高光镜面'],
         painPoints: ['一刮就掉', '耐候性差']
@@ -381,16 +381,16 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'digital_cold',
         title: '数码/丝印冷烫解决方案',
         series: 'PC',
-        img: 'https://images.unsplash.com/photo-1633479397988-700951a239f6?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://s3plus.meituan.net/opapisdk/op_ticket_1_5673241091_1766557982568_qdqqd_ygm9e1.png',
         description: '适配 MGI, Scodix 等数码增效设备。无需制烫金版，直接在 UV 胶水层固化转移，实现可变数据的金属光泽印制。',
         features: ['无需制版', '可变数据', '3D立体感'],
         painPoints: ['制版成本高', '交期慢']
     },
     'bottles': {
         id: 'bottles',
-        title: '酒瓶/酒瓶盖烫印解决方案',
+        title: '酒瓶/化妆瓶/玻璃烫印解决方案',
         series: 'PC',
-        img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://zkaicc.huilan.com/aicc/api/aicc-file/miniofile/preViewPicture/aicc/qdqqd_1766556426247.png',
         description: '针对酒盖深拉伸工艺优化。在顶侧面滚烫时，不仅光泽度高，且能承受后续的罐装线摩擦。',
         features: ['耐深冲', '耐摩擦', '耐水煮'],
         painPoints: ['拉伸破裂', '运输磨损']
@@ -399,7 +399,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'gift_pkg',
         title: '印刷礼品包装解决方案',
         series: 'PLPY',
-        img: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://saas.chatbot.cn/download/minio/standard/2025-12-24/5f7e6e5dd4714a3ca2401aab97a56be8.png',
         description: '颜料箔色泽纯正，为礼品盒提供类似丝网印刷的厚重感，但效率更高，且环保无溶剂残留。',
         features: ['色彩纯正', '环保无味', '遮盖力强'],
         painPoints: ['油墨异味', '干燥慢']
@@ -408,7 +408,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
         id: 'reverse_uv',
         title: '逆向UV/触感膜解决方案',
         series: 'PJ',
-        img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop',
+        img: 'https://static.eeo.cn/upload/file/20251224/1766558709637577.png',
         description: '逆向 UV 光油表面通常极难附着。PJ 系列通过特殊配方，能穿透部分光油层，牢牢锁住基材。',
         features: ['穿透UV层', '牢固度高', '边缘清晰'],
         painPoints: ['UV面烫不上', '起泡']
@@ -418,7 +418,7 @@ export const SOLUTIONS_DATA: Record<string, SolutionData> = {
 export const SERIES_INFO: Record<string, { title: string, rollImg: string, features: string[] }> = {
     'PK': {
         title: 'PK 系列解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop', 
+        rollImg: 'https://file.zhuyitai.com/feedback/202512/24/8958306d8fbce249d3c3ee51a7c1d133.jpeg', 
         features: [
             '色彩表现力极佳',
             '分切性能好离型稳定',
@@ -430,7 +430,7 @@ export const SERIES_INFO: Record<string, { title: string, rollImg: string, featu
     },
     'PC': {
         title: 'PC 塑胶系列解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=600&auto=format&fit=crop', 
+        rollImg: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251224/lHZJcRjRtNSc/qdqqd/_1766555374044.png', 
         features: [
             '双组份色层耐腐蚀高亮度',
             '分切性能好离型稳定',
