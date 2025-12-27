@@ -1,15 +1,16 @@
 
 import React from 'react';
 import { ArrowLeft, Heart, MessageCircle, MoreHorizontal } from 'lucide-react';
-import { CulturePost } from '../types';
+import { CulturePost, UILabels } from '../types';
 import { PinteLogo } from './PinteLogo';
 
 interface CompanyCultureProps {
   onBack: () => void;
   posts: CulturePost[];
+  ui?: UILabels['about'];
 }
 
-const CompanyCulture: React.FC<CompanyCultureProps> = ({ onBack, posts }) => {
+const CompanyCulture: React.FC<CompanyCultureProps> = ({ onBack, posts, ui }) => {
   return (
     <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in slide-in-from-right duration-500">
       {/* Header */}
@@ -24,7 +25,7 @@ const CompanyCulture: React.FC<CompanyCultureProps> = ({ onBack, posts }) => {
           
           <div className="flex items-center gap-2">
              <PinteLogo originalColors className="h-6 w-auto"/>
-             <span className="font-bold text-lg">品特生活 PINTE LIFE</span>
+             <span className="font-bold text-lg">PINTE LIFE</span>
           </div>
 
           <div className="w-10"></div> {/* Spacer for center alignment */}
@@ -34,8 +35,8 @@ const CompanyCulture: React.FC<CompanyCultureProps> = ({ onBack, posts }) => {
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-8">
          {/* Introduction */}
          <div className="mb-10 text-center max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold mb-3">探索品特文化</h1>
-            <p className="text-neutral-500 text-sm">在这里，发现我们工作之外的精彩瞬间与成长足迹。</p>
+            <h1 className="text-3xl font-bold mb-3">{ui?.cultureTitle || "Explore PINTE Culture"}</h1>
+            <p className="text-neutral-500 text-sm">Discover our moments and growth beyond work.</p>
          </div>
 
          {/* Waterfall / Masonry Grid */}

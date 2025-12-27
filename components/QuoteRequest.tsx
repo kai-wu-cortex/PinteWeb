@@ -14,10 +14,12 @@ import {
   Loader2
 } from 'lucide-react';
 import { PinteLogo } from './PinteLogo';
+import { UILabels } from '../types';
 import emailjs from '@emailjs/browser';
 
 interface QuoteRequestProps {
   onBack: () => void;
+  ui?: UILabels['quote']; // Optional prop for now to avoid breaking if not passed immediately, but app passes it
 }
 
 const PAIN_POINTS = [
@@ -42,16 +44,43 @@ const APPLICATIONS = [
 ];
 
 // --- EMAILJS CONFIGURATION ---
-// 1. 去 https://www.emailjs.com/ 注册免费账号
-// 2. 添加 Email Service (如 Gmail) -> 获取 Service ID
-// 3. 添加 Email Template -> 获取 Template ID
-// 4. 去 Account -> API Keys -> 获取 Public Key
-// 5. 将下方变量替换为您自己的 ID
 const EMAILJS_SERVICE_ID: string = "service_o5cnsro"; 
 const EMAILJS_TEMPLATE_ID: string = "template_yztox8m";
 const EMAILJS_PUBLIC_KEY: string = "VBjpFY6nA0vANF7ok";
 
-const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
+// Fallback UI labels in case prop is missing
+const defaultUI = {
+    title: "Start Your Custom Solution",
+    subtitle: "Tell us your needs and issues.",
+    back: "Back",
+    projectDetails: "Project Details",
+    appField: "Application Area",
+    colorField: "Color/Effect Requirements",
+    painPoints: "Current Pain Points",
+    extraInfo: "Additional Info",
+    contactInfo: "Contact Info",
+    name: "Name",
+    company: "Company Name",
+    email: "Email",
+    phone: "Phone Number",
+    submit: "Send Request",
+    submitting: "Sending...",
+    successTitle: "Request Submitted!",
+    successDesc: "Thank you for choosing PINTE.",
+    backHome: "Back to Home",
+    newRequest: "Submit New Request",
+    placeholders: {
+      select: "Please Select...",
+      color: "e.g., Gloss Gold...",
+      desc: "Describe substrate...",
+      name: "Your Name",
+      company: "Company Name",
+      email: "email@example.com",
+      phone: "+1 ..."
+    }
+};
+
+const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack, ui = defaultUI }) => {
   const [step, setStep] = useState<'form' | 'success'>('form');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -80,14 +109,12 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    // Prepare template parameters matching your EmailJS template variables
-    // Added 'to_email' to resolve "The recipients address is empty" error
     const templateParams = {
-      subject:"PINTE Thanks for your feedback. We will reply you soon. -PINTE hot stamping foil",
+      subject:"PINTE Quote Request",
       to_name: formData.name,
-      to_email: formData.email, // Explicitly setting the recipient email
-      from_name: "PINTE 销售团队 / PINTE SALES TEAM",
-      from_email: "cortexwu@gmail.com",
+      to_email: formData.email,
+      from_name: "PINTE SALES TEAM",
+      from_email: "sales@bestglitter.com",
       company: formData.company,
       phone: formData.phone,
       application: formData.application,
@@ -98,10 +125,7 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
     };
 
     try {
-      // Check if keys are configured
       if (EMAILJS_SERVICE_ID === "") {
-         console.warn("EmailJS 未配置。请在代码中填写您的 Service ID, Template ID 和 Public Key。");
-         // 模拟成功，以免阻塞演示
          await new Promise(resolve => setTimeout(resolve, 1500));
          setStep('success');
          window.scrollTo(0, 0);
@@ -119,9 +143,8 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
       window.scrollTo(0, 0);
     } catch (error: any) {
       console.error('Email sending failed:', error);
-      // More detailed error message for debugging
-      const errorText = error?.text || "未知错误";
-      setErrorMessage(`发送失败 (${errorText})，请检查网络或稍后重试。如果不便，请直接发送邮件至 sales9@bestglitter.com`);
+      const errorText = error?.text || "Unknown Error";
+      setErrorMessage(`Failed (${errorText}). Please email sales9@bestglitter.com directly.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -134,16 +157,16 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
           <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 size={48} />
           </div>
-          <h2 className="text-3xl font-display font-bold text-neutral-900 mb-4">需求提交成功!</h2>
+          <h2 className="text-3xl font-display font-bold text-neutral-900 mb-4">{ui.successTitle}</h2>
           <p className="text-neutral-500 leading-relaxed mb-8">
-            感谢您选择品特(PINTE)。我们的技术团队已收到您的需求，将在 24 小时内制定初步解决方案并发送至您的邮箱。
+            {ui.successDesc}
           </p>
           <div className="space-y-3">
              <button 
                onClick={onBack}
                className="w-full bg-pinte-blue text-white py-4 rounded-xl font-bold hover:bg-pinte-dark transition-colors shadow-lg shadow-pinte-blue/20"
              >
-               返回首页
+               {ui.backHome}
              </button>
              <button 
                onClick={() => {
@@ -161,7 +184,7 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                }}
                className="w-full bg-white text-neutral-600 py-4 rounded-xl font-bold hover:bg-neutral-50 transition-colors"
              >
-               提交新需求
+               {ui.newRequest}
              </button>
           </div>
         </div>
@@ -179,7 +202,7 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
             className="flex items-center gap-2 text-neutral-600 hover:text-pinte-blue font-medium transition-colors"
           >
             <ArrowLeft size={20} />
-            <span>返回</span>
+            <span>{ui.back}</span>
           </button>
           <div className="flex items-center gap-2">
             <PinteLogo originalColors className="h-6 w-auto" />
@@ -192,10 +215,10 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
       <div className="max-w-[1000px] mx-auto px-6 py-12">
         <div className="mb-12 text-center max-w-2xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-display font-bold text-neutral-900 mb-6">
-            开启您的定制方案
+            {ui.title}
           </h1>
           <p className="text-lg text-neutral-500 leading-relaxed">
-            请告诉我们您的具体需求与当前遇到的问题，品特技术工程师将为您匹配最适合的烫金材料与工艺参数。
+            {ui.subtitle}
           </p>
         </div>
 
@@ -207,13 +230,13 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
               <div className="w-10 h-10 bg-blue-50 text-pinte-blue rounded-full flex items-center justify-center">
                 <FileText size={20} />
               </div>
-              <h2 className="text-xl font-bold text-neutral-900">项目详情</h2>
+              <h2 className="text-xl font-bold text-neutral-900">{ui.projectDetails}</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-neutral-700 flex items-center gap-2">
-                  应用领域 <span className="text-red-500">*</span>
+                  {ui.appField} <span className="text-red-500">*</span>
                 </label>
                 <select 
                   required
@@ -221,7 +244,7 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                   onChange={(e) => setFormData({...formData, application: e.target.value})}
                   className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all appearance-none"
                 >
-                  <option value="" disabled>请选择...</option>
+                  <option value="" disabled>{ui.placeholders.select}</option>
                   {APPLICATIONS.map((app) => (
                     <option key={app} value={app}>{app}</option>
                   ))}
@@ -230,11 +253,11 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
 
               <div className="space-y-3">
                 <label className="text-sm font-bold text-neutral-700 flex items-center gap-2">
-                  <Palette size={16} className="text-neutral-400" /> 颜色/效果需求
+                  <Palette size={16} className="text-neutral-400" /> {ui.colorField}
                 </label>
                 <input 
                   type="text" 
-                  placeholder="例如: 亮金, 哑银, 镭射素面..."
+                  placeholder={ui.placeholders.color}
                   value={formData.colorRequirements}
                   onChange={(e) => setFormData({...formData, colorRequirements: e.target.value})}
                   className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all"
@@ -244,7 +267,7 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
 
             <div className="space-y-4">
               <label className="text-sm font-bold text-neutral-700 flex items-center gap-2">
-                <AlertCircle size={16} className="text-neutral-400" /> 目前遇到的痛点 (可多选)
+                <AlertCircle size={16} className="text-neutral-400" /> {ui.painPoints}
               </label>
               <div className="flex flex-wrap gap-3">
                 {PAIN_POINTS.map((point) => (
@@ -266,11 +289,11 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
             
             <div className="mt-8 space-y-3">
                <label className="text-sm font-bold text-neutral-700 flex items-center gap-2">
-                  补充说明 (基材/设备型号等)
+                  {ui.extraInfo}
                </label>
                <textarea 
                   rows={4}
-                  placeholder="请描述您的基材特性（如：UV光油表面、粗纹纸）或使用的烫金设备型号..."
+                  placeholder={ui.placeholders.desc}
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
                   className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all resize-none"
@@ -284,12 +307,12 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
               <div className="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center">
                 <User size={20} />
               </div>
-              <h2 className="text-xl font-bold text-neutral-900">联系方式</h2>
+              <h2 className="text-xl font-bold text-neutral-900">{ui.contactInfo}</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-3">
-                <label className="text-sm font-bold text-neutral-700">姓名 <span className="text-red-500">*</span></label>
+                <label className="text-sm font-bold text-neutral-700">{ui.name} <span className="text-red-500">*</span></label>
                 <div className="relative">
                   <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
                   <input 
@@ -298,13 +321,13 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="w-full pl-12 bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all"
-                    placeholder="您的称呼"
+                    placeholder={ui.placeholders.name}
                   />
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-bold text-neutral-700">公司名称</label>
+                <label className="text-sm font-bold text-neutral-700">{ui.company}</label>
                 <div className="relative">
                   <Building2 size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
                   <input 
@@ -312,13 +335,13 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
                     className="w-full pl-12 bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all"
-                    placeholder="公司全称"
+                    placeholder={ui.placeholders.company}
                   />
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-bold text-neutral-700">电子邮箱 <span className="text-red-500">*</span></label>
+                <label className="text-sm font-bold text-neutral-700">{ui.email} <span className="text-red-500">*</span></label>
                 <div className="relative">
                   <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
                   <input 
@@ -327,13 +350,13 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     className="w-full pl-12 bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all"
-                    placeholder="name@company.com"
+                    placeholder={ui.placeholders.email}
                   />
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-bold text-neutral-700">联系电话</label>
+                <label className="text-sm font-bold text-neutral-700">{ui.phone}</label>
                 <div className="relative">
                   <Phone size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" />
                   <input 
@@ -341,7 +364,7 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     className="w-full pl-12 bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-pinte-blue/20 focus:border-pinte-blue transition-all"
-                    placeholder="+86 ..."
+                    placeholder={ui.placeholders.phone}
                   />
                 </div>
               </div>
@@ -365,11 +388,11 @@ const QuoteRequest: React.FC<QuoteRequestProps> = ({ onBack }) => {
                {isSubmitting ? (
                  <>
                    <Loader2 size={20} className="animate-spin" />
-                   提交中...
+                   {ui.submitting}
                  </>
                ) : (
                  <>
-                   发送需求
+                   {ui.submit}
                    <Send size={20} />
                  </>
                )}

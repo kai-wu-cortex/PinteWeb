@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { CatalogItem } from '../types';
+import { CatalogItem, UILabels } from '../types';
 import { 
   ArrowLeft, 
   CheckCircle2, 
@@ -20,14 +20,26 @@ import QuoteRequest from './QuoteRequest';
 interface ItemDetailViewProps {
   item: CatalogItem;
   onBack: () => void;
+  ui?: UILabels;
 }
 
-const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
+const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack, ui }) => {
   const [showQuote, setShowQuote] = useState(false);
   const [activeTab, setActiveTab] = useState<'specs' | 'apps'>('specs');
 
+  const t = ui?.products || {
+      backToList: "Back",
+      getSample: "Get Quote",
+      techSpecs: "Tech Specs",
+      tempRec: "Temperature",
+      flat: "Flat",
+      round: "Rotary",
+      applications: "Applications",
+      tabs: { specs: "Specs", apps: "Apps" }
+  };
+
   if (showQuote) {
-      return <QuoteRequest onBack={() => setShowQuote(false)} />;
+      return <QuoteRequest onBack={() => setShowQuote(false)} ui={ui?.quote} />;
   }
 
   return (
@@ -41,7 +53,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
             className="flex items-center gap-2 text-neutral-600 hover:text-pinte-blue font-medium transition-colors"
             >
              <ArrowLeft size={20} />
-             <span>返回目录</span>
+             <span>{t.backToList}</span>
            </button>
            <span className="font-bold text-neutral-400 text-sm uppercase tracking-widest hidden md:block">
              Product Detail
@@ -50,7 +62,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
              onClick={() => setShowQuote(true)}
              className="bg-pinte-blue text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-pinte-blue/20 hover:bg-pinte-dark transition-colors"
            >
-             获取报价
+             {ui?.nav.getQuote || "Get Quote"}
            </button>
         </div>
       </div>
@@ -118,13 +130,13 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                         onClick={() => setActiveTab('specs')}
                         className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${activeTab === 'specs' ? 'bg-white text-pinte-blue shadow-sm' : 'text-neutral-500 hover:text-neutral-900'}`}
                     >
-                        技术参数 (Specs)
+                         {t.techSpecs} ({t.tabs.specs})
                     </button>
                     <button 
                         onClick={() => setActiveTab('apps')}
                         className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${activeTab === 'apps' ? 'bg-white text-pinte-blue shadow-sm' : 'text-neutral-500 hover:text-neutral-900'}`}
                     >
-                        应用场景 (Applications)
+                         {t.applications} ({t.tabs.apps})
                     </button>
                 </div>
             </div>
@@ -136,7 +148,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                             {/* Params Table */}
                             <div>
                                 <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                                    <Layers className="text-pinte-blue"/> 规格参数
+                                    <Layers className="text-pinte-blue"/> {t.techSpecs}
                                 </h3>
                                 <div className="space-y-0 divider-y divide-neutral-100">
                                     {item.params?.map((param, i) => (
@@ -147,7 +159,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                                     ))}
                                     {/* Default param if none */}
                                     {(!item.params || item.params.length === 0) && (
-                                        <p className="text-neutral-400 italic">暂无详细参数</p>
+                                        <p className="text-neutral-400 italic">No detailed parameters.</p>
                                     )}
                                 </div>
                             </div>
@@ -155,13 +167,13 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                             {/* Temperature or Extra Info */}
                             <div className="bg-neutral-50 rounded-3xl p-8">
                                 <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                                    <Thermometer className="text-pinte-blue"/> 建议操作条件
+                                    <Thermometer className="text-pinte-blue"/> {t.tempRec}
                                 </h3>
                                 {item.temp ? (
                                     <div className="space-y-6">
                                         <div>
                                             <div className="flex justify-between mb-2 text-sm font-bold text-neutral-700">
-                                                <span>平压平 (Flat)</span>
+                                                <span>{t.flat}</span>
                                                 <span>{item.temp.flat}</span>
                                             </div>
                                             <div className="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
@@ -170,7 +182,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                                         </div>
                                         <div>
                                             <div className="flex justify-between mb-2 text-sm font-bold text-neutral-700">
-                                                <span>圆压圆 (Rotary)</span>
+                                                <span>{t.round}</span>
                                                 <span>{item.temp.round}</span>
                                             </div>
                                             <div className="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
@@ -178,11 +190,11 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                                             </div>
                                         </div>
                                         <p className="text-xs text-neutral-400 mt-4 leading-relaxed">
-                                            * 注：实际温度可能受机器速度、压力及基材表面影响，建议大货前进行测试。
+                                            * Note: Actual temperature may vary by machine speed, pressure, and substrate. Testing recommended before mass production.
                                         </p>
                                     </div>
                                 ) : (
-                                    <p className="text-neutral-500">请联系销售获取详细技术说明书 (TDS)。</p>
+                                    <p className="text-neutral-500">Contact sales for Technical Datasheet (TDS).</p>
                                 )}
                             </div>
                         </div>
@@ -191,7 +203,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
 
                 {activeTab === 'apps' && (
                     <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                        <h3 className="text-xl font-bold mb-8 text-center">推荐应用领域</h3>
+                        <h3 className="text-xl font-bold mb-8 text-center">{t.applications}</h3>
                         <div className="flex flex-wrap justify-center gap-4">
                             {item.applications?.map((app, i) => (
                                 <div key={i} className="bg-white border border-neutral-200 px-6 py-4 rounded-2xl flex items-center gap-3 shadow-sm hover:border-pinte-blue hover:text-pinte-blue transition-colors cursor-default">
@@ -200,7 +212,7 @@ const ItemDetailView: React.FC<ItemDetailViewProps> = ({ item, onBack }) => {
                                 </div>
                             ))}
                             {(!item.applications || item.applications.length === 0) && (
-                                <p className="text-neutral-400 italic">适用于多种通用包装领域。</p>
+                                <p className="text-neutral-400 italic">Suitable for general packaging.</p>
                             )}
                         </div>
                     </div>

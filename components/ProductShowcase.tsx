@@ -10,16 +10,37 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { PinteLogo } from './PinteLogo';
-import { ProductId, ProductDetail, CatalogItem } from '../types';
+import { ProductId, ProductDetail, CatalogItem, UILabels } from '../types';
 
 interface ProductShowcaseProps {
   onBack: () => void;
   products: Record<ProductId, ProductDetail>;
   catalog: Record<ProductId, CatalogItem[]>;
-  onItemClick: (id: string) => void; // Changed to string to accept specific item IDs
+  onItemClick: (id: string) => void;
+  ui?: UILabels['products'];
 }
 
-const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, catalog, onItemClick }) => {
+// Fallback
+const defaultUI = {
+    discoverTitle: "Product Catalog",
+    discoverDesc: "",
+    viewCatalog: "",
+    series: "SERIES",
+    viewDetails: "View Details",
+    backToList: "Back",
+    getSample: "",
+    techSpecs: "",
+    tempRec: "",
+    substrates: "",
+    applications: "",
+    needHelp: "",
+    contactEng: "",
+    tabs: { overview: "Overview", specs: "Specs", apps: "Apps" },
+    flat: "",
+    round: ""
+};
+
+const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, catalog, onItemClick, ui = defaultUI }) => {
   return (
     <div className="min-h-screen bg-white text-neutral-900 font-sans animate-in fade-in slide-in-from-bottom-4 duration-500">
        
@@ -48,7 +69,7 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, cat
        {/* Main Title Area */}
        <div className="max-w-[1400px] mx-auto px-6 pt-24 pb-12 border-b border-neutral-200">
          <h1 className="text-5xl md:text-7xl font-display font-bold uppercase tracking-tighter text-neutral-900">
-            Product Catalog
+            {ui.discoverTitle.replace(/<br\/>/g, ' ')}
          </h1>
        </div>
 
@@ -115,7 +136,7 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, cat
                                
                                {/* Bottom Link */}
                                <div className="flex justify-between items-center border-t border-neutral-200 pt-4">
-                                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-900 group-hover/card:text-pinte-blue transition-colors">View Details</span>
+                                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-900 group-hover/card:text-pinte-blue transition-colors">{ui.viewDetails}</span>
                                   <ArrowRight size={14} className="text-neutral-300 group-hover/card:text-pinte-blue group-hover/card:translate-x-1 transition-all" />
                                </div>
                             </div>
@@ -134,7 +155,7 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, cat
 
        {/* Footer */}
        <div className="border-t border-neutral-100 py-12 text-center text-neutral-400 text-sm">
-          <p>© 2024 PINTE Catalog. All rights reserved.</p>
+          <p>© 2026 PINTE Catalog. All rights reserved.</p>
        </div>
     </div>
   );

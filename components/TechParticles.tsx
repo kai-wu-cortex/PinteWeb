@@ -159,9 +159,14 @@ const TechParticles: React.FC = () => {
 
     // --- Setup Listeners ---
     parentElement = canvas.parentElement;
+    let resizeObserver: ResizeObserver | null = null;
+
     if (parentElement) {
         // Observe resize for responsive canvas
-        const resizeObserver = new ResizeObserver(() => handleResize());
+        resizeObserver = new ResizeObserver(() => {
+            // Wrap in requestAnimationFrame to avoid "ResizeObserver loop completed with undelivered notifications"
+            window.requestAnimationFrame(() => handleResize());
+        });
         resizeObserver.observe(parentElement);
         
         // Mouse Listeners
@@ -182,6 +187,9 @@ const TechParticles: React.FC = () => {
         if (parentElement) {
             parentElement.removeEventListener('mousemove', handleMouseMove);
             parentElement.removeEventListener('mouseleave', handleMouseLeave);
+            if (resizeObserver) {
+                resizeObserver.disconnect();
+            }
         }
     };
   }, []);

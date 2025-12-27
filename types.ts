@@ -81,3 +81,128 @@ export interface CulturePost {
   likes: number;
   tags: string[];
 }
+
+export interface UILabels {
+  nav: {
+    home: string;
+    solutions: string;
+    products: string;
+    about: string;
+    contact: string;
+    getQuote: string;
+    viewAllProducts: string;
+  };
+  hero: {
+    onlineTour: string;
+    productionLine: string;
+  };
+  solutions: {
+    title: string;
+    subtitle: string;
+    cards: {
+      distributor: { title: string; desc: string };
+      designer: { title: string; desc: string };
+      ecommerce: { title: string; desc: string };
+    };
+    backButton: string;
+    downloadPdf: string;
+    appAdvantage: string;
+    getDatasheet: string;
+  };
+  about: {
+    factoryLabel: string;
+    profileTitle: string;
+    vision: string;
+    history: string;
+    visionTitle: string;
+    valuesTitle: string;
+    achievementsTitle: string;
+    partnersTitle: string;
+    cultureTitle: string;
+    cultureDesc: string;
+    readMore: string;
+    yearsExp: string;
+  };
+  products: {
+    discoverTitle: string;
+    discoverDesc: string;
+    viewCatalog: string;
+    series: string;
+    viewDetails: string;
+    backToList: string;
+    getSample: string;
+    techSpecs: string;
+    tempRec: string;
+    substrates: string;
+    applications: string;
+    needHelp: string;
+    contactEng: string;
+    tabs: { overview: string; specs: string; apps: string };
+    flat: string;
+    round: string;
+  };
+  services: {
+    title: string;
+    subtitle: string;
+    capabilities: string;
+    oemTitle: string;
+    oemDesc: string;
+    learnMore: string;
+    dashboard: string;
+    updated: string;
+  };
+  testimonials: {
+    title: string;
+    subtitle: string;
+  };
+  notes: {
+    title: string;
+    subtitle: string;
+  };
+  faq: {
+    title: string;
+    subtitle: string;
+    contactBtn: string;
+  };
+  footer: {
+    desc: string;
+    quickLinks: string;
+    contactUs: string;
+    wechat: string;
+    scan: string;
+    rights: string;
+    privacy: string;
+    terms: string;
+    sitemap: string;
+  };
+  quote: {
+    title: string;
+    subtitle: string;
+    back: string;
+    projectDetails: string;
+    appField: string;
+    colorField: string;
+    painPoints: string;
+    extraInfo: string;
+    contactInfo: string;
+    name: string;
+    company: string;
+    email: string;
+    phone: string;
+    submit: string;
+    submitting: string;
+    successTitle: string;
+    successDesc: string;
+    backHome: string;
+    newRequest: string;
+    placeholders: {
+      select: string;
+      color: string;
+      desc: string;
+      name: string;
+      company: string;
+      email: string;
+      phone: string;
+    }
+  }
+}
