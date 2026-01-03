@@ -30,149 +30,367 @@ export const CONTENT_EN: ContentData = {
     { id: 'contact', label: 'Contact' },
   ],
   HERO_SLIDES: [
-    {
-      id: 1,
-      image: 'https://youke2.picui.cn/s1/2025/12/13/693d082b27fe1.png',
-      title: 'Focus on <br/><span class="text-pinte-gold">"Foil Aesthetics"</span>',
-      subtitle: "The Expert in High-End Hot Stamping Foils",
-      description: "PINTE® specializes in developing premium hot stamping materials, endowing packaging with superior visual impact and brand value. From metallic foils to pigment and digital cold foils, we define the art of light and shadow.",
-      buttonText: "Product Center"
-    },
-    {
-      id: 2,
-      image: "https://youke2.picui.cn/s1/2025/12/13/693d2eb71c6ee.jpg",
-      title: '20,000m² <br/><span class="text-blue-400">R&D Production Base</span>',
-      subtitle: "Advanced Coating Production Equipment",
-      description: "With over 3 automated coating lines and product R&D labs, monthly capacity exceeds 1.8 million meters. ISO9001 certified ensures extreme stability for every roll.",
-      buttonText: "Online Factory Tour"
-    },
-    {
-      id: 3,
-      image: "https://youke2.picui.cn/s1/2025/12/13/693d305bf17b7.jpg",
-      title: 'Trusted <br/><span class="text-green-400">OEM/ODM Manufacturer</span>',
-      subtitle: "Technology Core, Quality Rooted, Customer Centric",
-      description: "Four philosophies passed down through generations are our belief in service.",
-      buttonText: "Partnership Inquiry"
-    }
-  ],
+  {
+    "id": 1,
+    "image": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E8%83%8C%E6%99%AF.png",
+    "title": "Focus on <br/><span class=\"text-pinte-gold\">\"Foil Aesthetics\"</span>",
+    "subtitle": "The Expert in High-End Hot Stamping Foils",
+    "description": "PINTE® specializes in developing premium hot stamping materials, endowing packaging with superior visual impact and brand value. From metallic foils to pigment and digital cold foils, we define the art of light and shadow.",
+    "buttonText": "Product Center"
+  },
+  {
+    "id": 2,
+    "image": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/IMG_1376.jpg",
+    "title": "20,000m² <br/><span class=\"text-blue-400\">R&D Production Base</span>",
+    "subtitle": "Advanced Coating Production Equipment",
+    "description": "With over 3 automated coating lines and product R&D labs, monthly capacity exceeds 1.8 million meters. ISO9001 certified ensures extreme stability for every roll.",
+    "buttonText": "Online Factory Tour"
+  },
+  {
+    "id": 3,
+    "image": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/bbb.jpg",
+    "title": "Trusted <br/><span class=\"text-green-400\">OEM/ODM Manufacturer</span>",
+    "subtitle": "Technology Core, Quality Rooted, Customer Centric",
+    "description": "Four philosophies passed down through generations are our belief in service.",
+    "buttonText": "Partnership Inquiry"
+  }
+],
   COMPANY_STATS: [
     { targetValue: "1999", label: "Founded In", icon: "Building2" },
     { targetValue: "180,000+", suffix: "+", label: "Monthly Output (m)", icon: "TrendingUp" },
     { targetValue: "20,000+", suffix: "+", label: "Factory Area (㎡)", icon: "Factory" },
     { targetValue: "10+", suffix: "+", label: "Patents", icon: "Lightbulb" },
   ],
-  PRODUCT_DATA: {
-    PK: {
-      id: 'PK',
-      name: 'PK Coffee Glue Series',
-      subtitle: 'COFFEE GLUE SERIES',
-      description: 'Designed for rough surfaces with excellent coverage and stampability. Retains shine on heavy ink paper without oxidation.',
-      heroImage: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251224/lzJYBRXaoHox/qdqqd/_1766548594013.png',
-      features: [
-        { title: 'Anti-Oxidation', desc: 'Special coating prevents oxidation on dark/heavy ink surfaces.', icon: "Zap" },
-        { title: 'Strong Adhesion', desc: 'Optimized for rough paper, embossed leather, etc.', icon: "Layers" },
-        { title: 'Stable Release', desc: 'Clean stripping, sharp edges, suitable for large areas.', icon: "CheckCircle2" },
-      ],
-      params: [
-        { label: 'Thickness', value: '12μm / 15μm' },
-        { label: 'Standard Roll', value: '0.64m x 120m' },
-        { label: 'Type', value: 'Universal / Heavy Duty' },
-        { label: 'Resistance', value: 'Anti-oxidation / Scratch' },
-      ],
-      substrates: ['Rough Paper', 'Specialty Paper', 'Artificial Leather (PU/PVC)', 'Real Leather', 'Leatherette Paper', 'Tactile Paper'],
-      applications: ['Wine Boxes', 'Cosmetic Packaging', 'Leather Tags', 'Hardcover Books'],
-      colors: ['Gold', 'Silver', 'Matte Gold', 'Matte Silver', 'Rose Gold'],
-      temp: { flat: '95 - 105°C', round: '140 - 170°C' }
-    },
-    PC: {
-      id: 'PC',
-      name: 'PC Plastic Series',
-      subtitle: 'PLASTIC SERIES',
-      description: 'Uses special PC glue base, dedicated to plastic materials. Excellent alcohol resistance and slitting properties. Passes cross-cut test perfectly.',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410046cf35c.png',
-      features: [
-        { title: 'Alcohol Resistant', desc: 'Withstands alcohol wiping, meets cosmetic packaging standards.', icon: "Droplet" },
-        { title: 'Good Slitting', desc: 'Neat edges, no burrs, no foil dusting.', icon: "Box" },
-        { title: 'UV Compatible', desc: 'Supports subsequent stamping on UV varnish surfaces.', icon: "Layers" },
-      ],
-      params: [
-        { label: 'Thickness', value: '12μm' },
-        { label: 'Standard Roll', value: '0.64m x 120m' },
-        { label: 'Gloss', value: 'High Gloss / Mirror' },
-        { label: 'Test', value: '3M Tape Cross-Cut' },
-      ],
-      substrates: ['ABS', 'PS', 'PVC', 'PMMA (Acrylic)', 'PP', 'PE Tube'],
-      applications: ['Lipstick Tubes', 'Compacts', 'Mascara Tubes', 'Facial Cleanser Tubes', 'Appliance Panels'],
-      colors: ['Metallic', 'Holographic', 'Brushed'],
-      temp: { flat: '100 - 160°C', round: '180 - 230°C' }
-    },
-    PLPY: {
-      id: 'PLPY',
-      name: 'PL/PY Pigment Foils',
-      subtitle: 'PIGMENT FOILS',
-      description: 'Non-aluminized products based on pigments. Solves ink coverage issues, providing full, pure colors.',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png',
-      features: [
-        { title: 'High Coverage', desc: 'Easily covers dark substrates without transparency.', icon: "Layers" },
-        { title: 'Pure Color', desc: 'No metallic interference, restoring true design colors.', icon: "Star" },
-        { title: 'Dual Texture', desc: 'Available in PL (Glossy) & PY (Matte).', icon: "CheckCircle2" },
-      ],
-      params: [
-        { label: 'Type', value: 'Pigment Foil' },
-        { label: 'Surface', value: 'Glossy (PL) / Matte (PY)' },
-        { label: 'Standard Roll', value: '0.64m x 120m' },
-        { label: 'Eco', value: 'ROHS / EN71-3' },
-      ],
-      substrates: ['Coated Paper', 'Cardboard', 'Art Paper', 'Leatherette Paper', 'Leather'],
-      applications: ['Greeting Cards', 'Gift Boxes', 'Tags', 'Pencils', 'Coding'],
-      colors: ['Black', 'White', 'Red', 'Blue', 'Pantone Custom'],
-      temp: { flat: '100 - 150°C', round: '150 - 190°C' }
-    },
-    DIGITAL: {
-      id: 'DIGITAL',
-      name: 'Digital / Cold Foil',
-      subtitle: 'DIGITAL & COLD FOIL',
-      description: 'No plate making required, transfer directly on UV varnish or digital toner. Perfect for personalization and small batches.',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/694100f7bd175.jpg',
-      features: [
-        { title: 'Plate-Free', desc: 'Direct output from digital files, instant turnaround.', icon: "Zap" },
-        { title: 'Strong 3D Effect', desc: 'Achieves relief-like effects with build-up varnish.', icon: "Layers" },
-        { title: 'High Precision', desc: 'Perfectly renders fine lines and dots.', icon: "CheckCircle2" },
-      ],
-      params: [
-        { label: 'Process', value: 'UV Cold / Digital' },
-        { label: 'Equipment', value: 'MGI / Scodix / Screen Press' },
-        { label: 'Speed', value: 'High Speed Curing' },
-        { label: 'Gloss', value: 'High Brightness' },
-      ],
-      substrates: ['UV Varnish Surface', 'Digital Toner Layer', 'Cold Glue Layer'],
-      applications: ['Business Cards', 'Packaging Mockups', 'Labels', 'Creative Print'],
-      colors: ['Gold', 'Silver', 'Holographic Plain'],
-      temp: { flat: 'UV Curing', round: 'Cold Transfer' }
-    },
-    GLITTER: {
-      id: 'GLITTER',
-      name: 'Glitter Powder Series',
-      subtitle: 'PREMIUM GLITTER',
-      description: '25 years production experience. Hexagonal cut, heat resistant, solvent resistant. Lasting shine, no fading.',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410140d4733.jpg',
-      features: [
-        { title: 'Solvent Resistant', desc: 'No fading or melting in nail polish or glue.', icon: "Droplet" },
-        { title: 'Regular Shape', desc: 'Standard hexagonal shape, neat edges.', icon: "Box" },
-        { title: 'Full Specs', desc: 'Sizes from 1/4" to 1/500".', icon: "Star" },
-      ],
-      params: [
-        { label: 'Material', value: 'PET / PVC / Alum' },
-        { label: 'Heat Res', value: '180°C - 260°C' },
-        { label: 'Shape', value: 'Hex / Square / Strip' },
-        { label: 'Eco', value: 'EN71-3 / ASTM' },
-      ],
-      substrates: ['Paper', 'Fabric', 'Plastic', 'Nail Polish', 'Ink'],
-      applications: ['Xmas Decor', 'Screen Print', 'Nail Art', 'Injection', 'Cards'],
-      colors: ['Holographic', 'Rainbow', 'Metallic', 'Iridescent'],
-      temp: { flat: 'Room Temp', round: 'Injection Temp' }
+  PRODUCT_DATA:{
+  "PK": {
+    "id": "PK",
+    "name": "PK Coffee Glue Series",
+    "subtitle": "COFFEE GLUE SERIES",
+    "description": "Designed for rough surfaces with excellent coverage and stampability. Retains shine on heavy ink paper without oxidation.",
+    "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pk.png",
+    "features": [
+      {
+        "title": "Anti-Oxidation",
+        "desc": "Special coating prevents oxidation on dark/heavy ink surfaces.",
+        "icon": "Zap"
+      },
+      {
+        "title": "Strong Adhesion",
+        "desc": "Optimized for rough paper, embossed leather, etc.",
+        "icon": "Layers"
+      },
+      {
+        "title": "Stable Release",
+        "desc": "Clean stripping, sharp edges, suitable for large areas.",
+        "icon": "CheckCircle2"
+      }
+    ],
+    "params": [
+      {
+        "label": "Thickness",
+        "value": "12μm / 15μm"
+      },
+      {
+        "label": "Standard Roll",
+        "value": "0.64m x 120m"
+      },
+      {
+        "label": "Type",
+        "value": "Universal / Heavy Duty"
+      },
+      {
+        "label": "Resistance",
+        "value": "Anti-oxidation / Scratch"
+      }
+    ],
+    "substrates": [
+      "Rough Paper",
+      "Specialty Paper",
+      "Artificial Leather (PU/PVC)",
+      "Real Leather",
+      "Leatherette Paper",
+      "Tactile Paper"
+    ],
+    "applications": [
+      "Wine Boxes",
+      "Cosmetic Packaging",
+      "Leather Tags",
+      "Hardcover Books"
+    ],
+    "colors": [
+      "Gold",
+      "Silver",
+      "Matte Gold",
+      "Matte Silver",
+      "Rose Gold"
+    ],
+    "temp": {
+      "flat": "95 - 105°C",
+      "round": "140 - 170°C"
     }
   },
+  "PC": {
+    "id": "PC",
+    "name": "PC Plastic Series",
+    "subtitle": "PLASTIC SERIES",
+    "description": "Uses special PC glue base, dedicated to plastic materials. Excellent alcohol resistance and slitting properties. Passes cross-cut test perfectly.",
+    "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pc.png",
+    "features": [
+      {
+        "title": "Alcohol Resistant",
+        "desc": "Withstands alcohol wiping, meets cosmetic packaging standards.",
+        "icon": "Droplet"
+      },
+      {
+        "title": "Good Slitting",
+        "desc": "Neat edges, no burrs, no foil dusting.",
+        "icon": "Box"
+      },
+      {
+        "title": "UV Compatible",
+        "desc": "Supports subsequent stamping on UV varnish surfaces.",
+        "icon": "Layers"
+      }
+    ],
+    "params": [
+      {
+        "label": "Thickness",
+        "value": "12μm"
+      },
+      {
+        "label": "Standard Roll",
+        "value": "0.64m x 120m"
+      },
+      {
+        "label": "Gloss",
+        "value": "High Gloss / Mirror"
+      },
+      {
+        "label": "Test",
+        "value": "3M Tape Cross-Cut"
+      }
+    ],
+    "substrates": [
+      "ABS",
+      "PS",
+      "PVC",
+      "PMMA (Acrylic)",
+      "PP",
+      "PE Tube"
+    ],
+    "applications": [
+      "Lipstick Tubes",
+      "Compacts",
+      "Mascara Tubes",
+      "Facial Cleanser Tubes",
+      "Appliance Panels"
+    ],
+    "colors": [
+      "Metallic",
+      "Holographic",
+      "Brushed"
+    ],
+    "temp": {
+      "flat": "100 - 160°C",
+      "round": "180 - 230°C"
+    }
+  },
+  "PLPY": {
+    "id": "PLPY",
+    "name": "PL/PY Pigment Foils",
+    "subtitle": "PIGMENT FOILS",
+    "description": "Non-aluminized products based on pigments. Solves ink coverage issues, providing full, pure colors.",
+    "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pl.png",
+    "features": [
+      {
+        "title": "High Coverage",
+        "desc": "Easily covers dark substrates without transparency.",
+        "icon": "Layers"
+      },
+      {
+        "title": "Pure Color",
+        "desc": "No metallic interference, restoring true design colors.",
+        "icon": "Star"
+      },
+      {
+        "title": "Dual Texture",
+        "desc": "Available in PL (Glossy) & PY (Matte).",
+        "icon": "CheckCircle2"
+      }
+    ],
+    "params": [
+      {
+        "label": "Type",
+        "value": "Pigment Foil"
+      },
+      {
+        "label": "Surface",
+        "value": "Glossy (PL) / Matte (PY)"
+      },
+      {
+        "label": "Standard Roll",
+        "value": "0.64m x 120m"
+      },
+      {
+        "label": "Eco",
+        "value": "ROHS / EN71-3"
+      }
+    ],
+    "substrates": [
+      "Coated Paper",
+      "Cardboard",
+      "Art Paper",
+      "Leatherette Paper",
+      "Leather"
+    ],
+    "applications": [
+      "Greeting Cards",
+      "Gift Boxes",
+      "Tags",
+      "Pencils",
+      "Coding"
+    ],
+    "colors": [
+      "Black",
+      "White",
+      "Red",
+      "Blue",
+      "Pantone Custom"
+    ],
+    "temp": {
+      "flat": "100 - 150°C",
+      "round": "150 - 190°C"
+    }
+  },
+  "DIGITAL": {
+    "id": "DIGITAL",
+    "name": "Digital / Cold Foil",
+    "subtitle": "DIGITAL & COLD FOIL",
+    "description": "No plate making required, transfer directly on UV varnish or digital toner. Perfect for personalization and small batches.",
+    "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/chanpinpc.png",
+    "features": [
+      {
+        "title": "Plate-Free",
+        "desc": "Direct output from digital files, instant turnaround.",
+        "icon": "Zap"
+      },
+      {
+        "title": "Strong 3D Effect",
+        "desc": "Achieves relief-like effects with build-up varnish.",
+        "icon": "Layers"
+      },
+      {
+        "title": "High Precision",
+        "desc": "Perfectly renders fine lines and dots.",
+        "icon": "CheckCircle2"
+      }
+    ],
+    "params": [
+      {
+        "label": "Process",
+        "value": "UV Cold / Digital"
+      },
+      {
+        "label": "Equipment",
+        "value": "MGI / Scodix / Screen Press"
+      },
+      {
+        "label": "Speed",
+        "value": "High Speed Curing"
+      },
+      {
+        "label": "Gloss",
+        "value": "High Brightness"
+      }
+    ],
+    "substrates": [
+      "UV Varnish Surface",
+      "Digital Toner Layer",
+      "Cold Glue Layer"
+    ],
+    "applications": [
+      "Business Cards",
+      "Packaging Mockups",
+      "Labels",
+      "Creative Print"
+    ],
+    "colors": [
+      "Gold",
+      "Silver",
+      "Holographic Plain"
+    ],
+    "temp": {
+      "flat": "UV Curing",
+      "round": "Cold Transfer"
+    }
+  },
+  "GLITTER": {
+    "id": "GLITTER",
+    "name": "Glitter Powder Series",
+    "subtitle": "PREMIUM GLITTER",
+    "description": "25 years production experience. Hexagonal cut, heat resistant, solvent resistant. Lasting shine, no fading.",
+    "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/BST-005.jpg",
+    "features": [
+      {
+        "title": "Solvent Resistant",
+        "desc": "No fading or melting in nail polish or glue.",
+        "icon": "Droplet"
+      },
+      {
+        "title": "Regular Shape",
+        "desc": "Standard hexagonal shape, neat edges.",
+        "icon": "Box"
+      },
+      {
+        "title": "Full Specs",
+        "desc": "Sizes from 1/4\" to 1/500\".",
+        "icon": "Star"
+      }
+    ],
+    "params": [
+      {
+        "label": "Material",
+        "value": "PET / PVC / Alum"
+      },
+      {
+        "label": "Heat Res",
+        "value": "180°C - 260°C"
+      },
+      {
+        "label": "Shape",
+        "value": "Hex / Square / Strip"
+      },
+      {
+        "label": "Eco",
+        "value": "EN71-3 / ASTM"
+      }
+    ],
+    "substrates": [
+      "Paper",
+      "Fabric",
+      "Plastic",
+      "Nail Polish",
+      "Ink"
+    ],
+    "applications": [
+      "Xmas Decor",
+      "Screen Print",
+      "Nail Art",
+      "Injection",
+      "Cards"
+    ],
+    "colors": [
+      "Holographic",
+      "Rainbow",
+      "Metallic",
+      "Iridescent"
+    ],
+    "temp": {
+      "flat": "Room Temp",
+      "round": "Injection Temp"
+    }
+  }
+},
   CATALOG_DATA: {
     PK: [
       {
@@ -367,7 +585,7 @@ export const CONTENT_EN: ContentData = {
         id: 'pkg_bags',
         title: 'Packaging & Bag Solutions',
         series: 'PK',
-        img: 'https://file.zhuyitai.com/feedback/202512/24/efd06e420c0627bacd3de58c4543a5ed.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%8C%85%E8%A3%85.png',
         description: 'Developed high-flex formula for bag crease lines. Foil remains intact even after repeated folding tests.',
         features: ['Fold Resistant', 'Abrasion Resistant', 'Good for Large Solids'],
         painPoints: ['Crease Flaking', 'Handle Wear']
@@ -376,7 +594,7 @@ export const CONTENT_EN: ContentData = {
         id: 'special_paper',
         title: 'Specialty Paper Solutions',
         series: 'PK',
-        img: 'https://zkaicc.huilan.com/aicc/api/aicc-file/miniofile/preViewPicture/aicc/qdqqd_1766550933958.jpg',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/qdqqd_1766550933958.jpg',
         description: 'Specialty paper often has deep textures. PK Heavy Duty fills texture well, ensuring flat, bright patterns on textured/leatherette paper.',
         features: ['High Filling', 'Sharp Edges', 'Opaque'],
         painPoints: ['Substrate Showing', 'Burrs', 'Poor Adhesion']
@@ -385,7 +603,7 @@ export const CONTENT_EN: ContentData = {
         id: 'leather',
         title: 'Leather Stamping Solutions',
         series: 'PK',
-        img: 'https://s3plus.meituan.net/opapisdk/op_ticket_1_5677168484_1766554818194_qdqqd_yef3rf.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pige.png',
         description: 'Designed for PU, PVC faux leather and real leather. Excellent aging resistance, strong initial tack, no peeling or discoloration over time.',
         features: ['Rub Resistant', 'Age Resistant', 'Low Temp Flexibility'],
         painPoints: ['Aging/Peeling', 'Crack on Bend']
@@ -394,7 +612,7 @@ export const CONTENT_EN: ContentData = {
         id: 'plastic_surface',
         title: 'Plastic Surface Solutions',
         series: 'PC',
-        img: 'https://static.eeo.cn/upload/images/20251224/879db4806f00ea484679.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%A1%91%E6%96%99pc.png',
         description: 'Solves low surface energy adhesion issues. PC series excels on injection parts and extruded tubes, passing cross-cut and alcohol tests.',
         features: ['Cross-Cut Test', 'Anti-Fingerprint', 'High Gloss Mirror'],
         painPoints: ['Scratches Off', 'Poor Weatherability']
@@ -403,7 +621,7 @@ export const CONTENT_EN: ContentData = {
         id: 'digital_cold',
         title: 'Digital/Cold Foil Solutions',
         series: 'PC',
-        img: 'https://s3plus.meituan.net/opapisdk/op_ticket_1_5673241091_1766557982568_qdqqd_ygm9e1.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/digital%20pc.png',
         description: 'Compatible with MGI, Scodix. No hot plate needed, transfers directly on UV glue curing, realizing variable data metal effects.',
         features: ['No Plate', 'Variable Data', '3D Effect'],
         painPoints: ['High Plate Cost', 'Slow Lead Time']
@@ -412,7 +630,7 @@ export const CONTENT_EN: ContentData = {
         id: 'bottles',
         title: 'Bottle & Glass Solutions',
         series: 'PC',
-        img: 'https://zkaicc.huilan.com/aicc/api/aicc-file/miniofile/preViewPicture/aicc/qdqqd_1766556426247.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%A1%91%E6%96%99pc.png',
         description: 'Optimized for deep draw caps. Maintains high gloss on top/side rolling and withstands filling line friction.',
         features: ['Deep Draw', 'Friction Res', 'Boil Res'],
         painPoints: ['Draw Cracks', 'Transport Wear']
@@ -421,7 +639,7 @@ export const CONTENT_EN: ContentData = {
         id: 'gift_pkg',
         title: 'Gift Packaging Solutions',
         series: 'PLPY',
-        img: 'https://saas.chatbot.cn/download/minio/standard/2025-12-24/5f7e6e5dd4714a3ca2401aab97a56be8.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pypl%E7%A4%BC%E5%93%81.png',
         description: 'Pigment foils offer pure color and screen-print like thickness but with higher efficiency and eco-friendly (solvent-free).',
         features: ['Pure Color', 'Eco/Odorless', 'High Coverage'],
         painPoints: ['Ink Odor', 'Slow Drying']
@@ -430,7 +648,7 @@ export const CONTENT_EN: ContentData = {
         id: 'reverse_uv',
         title: 'Reverse UV/Tactile Solutions',
         series: 'PJ',
-        img: 'https://static.eeo.cn/upload/file/20251224/1766558709637577.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E9%80%86%E5%90%91uv.png',
         description: 'Reverse UV varnish is hard to stick to. PJ series uses a special formula to penetrate the varnish layer and lock onto the substrate.',
         features: ['Penetrates UV', 'High Bond', 'Sharp Edge'],
         painPoints: ['UV Adhesion Fail', 'Bubbling']
@@ -439,7 +657,7 @@ export const CONTENT_EN: ContentData = {
   SERIES_INFO: {
     'PK': {
         title: 'PK Series Solution',
-        rollImg: 'https://file.zhuyitai.com/feedback/202512/24/8958306d8fbce249d3c3ee51a7c1d133.jpeg', 
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/PKseries.jpg', 
         features: [
             'Excellent Color Expression',
             'Good Slitting, Stable Release',
@@ -451,7 +669,7 @@ export const CONTENT_EN: ContentData = {
     },
     'PC': {
         title: 'PC Plastic Series Solution',
-        rollImg: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251224/lHZJcRjRtNSc/qdqqd/_1766555374044.png', 
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/chanpinpc.png', 
         features: [
             'Dual Component Color Layer, Corrosion Res',
             'Good Slitting, Stable Release',
@@ -463,7 +681,7 @@ export const CONTENT_EN: ContentData = {
     },
     'PLPY': {
         title: 'PL/PY Pigment Solution',
-        rollImg: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png', 
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pl.png', 
         features: [
             'Excellent Color Expression',
             'Good Slitting, Stable Release',
@@ -475,7 +693,7 @@ export const CONTENT_EN: ContentData = {
     },
     'PJ': {
         title: 'PJ Paper/Plastic Solution',
-        rollImg: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=600&auto=format&fit=crop',
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/105A0149.jpg',
         features: [
             'Excellent Color Expression',
             'Good Slitting, Stable Release',
@@ -750,7 +968,7 @@ export const CONTENT_ZH: ContentData = {
   HERO_SLIDES: [
     {
       id: 1,
-      image: 'https://youke2.picui.cn/s1/2025/12/13/693d082b27fe1.png',
+      image: "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E8%83%8C%E6%99%AF.png",
       title: '专注 <br/><span class="text-pinte-gold">"烫金表面美学"</span>',
       subtitle: "做高端烫金膜专家",
       description: "品特®专注于研发高端烫金材料，赋予包装卓越的视觉冲击力与品牌价值。从电化铝，颜料箔到数码冷烫，定义光影艺术。",
@@ -758,7 +976,7 @@ export const CONTENT_ZH: ContentData = {
     },
     {
       id: 2,
-      image: "https://youke2.picui.cn/s1/2025/12/13/693d2eb71c6ee.jpg",
+      image: "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/IMG_1376.jpg",
       title: '20,000m² <br/><span class="text-blue-400">自有研发基地</span>',
       subtitle: "先进的涂布生产设备",
       description: "拥有超3条自动化涂布生产线与产品研发实验室，月均产能超180万米。ISO9001体系认证，确保每一卷产品的极致稳定性。",
@@ -766,7 +984,7 @@ export const CONTENT_ZH: ContentData = {
     },
     {
       id: 3,
-      image: "https://youke2.picui.cn/s1/2025/12/13/693d305bf17b7.jpg",
+      image: "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/bbb.jpg",
       title: '值得信赖的 <br/><span class="text-green-400">OEM/ODM 烫金制造商</span>',
       subtitle: "以技术为核心，以品质为根本，以客户为中心，以信誉为资本",
       description: "代代相传的四个理念是我们服务的信念",
@@ -785,7 +1003,7 @@ export const CONTENT_ZH: ContentData = {
       name: 'PK 咖啡底系列',
       subtitle: 'COFFEE GLUE SERIES',
       description: '专为粗糙表面设计，拥有极佳的遮盖率与上烫性。在重油墨纸张上也能保持光泽，不会氧化发黑。',
-      heroImage: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251224/lzJYBRXaoHox/qdqqd/_1766548594013.png',
+      heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pk.png',
       features: [
         { title: '重油墨不氧化', desc: '特有涂层配方，防止在深色/重油墨表面氧化。', icon: "Zap" },
         { title: '强附着力', desc: '针对粗纹纸、压纹皮革等不平整表面优化。', icon: "Layers" },
@@ -807,7 +1025,7 @@ export const CONTENT_ZH: ContentData = {
       name: 'PC 塑胶系列',
       subtitle: 'PLASTIC SERIES',
       description: '采用特制PC胶底，专攻塑胶材质。具有卓越的耐酒精性与分切性。可完美通过百格测试。',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410046cf35c.png',
+      heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pc.png',
       features: [
         { title: '耐酒精', desc: '烫印后可耐酒精擦拭，符合化妆品包材标准。', icon: "Droplet" },
         { title: '分切性好', desc: '烫印边缘整齐，无毛边，无金粉脱落。', icon: "Box" },
@@ -829,7 +1047,7 @@ export const CONTENT_ZH: ContentData = {
       name: 'PL/PY 颜料箔',
       subtitle: 'PIGMENT FOILS',
       description: '以颜料为原料的非镀铝产品。解决印刷油墨遮盖力不足的问题，色彩饱满，呈现纯正色彩。',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png',
+      heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pl.png',
       features: [
         { title: '高遮盖力', desc: '轻松遮盖深色底材，不透底。', icon: "Layers" },
         { title: '色彩纯正', desc: '无金属光泽干扰，还原设计本色。', icon: "Star" },
@@ -851,7 +1069,7 @@ export const CONTENT_ZH: ContentData = {
       name: '数码/冷烫系列',
       subtitle: 'DIGITAL & COLD FOIL',
       description: '无需制版，直接在UV光油或数码墨层上进行固化转移。适合个性化定制与小批量生产。',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/694100f7bd175.jpg',
+      heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/chanpinpc.png',
       features: [
         { title: '无需制版', desc: '数码文件直接输出，立等可取。', icon: "Zap" },
         { title: '立体感强', desc: '配合堆金工艺，实现浮雕般效果。', icon: "Layers" },
@@ -873,7 +1091,7 @@ export const CONTENT_ZH: ContentData = {
       name: '金葱粉系列',
       subtitle: 'PREMIUM GLITTER',
       description: '25年生产经验，六角形切片，耐高温、耐溶剂。光泽度持久，不褪色。',
-      heroImage: 'https://youke2.picui.cn/s1/2025/12/16/69410140d4733.jpg',
+      heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/BST-005.jpg',
       features: [
         { title: '耐溶剂', desc: '在指甲油、胶水中不褪色、不溶化。', icon: "Droplet" },
         { title: '形状规则', desc: '标准正六角形，边缘整齐。', icon: "Box" },
@@ -1094,7 +1312,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'special_paper',
         title: '印刷特种纸烫金解决方案',
         series: 'PK',
-        img: 'https://zkaicc.huilan.com/aicc/api/aicc-file/miniofile/preViewPicture/aicc/qdqqd_1766550933958.jpg',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/qdqqd_1766550933958.jpg',
         description: '特种纸通常纹理较深，普通烫金膜难以完全覆盖。PK系列强力型具有优秀的填充能力，确保在布纹、皮纹纸上也能烫出平整光亮的图案。',
         features: ['强填充性', '边缘锐利', '不透底'],
         painPoints: ['露底', '毛边', '附着力差']
@@ -1103,7 +1321,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'leather',
         title: '皮革烫金解决方案',
         series: 'PK',
-        img: 'https://s3plus.meituan.net/opapisdk/op_ticket_1_5677168484_1766554818194_qdqqd_yef3rf.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pige.png',
         description: '专为 PU、PVC 人造革及真皮设计。耐老化性能优异，不仅初粘力强，且在长期使用中不会脱落或变色。',
         features: ['耐揉搓', '耐老化', '低温柔韧性'],
         painPoints: ['老化脱落', '弯曲开裂']
@@ -1112,7 +1330,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'plastic_surface',
         title: '塑胶产品表面烫金解决方案',
         series: 'PC',
-        img: 'https://static.eeo.cn/upload/images/20251224/879db4806f00ea484679.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%A1%91%E6%96%99pc.png',
         description: '解决塑料表面能低、难附着的问题。PC系列在注塑件、挤出管材上表现卓越，通过百格测试与酒精测试。',
         features: ['通过百格测试', '耐指纹', '高光镜面'],
         painPoints: ['一刮就掉', '耐候性差']
@@ -1121,7 +1339,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'digital_cold',
         title: '数码/丝印冷烫解决方案',
         series: 'PC',
-        img: 'https://s3plus.meituan.net/opapisdk/op_ticket_1_5673241091_1766557982568_qdqqd_ygm9e1.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/digital%20pc.png',
         description: '适配 MGI, Scodix 等数码增效设备。无需制烫金版，直接在 UV 胶水层固化转移，实现可变数据的金属光泽印制。',
         features: ['无需制版', '可变数据', '3D立体感'],
         painPoints: ['制版成本高', '交期慢']
@@ -1130,7 +1348,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'bottles',
         title: '酒瓶/化妆瓶/玻璃烫印解决方案',
         series: 'PC',
-        img: 'https://zkaicc.huilan.com/aicc/api/aicc-file/miniofile/preViewPicture/aicc/qdqqd_1766556426247.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%A1%91%E6%96%99pc.png',
         description: '针对酒盖深拉伸工艺优化。在顶侧面滚烫时，不仅光泽度高，且能承受后续的罐装线摩擦。',
         features: ['耐深冲', '耐摩擦', '耐水煮'],
         painPoints: ['拉伸破裂', '运输磨损']
@@ -1139,7 +1357,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'gift_pkg',
         title: '印刷礼品包装解决方案',
         series: 'PLPY',
-        img: 'https://saas.chatbot.cn/download/minio/standard/2025-12-24/5f7e6e5dd4714a3ca2401aab97a56be8.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pypl%E7%A4%BC%E5%93%81.png',
         description: '颜料箔色泽纯正，为礼品盒提供类似丝网印刷的厚重感，但效率更高，且环保无溶剂残留。',
         features: ['色彩纯正', '环保无味', '遮盖力强'],
         painPoints: ['油墨异味', '干燥慢']
@@ -1148,7 +1366,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'reverse_uv',
         title: '逆向UV/触感膜解决方案',
         series: 'PJ',
-        img: 'https://static.eeo.cn/upload/file/20251224/1766558709637577.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E9%80%86%E5%90%91uv.png',
         description: '逆向 UV 光油表面通常极难附着。PJ 系列通过特殊配方，能穿透部分光油层，牢牢锁住基材。',
         features: ['穿透UV层', '牢固度高', '边缘清晰'],
         painPoints: ['UV面烫不上', '起泡']
@@ -1157,7 +1375,7 @@ export const CONTENT_ZH: ContentData = {
   SERIES_INFO: {
     'PK': {
         title: 'PK 系列解决方案',
-        rollImg: 'https://file.zhuyitai.com/feedback/202512/24/8958306d8fbce249d3c3ee51a7c1d133.jpeg', 
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/PKseries.jpg', 
         features: [
             '色彩表现力极佳',
             '分切性能好离型稳定',
@@ -1169,7 +1387,7 @@ export const CONTENT_ZH: ContentData = {
     },
     'PC': {
         title: 'PC 塑胶系列解决方案',
-        rollImg: 'https://meiqia-upload-temp.meiqiausercontent.com/files/20251224/lHZJcRjRtNSc/qdqqd/_1766555374044.png', 
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/chanpinpc.png', 
         features: [
             '双组份色层耐腐蚀高亮度',
             '分切性能好离型稳定',
@@ -1181,7 +1399,7 @@ export const CONTENT_ZH: ContentData = {
     },
     'PLPY': {
         title: 'PL、PY 颜料箔解决方案',
-        rollImg: 'https://youke2.picui.cn/s1/2025/12/16/6940faa5f2874.png', 
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pl.png', 
         features: [
             '色彩表现力极佳',
             '分切性能好离型稳定',
@@ -1193,7 +1411,7 @@ export const CONTENT_ZH: ContentData = {
     },
     'PJ': {
         title: 'PJ 纸塑通用解决方案',
-        rollImg: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=600&auto=format&fit=crop',
+        rollImg: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/105A0149.jpg',
         features: [
             '色彩表现力极佳',
             '分切性能好离型稳定',

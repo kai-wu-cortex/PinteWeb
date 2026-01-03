@@ -1038,7 +1038,7 @@ const App: React.FC = () => {
             >
                <div className="h-32 rounded-3xl overflow-hidden mb-4 relative">
                   <video 
-                     src="https://file.icve.com.cn/file_doc/qdqqd/4691765858373657.mov" 
+                     src="https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E5%B7%A5%E5%8E%82%E4%BB%8B%E7%BB%8D.mp4" 
                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                      autoPlay 
                      muted 
@@ -1077,7 +1077,7 @@ const App: React.FC = () => {
                     <X size={24} />
                  </button>
                  <video 
-                   src="https://file.icve.com.cn/file_doc/qdqqd/4691765858373657.mov" 
+                   src="https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E5%B7%A5%E5%8E%82%E4%BB%8B%E7%BB%8D.mp4" 
                    className="w-full h-full object-contain" 
                    controls 
                    autoPlay
@@ -1165,7 +1165,7 @@ const App: React.FC = () => {
         <div className="w-full h-[80vh] min-h-[600px] relative z-0">
            <div className="absolute inset-0 overflow-hidden">
              <img 
-                src="https://youke2.picui.cn/s1/2025/12/16/6941049ede1f3.jpg" 
+                src="https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pano.png" 
                 className="w-full h-full object-cover"
                 alt="Company Panorama"
                 style={{ objectPosition: 'center' }} 
@@ -1734,10 +1734,10 @@ const App: React.FC = () => {
       </footer>
        
        <ChatWidget />
-       {/* Debug Panel for CMS editing<DebugPanel 
+       Debug Panel for CMS editing<DebugPanel 
          data={content} 
          onUpdate={(newData) => setContent(newData)} 
-       /> */}
+       /> 
        
      </div>
    );
