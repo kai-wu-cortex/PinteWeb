@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ChatWidget from './components/ChatWidget';
 import TechParticles from './components/TechParticles';
@@ -273,7 +272,12 @@ const App: React.FC = () => {
   
   // === CONTENT STATE MANAGEMENT ===
   // Select content based on language state
-  const content = lang === 'en' ? CONTENT_EN : CONTENT_ZH;
+  const [content, setContent] = useState(CONTENT_EN);
+
+  useEffect(() => {
+    setContent(lang === 'en' ? CONTENT_EN : CONTENT_ZH);
+  }, [lang]);
+
   const ui = content.UI;
 
   const [activeProduct, setActiveProduct] = useState<ProductId | null>(null);
@@ -1162,10 +1166,10 @@ const App: React.FC = () => {
             but we need a container height constraint. 
             Simpler approach: Standard parallax with bg-fixed or just a large image with negative margin content.
         */}
-        <div className="w-full h-[80vh] min-h-[600px] relative z-0">
+        <div className="w-full h-[100vh] min-h-[600px] relative z-0">
            <div className="absolute inset-0 overflow-hidden">
              <img 
-                src="https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pano.png" 
+                src="https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E7%94%BB%E6%9D%BF%201.png" 
                 className="w-full h-full object-cover"
                 alt="Company Panorama"
                 style={{ objectPosition: 'center' }} 
@@ -1734,7 +1738,7 @@ const App: React.FC = () => {
       </footer>
        
        <ChatWidget />
-       Debug Panel for CMS editing<DebugPanel 
+       <DebugPanel 
          data={content} 
          onUpdate={(newData) => setContent(newData)} 
        /> 

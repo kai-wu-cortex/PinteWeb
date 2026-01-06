@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { X, MousePointer2, AlertCircle } from 'lucide-react';
+import { X, MousePointer2, AlertCircle, Loader2 } from 'lucide-react';
 import * as THREE from 'three';
 
 interface Scene {
@@ -18,13 +18,16 @@ interface Hotspot {
   targetSceneId: string;
 }
 
+// Safe fallback image (Unsplash) if the user's custom image fails completely
+const SAFE_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1557971370-e7298ed473ab?q=80&w=2560&auto=format&fit=crop';
+
 // Mock Data for Factory Scenes
 const SCENES: Record<string, Scene> = {
   'lobby': {
     id: 'lobby',
     name: 'Factory Entrance',
-    // Using a reliable panoramic image placeholder
-    image: 'https://images.unsplash.com/photo-1557971370-e7298ed473ab?q=80&w=2560&auto=format&fit=crop', 
+    // High-res image provided by user
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_111134262.PHOTOSPHERE%20%282%29.jpg', 
     hotspots: [
       { id: 'h1', x: 25, y: 55, label: 'Go to Production Line', targetSceneId: 'production' },
       { id: 'h2', x: 75, y: 55, label: 'Visit Showroom', targetSceneId: 'showroom' }
@@ -33,7 +36,7 @@ const SCENES: Record<string, Scene> = {
   'production': {
     id: 'production',
     name: 'Coating Production Line',
-    image: 'https://images.unsplash.com/photo-1598620617377-3bfb505b4328?q=80&w=2560&auto=format&fit=crop',
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_112425867.PHOTOSPHERE%20%282%29.jpg',
     hotspots: [
       { id: 'p1', x: 50, y: 70, label: 'Back to Lobby', targetSceneId: 'lobby' },
       { id: 'p2', x: 90, y: 50, label: 'Go to Warehouse', targetSceneId: 'warehouse' }
@@ -42,7 +45,7 @@ const SCENES: Record<string, Scene> = {
   'warehouse': {
     id: 'warehouse',
     name: 'Logistics Warehouse',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2560&auto=format&fit=crop',
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_112622403.PHOTOSPHERE%20%282%29.jpg',
     hotspots: [
       { id: 'w1', x: 10, y: 60, label: 'Back to Production', targetSceneId: 'production' }
     ]
@@ -50,7 +53,31 @@ const SCENES: Record<string, Scene> = {
   'showroom': {
     id: 'showroom',
     name: 'Product Showroom',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2560&auto=format&fit=crop',
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_112832421.PHOTOSPHERE%20%282%29.jpg',
+    hotspots: [
+      { id: 's1', x: 50, y: 60, label: 'Exit to Lobby', targetSceneId: 'lobby' }
+    ]
+  },
+  'showroom2': {
+    id: 'showroom2',
+    name: 'Product Showroom 2',
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_113103477.PHOTOSPHERE%20%282%29.jpg',
+    hotspots: [
+      { id: 's1', x: 50, y: 60, label: 'Exit to Lobby', targetSceneId: 'lobby' }
+    ]
+  },
+  'showroom3': {
+    id: 'showroom3',
+    name: 'Product Showroom 3',
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_113426100.PHOTOSPHERE%20%282%29.jpg',
+    hotspots: [
+      { id: 's1', x: 50, y: 60, label: 'Exit to Lobby', targetSceneId: 'lobby' }
+    ]
+  },
+  'showroom4': {
+    id: 'showroom4',
+    name: 'Product Showroom 4',
+    image: 'https://cos.pintecl.com/pano/AGC_20260104_113829272.PHOTOSPHERE%20%282%29.jpg',
     hotspots: [
       { id: 's1', x: 50, y: 60, label: 'Exit to Lobby', targetSceneId: 'lobby' }
     ]
@@ -67,6 +94,7 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [hoveredHotspot, setHoveredHotspot] = useState<{ x: number, y: number, label: string } | null>(null);
+  const [cursorCoords, setCursorCoords] = useState<{ x: number; y: number; screenX: number; screenY: number } | null>(null);
   
   // Refs for Three.js objects
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -116,6 +144,73 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
     return new THREE.CanvasTexture(canvas);
   }, []);
 
+  // --- CORE IMAGE LOADER (Resizes and returns Texture) ---
+  const loadAndProcessImage = async (url: string, renderer: THREE.WebGLRenderer): Promise<THREE.Texture> => {
+    const loader = new THREE.ImageLoader();
+    loader.setCrossOrigin('anonymous');
+
+    return new Promise((resolve, reject) => {
+        loader.load(
+            url,
+            (image) => {
+                // Resize Logic for Big Textures (8k -> 4k on mobile/standard gpu)
+                const maxTextureSize = renderer.capabilities.maxTextureSize;
+                let finalImage: HTMLImageElement | HTMLCanvasElement = image;
+
+                if (image.width > maxTextureSize || image.height > maxTextureSize) {
+                    const scale = Math.min(maxTextureSize / image.width, maxTextureSize / image.height);
+                    const width = Math.floor(image.width * scale);
+                    const height = Math.floor(image.height * scale);
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) {
+                        ctx.drawImage(image, 0, 0, width, height);
+                        finalImage = canvas;
+                    }
+                }
+
+                const texture = new THREE.Texture(finalImage);
+                texture.colorSpace = THREE.SRGBColorSpace;
+                texture.minFilter = THREE.LinearFilter;
+                texture.generateMipmaps = false;
+                texture.needsUpdate = true;
+                resolve(texture);
+            },
+            undefined,
+            (e) => {
+                // Ensure we pass a proper Error object or string
+                reject(e instanceof Error ? e : new Error('Image Load Error'));
+            }
+        );
+    });
+  };
+
+  // --- ORCHESTRATOR: Direct -> Proxy -> Fallback ---
+  const getTextureForScene = async (url: string, renderer: THREE.WebGLRenderer) => {
+      // 1. Attempt Direct Load
+      try {
+          return await loadAndProcessImage(url, renderer);
+      } catch (e) {
+        console.warn(e);
+          console.warn("Direct load failed (CORS?), attempting proxy...");
+      }
+
+      // 2. Attempt Proxy Load
+      try {
+          const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+          return await loadAndProcessImage(proxyUrl, renderer);
+      } catch (e) {
+          console.warn("Proxy load failed, switching to fallback image.");
+          setLoadError("Network: Custom image failed. Showing demo.");
+      }
+
+      // 3. Fallback (If both above fail, return this so app doesn't crash)
+      return await loadAndProcessImage(SAFE_FALLBACK_IMAGE, renderer);
+  };
+
   useEffect(() => {
     if (!mountRef.current) return;
 
@@ -141,7 +236,8 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
         // --- 4. Create Sphere Geometry ---
         const geometry = new THREE.SphereGeometry(500, 60, 40);
         geometry.scale(-1, 1, 1); // Invert to view from inside
-        const material = new THREE.MeshBasicMaterial({ color: 0x222222 }); // Placeholder color
+        // Initial material (dark grey until texture loads)
+        const material = new THREE.MeshBasicMaterial({ color: 0x222222 }); 
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
         sphereRef.current = sphere;
@@ -169,11 +265,30 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
                 latRef.current = (clientY - onMouseDownMouseY.current) * 0.1 + onMouseDownLat.current;
             }
 
-            // Raycasting logic for hover
             if (cameraRef.current && mountRef.current) {
                 const rect = mountRef.current.getBoundingClientRect();
                 mouseRef.current.x = ((clientX - rect.left) / rect.width) * 2 - 1;
                 mouseRef.current.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+
+                // --- NEW: Calculate Coordinates for Debugging ---
+                // We reuse the raycaster to hit the sphere and get UVs
+                if (sphereRef.current) {
+                    raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current);
+                    const intersects = raycasterRef.current.intersectObject(sphereRef.current);
+                    if (intersects.length > 0) {
+                        const uv = intersects[0].uv;
+                        if (uv) {
+                            // Convert UV to our hotspot percentage system
+                            // X = UV.x * 100
+                            // Y = (1 - UV.y) * 100 (Since V=1 is top, but our system Y=0 is top/North)
+                            const pX = Math.round(uv.x * 100);
+                            const pY = Math.round((1 - uv.y) * 100);
+                            setCursorCoords({ x: pX, y: pY, screenX: clientX, screenY: clientY });
+                        }
+                    } else {
+                        setCursorCoords(null);
+                    }
+                }
             }
         };
 
@@ -186,6 +301,18 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
 
             if (dist < 5 && duration < 300) {
                 handleRaycastClick();
+            }
+        };
+
+        // --- NEW: Zoom Functionality ---
+        const onWheel = (e: WheelEvent) => {
+            if (cameraRef.current) {
+                e.preventDefault();
+                // Adjust FOV
+                const fov = cameraRef.current.fov + e.deltaY * 0.05;
+                // Clamp FOV between 30 (zoomed in) and 100 (wide angle)
+                cameraRef.current.fov = THREE.MathUtils.clamp(fov, 30, 100);
+                cameraRef.current.updateProjectionMatrix();
             }
         };
 
@@ -202,8 +329,6 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
             if (e.touches.length === 1) onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
         };
         const onTouchEnd = (e: TouchEvent) => {
-             // Use changedTouches for end event position if needed, or just trigger up
-             // For simple click detection on touch, we might rely on the last known position or simplified logic
              if (isDragging.current === false) handleRaycastClick();
              isUserInteracting.current = false;
         };
@@ -226,6 +351,7 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
         domEl.addEventListener('touchstart', onTouchStart, { passive: false });
         domEl.addEventListener('touchmove', onTouchMove, { passive: false });
         domEl.addEventListener('touchend', onTouchEnd);
+        domEl.addEventListener('wheel', onWheel, { passive: false }); // Add Zoom Listener
         window.addEventListener('resize', onWindowResize);
 
         // --- 7. Animation Loop ---
@@ -255,14 +381,15 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
                 });
             }
 
-            // Raycasting for Hover
+            // Raycasting for Hover (Hotspots only)
+            // Note: Coordinate raycasting happens in onPointerMove for efficiency
             raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current);
             if (hotspotsGroupRef.current) {
                 const intersects = raycasterRef.current.intersectObjects(hotspotsGroupRef.current.children);
                 if (intersects.length > 0) {
                     domEl.style.cursor = 'pointer';
                     const userData = intersects[0].object.userData;
-                    // Project 3D position to 2D screen for tooltip
+                    
                     const vector = intersects[0].object.position.clone();
                     vector.project(cameraRef.current);
                     const w = mountRef.current!.clientWidth;
@@ -289,6 +416,7 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
             domEl.removeEventListener('touchstart', onTouchStart);
             domEl.removeEventListener('touchmove', onTouchMove);
             domEl.removeEventListener('touchend', onTouchEnd);
+            domEl.removeEventListener('wheel', onWheel);
             window.removeEventListener('resize', onWindowResize);
             
             if (mountRef.current && renderer.domElement) {
@@ -307,7 +435,6 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
   const handleRaycastClick = () => {
       if (!raycasterRef.current || !hotspotsGroupRef.current || !cameraRef.current) return;
       
-      // Note: raycaster is already updated in animate loop
       const intersects = raycasterRef.current.intersectObjects(hotspotsGroupRef.current.children);
       if (intersects.length > 0) {
           const targetId = intersects[0].object.userData.targetSceneId;
@@ -319,93 +446,78 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
 
   // Update Texture & Hotspots when scene changes
   useEffect(() => {
+    let isMounted = true;
+    if (!rendererRef.current || !sphereRef.current) return;
+
     setIsLoaded(false);
     setLoadError(null);
     setHoveredHotspot(null);
 
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.setCrossOrigin('anonymous');
-    
-    // Load new scene image
-    textureLoader.load(
-      currentScene.image,
-      (texture) => {
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.minFilter = THREE.LinearFilter; // Avoid mipmap errors for NPOT images
-        
-        if (sphereRef.current) {
-          const invertedMaterial = new THREE.MeshBasicMaterial({ map: texture });
-          
-          if ((sphereRef.current.material as THREE.MeshBasicMaterial).map) {
-             (sphereRef.current.material as THREE.MeshBasicMaterial).map?.dispose();
-             (sphereRef.current.material as THREE.MeshBasicMaterial).dispose();
-          }
-          sphereRef.current.material = invertedMaterial;
-        }
-        
-        // Update Hotspots
-        if (hotspotsGroupRef.current) {
-            // Clear old hotspots
-            while(hotspotsGroupRef.current.children.length > 0){ 
-                hotspotsGroupRef.current.remove(hotspotsGroupRef.current.children[0]); 
+    const updateScene = async () => {
+        try {
+            // Waterfall Strategy: Direct -> Proxy -> Fallback
+            // This function handles catching internally and returning a valid texture
+            const texture = await getTextureForScene(currentScene.image, rendererRef.current!);
+
+            if (!isMounted) return;
+
+            // Apply texture to sphere
+            const material = sphereRef.current!.material as THREE.MeshBasicMaterial;
+            if (material.map) material.map.dispose();
+            material.map = texture;
+            material.color.set(0xffffff); // Ensure full brightness (white multiplies texture color)
+            material.needsUpdate = true;
+
+            // Update Hotspots
+            if (hotspotsGroupRef.current) {
+                // Clear old hotspots
+                while(hotspotsGroupRef.current.children.length > 0){ 
+                    hotspotsGroupRef.current.remove(hotspotsGroupRef.current.children[0]); 
+                }
+
+                // Create new hotspots
+                currentScene.hotspots.forEach(hotspot => {
+                    const material = new THREE.SpriteMaterial({ map: createHotspotTexture });
+                    const sprite = new THREE.Sprite(material);
+                    
+                    // Convert percentages to spherical coordinates
+                    const latRad = THREE.MathUtils.degToRad(90 - (hotspot.y / 100) * 180); 
+                    const lonRad = THREE.MathUtils.degToRad((hotspot.x / 100) * 360);
+                    const r = 450; 
+
+                    sprite.position.x = r * Math.cos(latRad) * Math.cos(lonRad);
+                    sprite.position.y = r * Math.sin(latRad);
+                    sprite.position.z = r * Math.cos(latRad) * Math.sin(lonRad);
+
+                    sprite.scale.set(60, 60, 1);
+                    sprite.userData = { targetSceneId: hotspot.targetSceneId, label: hotspot.label };
+                    
+                    hotspotsGroupRef.current?.add(sprite);
+                });
             }
 
-            // Create new hotspots
-            currentScene.hotspots.forEach(hotspot => {
-                const material = new THREE.SpriteMaterial({ map: createHotspotTexture });
-                const sprite = new THREE.Sprite(material);
-                
-                // Convert percentages to spherical coordinates
-                // lat: -90 to 90 (0 is equator)
-                // lon: 0 to 360
-                
-                // Mapping:
-                // y=0 (top) -> phi=0
-                // y=100 (bottom) -> phi=PI
-                const phi = THREE.MathUtils.degToRad((hotspot.y / 100) * 180 - 90); 
-                // x=0 -> theta=0
-                const theta = THREE.MathUtils.degToRad((hotspot.x / 100) * 360);
+            setIsLoaded(true);
 
-                const r = 450; // Slightly inside the sphere (500)
-                
-                // Correct Spherical conversion for Three.js (Y-up)
-                // x = r * cos(lat) * cos(lon)
-                // y = r * sin(lat)
-                // z = r * cos(lat) * sin(lon)
-                
-                // Adjusting to match our phi/theta logic
-                // Using standard math: lat is angle from equator
-                const latRad = THREE.MathUtils.degToRad(90 - (hotspot.y / 100) * 180); // 90 at top, -90 at bottom
-                const lonRad = THREE.MathUtils.degToRad((hotspot.x / 100) * 360);
-
-                sprite.position.x = r * Math.cos(latRad) * Math.cos(lonRad);
-                sprite.position.y = r * Math.sin(latRad);
-                sprite.position.z = r * Math.cos(latRad) * Math.sin(lonRad);
-
-                sprite.scale.set(60, 60, 1);
-                sprite.userData = { targetSceneId: hotspot.targetSceneId, label: hotspot.label };
-                
-                hotspotsGroupRef.current?.add(sprite);
-            });
+        } catch (fatalError) {
+            // This should ideally never be reached unless the Fallback also fails
+            if (isMounted) {
+                console.error("Fatal error loading 360 scene:", fatalError);
+                setLoadError("Failed to load scene (Network Error).");
+                setIsLoaded(true); 
+            }
         }
+    };
 
-        setIsLoaded(true);
-      },
-      undefined, 
-      (err) => {
-        console.error("Error loading texture", err);
-        // Fallback or retry logic could go here
-        setLoadError("Failed to load scene image. Check connection.");
-        setIsLoaded(true);
-      }
-    );
+    updateScene();
+
+    return () => { isMounted = false; };
   }, [currentSceneId]);
 
   const handleSceneChange = (id: string) => {
-    setIsLoaded(false);
-    setCurrentSceneId(id);
-    // Reset view slightly or keep orientation? 
-    // Usually keeping orientation is better for immersion, but resetting lat is good.
+    // Only change if different to avoid reload flickering
+    if (id !== currentSceneId) {
+        setCurrentSceneId(id);
+    }
   };
 
   return (
@@ -415,6 +527,19 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
       <div ref={mountRef} className="absolute inset-0 cursor-move active:cursor-grabbing bg-black" />
 
       {/* --- UI Overlays --- */}
+
+      {/* NEW: Debug Coordinate Tooltip (Near Cursor) */}
+      {cursorCoords && !hoveredHotspot && (
+         <div 
+            className="fixed z-[110] pointer-events-none bg-black/70 text-green-400 font-mono text-[10px] px-2 py-1 rounded border border-green-500/30 backdrop-blur-sm"
+            style={{ 
+                left: cursorCoords.screenX + 15, 
+                top: cursorCoords.screenY + 15 
+            }}
+         >
+            X: {cursorCoords.x} | Y: {cursorCoords.y}
+         </div>
+      )}
 
       {/* Top Header */}
       <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-start pointer-events-none z-50">
@@ -451,20 +576,19 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
       {!isLoaded && !loadError && (
          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-20 transition-opacity duration-500">
              <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 border-4 border-pinte-blue border-t-transparent rounded-full animate-spin"></div>
-                <p className="font-display font-bold tracking-widest uppercase text-lg animate-pulse">Entering Area...</p>
+                <Loader2 size={48} className="text-pinte-blue animate-spin" />
+                <p className="font-display font-bold tracking-widest uppercase text-lg animate-pulse">Loading Scene...</p>
+                <p className="text-white/50 text-xs">Downloading High-Res Texture (May take a moment)</p>
              </div>
          </div>
       )}
 
-      {/* Error Screen */}
+      {/* Error/Notice Screen (Non-blocking if fallback works, Blocking if total fail) */}
       {loadError && (
-         <div className="absolute inset-0 bg-black/90 flex items-center justify-center z-30">
-             <div className="flex flex-col items-center gap-4 text-center p-6">
-                <AlertCircle size={48} className="text-red-500 mb-2" />
-                <p className="text-xl font-bold text-white">{loadError}</p>
-                <p className="text-neutral-400 text-sm max-w-md">Image failed to load. Please check your network.</p>
-                <button onClick={onClose} className="mt-4 bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-neutral-200">Close Tour</button>
+         <div className="absolute top-24 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+             <div className="bg-black/80 backdrop-blur px-6 py-3 rounded-xl border border-red-500/50 flex items-center gap-3">
+                <AlertCircle size={20} className="text-orange-500" />
+                <span className="text-sm font-bold text-white">{loadError}</span>
              </div>
          </div>
       )}
@@ -473,7 +597,7 @@ const FactoryTour360: React.FC<FactoryTour360Props> = ({ onClose }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-0 animate-[fade-out_4s_ease-in-out_forwards] delay-1000 z-10">
          <div className="bg-black/60 backdrop-blur px-6 py-4 rounded-2xl flex flex-col items-center gap-2">
             <MousePointer2 size={32} className="animate-bounce" />
-            <span className="font-bold text-sm uppercase tracking-widest">Drag to Look • Click Dots to Move</span>
+            <span className="font-bold text-sm uppercase tracking-widest">Drag to Look • Scroll to Zoom • Click Dots</span>
          </div>
       </div>
 

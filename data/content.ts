@@ -612,7 +612,7 @@ export const CONTENT_EN: ContentData = {
         id: 'plastic_surface',
         title: 'Plastic Surface Solutions',
         series: 'PC',
-        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%A1%91%E6%96%99pc.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/sujiaopc2.png',
         description: 'Solves low surface energy adhesion issues. PC series excels on injection parts and extruded tubes, passing cross-cut and alcohol tests.',
         features: ['Cross-Cut Test', 'Anti-Fingerprint', 'High Gloss Mirror'],
         painPoints: ['Scratches Off', 'Poor Weatherability']
@@ -1330,7 +1330,7 @@ export const CONTENT_ZH: ContentData = {
         id: 'plastic_surface',
         title: '塑胶产品表面烫金解决方案',
         series: 'PC',
-        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/%E5%A1%91%E6%96%99pc.png',
+        img: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/sujiaopc2.png',
         description: '解决塑料表面能低、难附着的问题。PC系列在注塑件、挤出管材上表现卓越，通过百格测试与酒精测试。',
         features: ['通过百格测试', '耐指纹', '高光镜面'],
         painPoints: ['一刮就掉', '耐候性差']
