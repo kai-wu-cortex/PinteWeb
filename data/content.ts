@@ -28,6 +28,7 @@ export const CONTENT_EN: ContentData = {
     { id: 'about', label: 'About Us' },
     { id: 'products', label: 'Products', hasDropdown: true },
     { id: 'contact', label: 'Contact' },
+    { id: 'onlinetour', label: 'Online Tour' }
   ],
   HERO_SLIDES: [
   {
@@ -805,6 +806,7 @@ export const CONTENT_EN: ContentData = {
       products: "Products",
       about: "About Us",
       contact: "Contact",
+      onlineTour:"onlineTour",
       getQuote: "Get Quote",
       viewAllProducts: "View All Products"
     },
@@ -964,6 +966,7 @@ export const CONTENT_ZH: ContentData = {
     { id: 'about', label: '关于品特' },
     { id: 'products', label: '产品中心', hasDropdown: true },
     { id: 'contact', label: '联系我们' },
+    { id: 'onlinetour', label: '在线看厂' }
   ],
   HERO_SLIDES: [
     {
@@ -1523,6 +1526,7 @@ export const CONTENT_ZH: ContentData = {
       products: "产品中心",
       about: "关于品特",
       contact: "联系我们",
+      onlineTour:"在线看厂",
       getQuote: "获取报价",
       viewAllProducts: "查看所有产品"
     },

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ChatWidget from './components/ChatWidget';
 import TechParticles from './components/TechParticles';
@@ -739,7 +740,13 @@ const App: React.FC = () => {
             {content.NAV_MENU_ITEMS.map((item) => (
                <div key={item.id} className="relative group h-full flex items-center px-1">
                   <button 
-                      onClick={() => scrollToSection(item.id as Section)}
+                      onClick={() => {
+                        if (item.id === 'onlinetour') {
+                          setShowFactoryTour(true);
+                        } else {
+                          scrollToSection(item.id as Section);
+                        }
+                      }}
                       className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all flex items-center
                         ${scrolled 
                           ? 'text-neutral-700 hover:bg-neutral-100 hover:text-pinte-blue' 
@@ -882,7 +889,11 @@ const App: React.FC = () => {
                                setExpandedMobileItem(isExpanded ? null : item.id);
                            } else {
                                setMobileMenuOpen(false);
-                               scrollToSection(item.id as Section);
+                               if (item.id === 'onlinetour') {
+                                 setShowFactoryTour(true);
+                               } else {
+                                 scrollToSection(item.id as Section);
+                               }
                            }
                         }}
                         className="w-full flex items-center justify-between py-4 text-left"

@@ -91,6 +91,7 @@ export interface UILabels {
     contact: string;
     getQuote: string;
     viewAllProducts: string;
+    onlineTour: string;
   };
   hero: {
     onlineTour: string;
