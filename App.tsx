@@ -1749,10 +1749,10 @@ const App: React.FC = () => {
       </footer>
        
        <ChatWidget />
-       <DebugPanel 
+       {/* <DebugPanel 
          data={content} 
          onUpdate={(newData) => setContent(newData)} 
-       /> 
+       /> */}
        
      </div>
    );

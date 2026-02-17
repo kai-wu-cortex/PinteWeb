@@ -1,4 +1,5 @@
 
+
 import { ProductId, ProductDetail, CatalogItem, SolutionData, CulturePost, UILabels } from '../types';
 
 interface ContentData {
@@ -808,7 +809,7 @@ export const CONTENT_EN: ContentData = {
       contact: "Contact",
       onlineTour:"onlineTour",
       getQuote: "Get Quote",
-      viewAllProducts: "View All Products"
+      viewAllProducts: "View All Series"
     },
     hero: {
       onlineTour: "Online Tour",
@@ -857,7 +858,9 @@ export const CONTENT_EN: ContentData = {
       contactEng: "Contact Engineer",
       tabs: { overview: "Overview", specs: "Specs", apps: "Apps" },
       flat: "Flat Stamp",
-      round: "Rotary Stamp"
+      round: "Rotary Stamp",
+      viewFoilRange: "View All Foil Colors",
+      searchPlaceholder: "Search foils..."
     },
     services: {
       title: "One-Stop Foil <br/> Solutions",
@@ -1528,7 +1531,7 @@ export const CONTENT_ZH: ContentData = {
       contact: "联系我们",
       onlineTour:"在线看厂",
       getQuote: "获取报价",
-      viewAllProducts: "查看所有产品"
+      viewAllProducts: "查看所有系列"
     },
     hero: {
       onlineTour: "在线看厂",
@@ -1577,7 +1580,9 @@ export const CONTENT_ZH: ContentData = {
       contactEng: "联系工程师",
       tabs: { overview: "概览", specs: "参数", apps: "应用" },
       flat: "平压平烫金",
-      round: "圆压圆烫金"
+      round: "圆压圆烫金",
+      viewFoilRange: "查看所有烫金颜色",
+      searchPlaceholder: "搜索型号或颜色..."
     },
     services: {
       title: "一站式烫金服务 <br/> 解决方案",

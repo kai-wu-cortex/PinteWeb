@@ -1,4 +1,5 @@
 
+
 export interface Product {
   id: string;
   name: string;
@@ -58,6 +59,19 @@ export interface CatalogItem {
   applications?: string[];
   temp?: { flat: string; round: string };
   detailImage?: string; // New field for the long technical image
+}
+
+// NEW: Interface for individual foil swatches
+export interface FoilItem {
+  id: string;
+  code: string;
+  name: string;
+  hex: string; // Fallback color
+  image?: string; // NEW: Specific image URL for this foil color
+  previewImage?: string; // NEW: Independent image link for stamping effect
+  type: 'Metallic' | 'Matte' | 'Holographic' | 'Pigment' | 'Pearl';
+  series: string;
+  finish: 'Gloss' | 'Satin' | 'Matte';
 }
 
 export interface SolutionData {
@@ -141,6 +155,8 @@ export interface UILabels {
     tabs: { overview: string; specs: string; apps: string };
     flat: string;
     round: string;
+    viewFoilRange: string; // New Label
+    searchPlaceholder: string; // New Label
   };
   services: {
     title: string;
