@@ -401,8 +401,8 @@ export const CONTENT_EN: ContentData = {
         subtitle: 'Classic Formula, All-Round Application',
         description: 'PK Universal is one of PINTE best-sellers with excellent versatility. Provides outstanding gloss and adhesion on coated paper, cardboard, and OPP laminates.',
         content: 'Market-proven for years with a stable formula. Excellent performance on high-speed machines, light release, clean edges, and minimal dusting. The top choice for packaging inventory.',
-        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pk.png',
+        detailImage: '',
         tags: ['Best Seller', 'General Use'],
         features: [
           { title: 'Broad Applicability', desc: 'Compatible with 90% of paper and laminates' },
@@ -424,8 +424,8 @@ export const CONTENT_EN: ContentData = {
         subtitle: 'Anti-Oxidation Formula for Heavy Ink',
         description: 'Developed for dark, heavy ink paper. Traditional foils often oxidize on wet ink; PK Heavy Duty solves this with a special back-coating.',
         content: 'Beyond anti-oxidation, this series has enhanced glue grip, perfect for rough art paper, tactile paper, and cloth-textured paper. Maintains integrity even on fine lines.',
-        image: 'https://images.unsplash.com/photo-1605106702734-205df224ecce?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://th.bing.com/th/id/R.b295280dd208415ac0f6d42ca2865b11?rik=k1pmQF0%2f1DFC0A&riu=http%3a%2f%2fwww.heruilaser.com%2fUpload%2fTemplate%2fweb%2fContentPhoto%2f400-300%2f202003%2fe2361d1a-f561-4808-9282-16c9889fccbc.jpg&ehk=KAD50DYd1VrHW%2fJU%2fqdwph2s2VBqcdevp1Qe6kmxA7I%3d&risl=&pid=ImgRaw&r=0',
+        detailImage: '',
         tags: ['Anti-Oxidation', 'Strong Adhesion'],
         features: [
           { title: 'Anti-Oxidation', desc: 'Never blackens on UV or dark offset inks' },
@@ -445,8 +445,8 @@ export const CONTENT_EN: ContentData = {
         name: 'PK Matte Series',
         subtitle: 'Understated Luxury, Silky Texture',
         description: 'Provides a non-mirror matte metallic texture. Smooth, silky surface that resists fingerprints. Suitable for minimalist, high-end designs.',
-        image: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cdn11.bigcommerce.com/s-et4qthkygq/images/stencil/325x325/products/13918/71497/siser-walakut-metallic-puff-htv-10__58928.1706257008.jpg?c=2',
+        detailImage: '',
         tags: ['Matte Finish'],
         features: [
           { title: 'Anti-Fingerprint', desc: 'Matte finish, dirt and scratch resistant' },
@@ -460,8 +460,8 @@ export const CONTENT_EN: ContentData = {
         name: 'PK Holographic Plain',
         subtitle: 'Light Magic, Security Choice',
         description: 'Uses high-precision molding to create rainbow-like halo effects. Seamless holographic plain foils enhance tech feel and offer security features.',
-        image: 'https://images.unsplash.com/photo-1633479397988-700951a239f6?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.k2vjXrIjhZEoX94AmbGItAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3',
+        detailImage: '',
         tags: ['Security', 'Visual Effect'],
         features: [
           { title: 'High Brightness', desc: 'High diffraction efficiency, vivid colors' },
@@ -477,8 +477,8 @@ export const CONTENT_EN: ContentData = {
           name: 'PC Standard Plastic Foil',
           subtitle: 'General Plastic Solution',
           description: 'Suitable for general ABS, PS, Acrylic. Clear stamping edges, no burrs. Ideal for appliance panels and stationery.',
-          image: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/pc.png',
+          detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
           features: [
             { title: 'Versatile', desc: 'Fits many hard plastics' },
             { title: 'Easy Release', desc: 'Non-stick on high speed stamping' }
@@ -491,8 +491,8 @@ export const CONTENT_EN: ContentData = {
           name: 'PC Alcohol Resistant',
           subtitle: 'Cosmetic Grade',
           description: 'Passes strict alcohol and abrasion tests. Stamping remains intact even after contact with skincare or perfume chemicals.',
-          image: 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=500&auto=format&fit=crop', 
-          detailImage: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/detail/PCalo.png', 
+          detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
           tags: ['Cosmetic Grade', 'Chemical Resistant'],
           features: [
             { title: 'Chemical Res', desc: 'Passes 200 rubs alcohol test' },
@@ -502,19 +502,37 @@ export const CONTENT_EN: ContentData = {
           temp: { flat: '130 - 160°C', round: '190 - 230°C' }
         },
         {
-          id: 'PC-Tube',
-          name: 'PC Tube Grade (PE/PP)',
-          subtitle: 'Hard-to-Stick Specialist',
-          description: 'Optimized for low surface energy materials like PE tubes and PP caps. Good adhesion without flame treatment (on some materials).',
-          image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1585250003058-2996d9961db6?q=80&w=1200&auto=format&fit=crop',
+          id: 'PC-Cold',
+          name: 'PC Digital/Screen Printing Cold Foil',
+          subtitle: 'No Plate Making Required, Easy Stamping',
+          description: 'Suitable for typical cold stamping scenarios such as digital cold stamping, screen printing cold stamping, and rapid gold stamping with graphic toner. This series inherits the consistent properties of the PC series: alcohol resistance, boiling water resistance and friction resistance. It features excellent compatibility with various types of UV hot stamping varnishes and has wide applicability.',
+          image: 'https://cos.pintecl.com/detail/pccold.png',
+          detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
           tags: ['PE/PP Specialist'],
           features: [
-            { title: 'Low Surface Energy', desc: 'Targets PP/PE' },
-            { title: 'Flexibility', desc: 'No cracking on tube squeeze' }
+            { 
+              title: 'No Plate Making Required', 
+              desc: 'Convenient stamping with clear fine lines' 
+            },
+            { 
+              title: 'Specially Developed Formula', 
+              desc: 'Two-component color layer, alcohol-resistant, oxidation-resistant and scratch-resistant, suitable for more scenarios' 
+            },
+            { 
+              title: 'Imported Adhesive Raw Materials', 
+              desc: 'Firm adhesion on different materials is the core' 
+            }
           ],
-          applications: ['Facial Cleanser Tubes', 'Shampoo Caps'],
-          temp: { flat: '140 - 170°C', round: '200 - 240°C' }
+          applications: [
+            'Hard Plastic', 
+            'Soft Plastic', 
+            'Packaging Materials', 
+            'Electrical Appliance Decorative Parts'
+          ],
+          temp: { 
+            flat: '100 - 130°C', 
+            round: '130 - 150°C' 
+          }
         }
     ],
     PLPY: [
@@ -523,8 +541,8 @@ export const CONTENT_EN: ContentData = {
           name: 'PL Glossy Pigment',
           subtitle: 'Vivid Color, High Coverage',
           description: 'Vivid colors, strong coverage, paint-like texture.',
-          image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=500&auto=format&fit=crop', 
-          detailImage: 'https://images.unsplash.com/photo-1502691876148-a84978e59af8?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/PL-Glossy.png', 
+          detailImage: 'https://cos.pintecl.com/detail/plpydetail.jpg',
           features: [{title: 'Color', desc: 'Vivid'}],
           temp: { flat: '100-130', round: '140-170'}
         },
@@ -533,8 +551,8 @@ export const CONTENT_EN: ContentData = {
           name: 'PY Matte Pigment',
           subtitle: 'Elegant Matte, Writeable',
           description: 'Calm colors, writeable surface, suitable for gift boxes.',
-          image: 'https://images.unsplash.com/photo-1550684847-75bdda21cc95?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1456953180671-730de08edaa7?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/pymatte.jpg',
+          detailImage: 'https://cos.pintecl.com/detail/plpydetail.jpg',
           features: [{title: 'Matte', desc: 'Elegant'}],
           temp: { flat: '100-130', round: '140-170'}
         },
@@ -543,26 +561,45 @@ export const CONTENT_EN: ContentData = {
           name: 'PL Gloss White / Pearl',
           subtitle: 'Pure Opaque',
           description: 'Pure white, opaque, ideal for dark cardstock.',
-          image: 'https://images.unsplash.com/photo-1517697471339-4aa32003c11a?q=80&w=500&auto=format&fit=crop', 
-          detailImage: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/PL-2000.png', 
+          detailImage: 'https://cos.pintecl.com/detail/plpydetail.jpg',
           features: [{title: 'Opaque', desc: 'High Coverage'}],
           temp: { flat: '100-130', round: '140-170'}
         }
     ],
     DIGITAL: [
         {
-          id: 'Digi-UV',
-          name: 'UV Cold Foil',
-          description: 'Used with cold foil glue or UV press, high speed transfer.',
-          image: 'https://images.unsplash.com/photo-1504198458649-3128b932f49e?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200&auto=format&fit=crop',
-        },
-        {
-          id: 'Digi-Toner',
-          name: 'Digital Toner Foil',
-          description: 'Covers toner layer of laser printers directly, no plate needed.',
-          image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop',
+          id: 'PC-Cold',
+          name: 'PC Digital/Screen Printing Cold Foil',
+          subtitle: 'No Plate Making Required, Easy Stamping',
+          description: 'Suitable for typical cold stamping scenarios such as digital cold stamping, screen printing cold stamping, and rapid gold stamping with graphic toner. This series inherits the consistent properties of the PC series: alcohol resistance, boiling water resistance and friction resistance. It features excellent compatibility with various types of UV hot stamping varnishes and has wide applicability.',
+          image: 'https://cos.pintecl.com/detail/pccold.png',
+          detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
+          tags: ['PC Digital/Screen Printing Cold Foil'],
+          features: [
+            { 
+              title: 'No Plate Making Required', 
+              desc: 'Convenient stamping with clear fine lines' 
+            },
+            { 
+              title: 'Specially Developed Formula', 
+              desc: 'Two-component color layer, alcohol-resistant, oxidation-resistant and scratch-resistant, suitable for more scenarios' 
+            },
+            { 
+              title: 'Imported Adhesive Raw Materials', 
+              desc: 'Firm adhesion on different materials is the core' 
+            }
+          ],
+          applications: [
+            'Hard Plastic', 
+            'Soft Plastic', 
+            'Packaging Materials', 
+            'Electrical Appliance Decorative Parts'
+          ],
+          temp: { 
+            flat: '100 - 130°C', 
+            round: '130 - 150°C' 
+          }
         }
     ],
     GLITTER: [
@@ -570,15 +607,15 @@ export const CONTENT_EN: ContentData = {
           id: 'G-Hex',
           name: 'Hexagon Glitter',
           description: 'Standard hexagonal cut, high brilliance.',
-          image: 'https://images.unsplash.com/photo-1507643179173-442f8552932c?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1515948449767-c250d03708e9?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/detail/glitter1.jpg',
+          detailImage: 'https://cos.pintecl.com/detail/glitter2.png',
         },
         {
           id: 'G-Strip',
           name: 'Strip Glitter',
           description: 'Long strip shape, for special textile or decor effects.',
-          image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=500&auto=format&fit=crop',
-          detailImage: 'https://images.unsplash.com/photo-1520697830682-bbb6e85e2b0b?q=80&w=1200&auto=format&fit=crop',
+          image: 'https://cos.pintecl.com/detail/sequin.jpg',
+          detailImage: 'https://cos.pintecl.com/detail/sequindetail.jpg',
         }
     ]
   },
@@ -1043,8 +1080,8 @@ export const CONTENT_ZH: ContentData = {
         { label: '光泽度', value: '高亮 / 镜面' },
         { label: '测试', value: '3M胶带百格测试' },
       ],
-      substrates: ['ABS', 'PS', 'PVC', 'PMMA (亚克力)', 'PP', 'PE软管'],
-      applications: ['口红管', '粉饼盒', '睫毛膏管', '洗面奶软管', '电器面板'],
+      substrates: ['ABS', 'PS', 'PVC', 'PMMA (亚克力)', '过油纸张', ' 过油PET胶片'],
+      applications: ['包装盒', '手机壳', '软管', '电子产品装饰件', '艺术纸'],
       colors: ['金属色', '全息色', '拉丝纹'],
       temp: { flat: '100 - 160°C', round: '180 - 230°C' }
     },
@@ -1123,8 +1160,8 @@ export const CONTENT_ZH: ContentData = {
         subtitle: '经典配方，全能应用',
         description: 'PK 通用型是品特最畅销的系列之一，具有优异的通用性。无论是铜版纸、白卡纸还是OPP复膜表面，都能提供出色的光泽度和附着力。',
         content: '该产品经过多年市场验证，配方稳定。在高速烫印机上表现优异，离型轻快，边缘清晰，极少出现拉丝或飞金现象。是印刷包装厂的常备库存首选。',
-        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pk.png',
+        detailImage: '',
         tags: ['Best Seller', 'General Use'],
         features: [
           { title: '广泛适用性', desc: '兼容90%的纸张与复膜材料' },
@@ -1146,8 +1183,8 @@ export const CONTENT_ZH: ContentData = {
         subtitle: '重油墨克星，抗氧化配方',
         description: '针对深色、重油墨纸张开发。传统烫金膜在未干透的油墨上容易氧化变黑，PK 强力型通过特殊的背涂层技术彻底解决了这一痛点。',
         content: '除了抗氧化，该系列还增强了胶水层的抓力，特别适合表面粗糙的艺术纸、触感纸以及布纹纸。即使在细线条表现上，也能保持极高的完整度。',
-        image: 'https://images.unsplash.com/photo-1605106702734-205df224ecce?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://th.bing.com/th/id/R.b295280dd208415ac0f6d42ca2865b11?rik=k1pmQF0%2f1DFC0A&riu=http%3a%2f%2fwww.heruilaser.com%2fUpload%2fTemplate%2fweb%2fContentPhoto%2f400-300%2f202003%2fe2361d1a-f561-4808-9282-16c9889fccbc.jpg&ehk=KAD50DYd1VrHW%2fJU%2fqdwph2s2VBqcdevp1Qe6kmxA7I%3d&risl=&pid=ImgRaw&r=0',
+        detailImage: '',
         tags: ['Anti-Oxidation', 'Strong Adhesion'],
         features: [
           { title: '抗氧化', desc: '在UV油墨或深色胶印油墨上永不发黑' },
@@ -1167,8 +1204,8 @@ export const CONTENT_ZH: ContentData = {
         name: 'PK 哑光系列 (Matte)',
         subtitle: '低调奢华，丝绸质感',
         description: '提供非镜面的哑光金属质感。表面细腻均匀，触感如丝绸般顺滑，且不易残留指纹。适合追求极简、高级感的设计风格。',
-        image: 'https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cdn11.bigcommerce.com/s-et4qthkygq/images/stencil/325x325/products/13918/71497/siser-walakut-metallic-puff-htv-10__58928.1706257008.jpg?c=2',
+        detailImage: '',
         tags: ['Matte Finish'],
         features: [
           { title: '无指纹', desc: '哑光表面处理，耐脏耐磨' },
@@ -1182,8 +1219,8 @@ export const CONTENT_ZH: ContentData = {
         name: 'PK 镭射素面 (Holographic)',
         subtitle: '光影魔术，防伪首选',
         description: '采用高精度模压技术，呈现彩虹般的光圈效果。无缝镭射素面不仅提升了包装的科技感，由于其制造难度高，还具有一定的防伪属性。',
-        image: 'https://images.unsplash.com/photo-1633479397988-700951a239f6?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.k2vjXrIjhZEoX94AmbGItAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3',
+        detailImage: '',
         tags: ['Security', 'Visual Effect'],
         features: [
           { title: '高亮度', desc: '衍射效率高，色彩鲜艳' },
@@ -1199,8 +1236,8 @@ export const CONTENT_ZH: ContentData = {
         name: 'PC 标准塑胶箔',
         subtitle: '通用塑胶方案',
         description: '适用于一般 ABS, PS, 亚克力材质。烫印字迹清晰，边缘整齐无毛刺。是电子电器面板、文具用品的理想选择。',
-        image: 'https://images.unsplash.com/photo-1577937927133-66ef06acdf18?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cos.pintecl.com/pc.png',
+        detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
         features: [
           { title: '通用性强', desc: '适配多种硬质塑料' },
           { title: '易剥离', desc: '高速冲压不粘模' }
@@ -1211,10 +1248,10 @@ export const CONTENT_ZH: ContentData = {
       {
         id: 'PC-Alcohol',
         name: 'PC 耐酒精级',
-        subtitle: '化妆品包材专用',
+        subtitle: '化妆品包材等特殊用途使用场景专用箔',
         description: '通过严格的耐酒精、耐磨擦测试。即使在接触护肤品、香水等化学成分后，烫金层依然牢固不脱落。',
-        image: 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=500&auto=format&fit=crop', 
-        detailImage: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cos.pintecl.com/detail/PCalo.png', 
+        detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
         tags: ['Cosmetic Grade', 'Chemical Resistant'],
         features: [
           { title: '耐化学性', desc: '通过200次酒精擦拭测试' },
@@ -1224,19 +1261,20 @@ export const CONTENT_ZH: ContentData = {
         temp: { flat: '130 - 160°C', round: '190 - 230°C' }
       },
       {
-        id: 'PC-Tube',
-        name: 'PC 软管级 (PE/PP)',
-        subtitle: '难粘材料克星',
-        description: '针对 PE 软管、PP 瓶盖等表面能较低的难粘材质优化。无需火焰处理（部分材料）即可实现良好附着。',
-        image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1585250003058-2996d9961db6?q=80&w=1200&auto=format&fit=crop',
+        id: 'PC-Cold',
+        name: 'PC 数码/丝印冷烫',
+        subtitle: '无需制版，轻松烫印',
+        description: '适用于数码冷烫，丝印冷烫，图文碳粉快速烫金等典型冷烫场景，该系列产品继承了PC系列一贯的耐酒精，耐水煮，耐摩擦的特性。与不同类型的UV烫金光油适配优异，适用性广泛',
+        image: 'https://cos.pintecl.com/detail/pccold.png',
+        detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
         tags: ['PE/PP Specialist'],
         features: [
-          { title: '低表面能适配', desc: '专攻PP/PE材质' },
-          { title: '柔韧性好', desc: '软管挤压不爆裂' }
+          { title: '无需制版', desc: '烫印便捷，细线条清晰' },
+          { title: '专研配方', desc: '采用双组份色层，耐酒精耐氧化耐刮擦适用于更多使用场景' },
+          { title: '采用进口胶层原料', desc: '不同材料烫的牢才是核心' },
         ],
-        applications: ['洗面奶软管', '洗发水瓶盖'],
-        temp: { flat: '140 - 170°C', round: '200 - 240°C' }
+        applications: ['硬塑', '软塑','包材','电器装饰件'],
+        temp: { flat: '100 - 130°C', round: '130 - 150°C' }
       }
     ],
     PLPY: [
@@ -1245,8 +1283,8 @@ export const CONTENT_ZH: ContentData = {
         name: 'PL 亮面颜料箔',
         subtitle: '色彩鲜艳，高遮盖',
         description: '色彩鲜艳，遮盖力强，如油漆般质感。',
-        image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=500&auto=format&fit=crop', 
-        detailImage: 'https://images.unsplash.com/photo-1502691876148-a84978e59af8?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cos.pintecl.com/PL-Glossy.png', 
+        detailImage: 'https://cos.pintecl.com/detail/plpydetail.jpg',
         features: [{title: 'Color', desc: 'Vivid'}],
         temp: { flat: '100-130', round: '140-170'}
       },
@@ -1255,8 +1293,8 @@ export const CONTENT_ZH: ContentData = {
         name: 'PY 哑面颜料箔',
         subtitle: '沉稳哑光，书写性好',
         description: '色彩沉稳，书写性好，适合高档礼品盒。',
-        image: 'https://images.unsplash.com/photo-1550684847-75bdda21cc95?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1456953180671-730de08edaa7?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cos.pintecl.com/pymatte.jpg',
+        detailImage: 'https://cos.pintecl.com/detail/plpydetail.jpg',
         features: [{title: 'Matte', desc: 'Elegant'}],
         temp: { flat: '100-130', round: '140-170'}
       },
@@ -1265,26 +1303,28 @@ export const CONTENT_ZH: ContentData = {
         name: 'PL 亮白/珍珠白',
         subtitle: '纯净不透底',
         description: '纯净白色，不透底，适用于深色卡纸。',
-        image: 'https://images.unsplash.com/photo-1517697471339-4aa32003c11a?q=80&w=500&auto=format&fit=crop', 
-        detailImage: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cos.pintecl.com/PL-2000.png', 
+        detailImage: 'https://cos.pintecl.com/detail/plpydetail.jpg',
         features: [{title: 'Opaque', desc: 'High Coverage'}],
         temp: { flat: '100-130', round: '140-170'}
       }
     ],
     DIGITAL: [
       {
-        id: 'Digi-UV',
-        name: 'UV 冷烫箔 (Cold Foil)',
-        description: '配合冷烫胶水或 UV 印刷机使用，高速转移。',
-        image: 'https://images.unsplash.com/photo-1504198458649-3128b932f49e?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1200&auto=format&fit=crop',
-      },
-      {
-        id: 'Digi-Toner',
-        name: '数码碳粉箔 (Toner Foil)',
-        description: '直接覆盖于激光打印机的碳粉层，无需制版。',
-        image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop',
+        id: 'PC-Cold',
+        name: 'PC 数码/丝印冷烫',
+        subtitle: '无需制版，轻松烫印',
+        description: '适用于数码冷烫，丝印冷烫，图文碳粉快速烫金等典型冷烫场景，该系列产品继承了PC系列一贯的耐酒精，耐水煮，耐摩擦的特性。与不同类型的UV烫金光油适配优异，适用性广泛',
+        image: 'https://cos.pintecl.com/detail/pccold.png',
+        detailImage: 'https://cos.pintecl.com/detail/PCdetail.jpg',
+        tags: ['数码/丝印冷烫'],
+        features: [
+          { title: '无需制版', desc: '烫印便捷，细线条清晰' },
+          { title: '专研配方', desc: '采用双组份色层，耐酒精耐氧化耐刮擦适用于更多使用场景' },
+          { title: '采用进口胶层原料', desc: '不同材料烫的牢才是核心' },
+        ],
+        applications: ['硬塑', '软塑','包材','电器装饰件'],
+        temp: { flat: '100 - 130°C', round: '130 - 150°C' }
       }
     ],
     GLITTER: [
@@ -1292,15 +1332,15 @@ export const CONTENT_ZH: ContentData = {
         id: 'G-Hex',
         name: '六角金葱粉 (Hexagon)',
         description: '标准的正六角形切割，闪烁度高。',
-        image: 'https://images.unsplash.com/photo-1507643179173-442f8552932c?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1515948449767-c250d03708e9?q=80&w=1200&auto=format&fit=crop',
+        image: 'https://cos.pintecl.com/detail/glitter1.jpg',
+        detailImage: 'https://cos.pintecl.com/detail/glitter2.png',
       },
       {
         id: 'G-Strip',
-        name: '条状金葱粉 (Strip)',
-        description: '细长条状，适合特殊的纺织或装饰效果。',
-        image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=500&auto=format&fit=crop',
-        detailImage: 'https://images.unsplash.com/photo-1520697830682-bbb6e85e2b0b?q=80&w=1200&auto=format&fit=crop',
+        name: '亮片 (Sequin)',
+        description: '各种形状的闪光亮片，适合各种DIY，装饰用途。',
+        image: 'https://cos.pintecl.com/detail/sequin.jpg',
+        detailImage: 'https://cos.pintecl.com/detail/sequindetail.jpg',
       }
     ]
   },
