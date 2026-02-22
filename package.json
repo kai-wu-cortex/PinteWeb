@@ -8,6 +8,12 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "overrides": {
+    "react-helmet-async": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  },
   "dependencies": {
     "@emailjs/browser": "3.11.0",
     "@google/genai": "^1.33.0",
