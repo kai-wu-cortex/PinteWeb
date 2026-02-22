@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider } from './contexts/LanguageContext';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -25,33 +26,35 @@ const ScrollToTop = () => {
 
 const App: React.FC = () => {
   return (
-    <LanguageProvider>
-      <Router>
-        <ScrollToTop />
-        <div className="min-h-screen bg-white font-sans text-neutral-900 selection:bg-pinte-blue selection:text-white flex flex-col">
-          {/* NavBar is inside Router to use hooks */}
-          <NavBar />
-          
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/solutions/:id" element={<SolutionDetail />} />
-              <Route path="/products" element={<ProductCatalog />} />
-              <Route path="/products/category/:id" element={<ProductCategory />} />
-              <Route path="/products/item/:id" element={<ProductItem />} />
-              <Route path="/culture" element={<Culture />} />
-              <Route path="/quote" element={<Quote />} />
-              <Route path="/tour" element={<FactoryTour />} />
-            </Routes>
-          </main>
+    <HelmetProvider>
+      <LanguageProvider>
+        <Router>
+          <ScrollToTop />
+          <div className="min-h-screen bg-white font-sans text-neutral-900 selection:bg-pinte-blue selection:text-white flex flex-col">
+            {/* NavBar is inside Router to use hooks */}
+            <NavBar />
+            
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/solutions/:id" element={<SolutionDetail />} />
+                <Route path="/products" element={<ProductCatalog />} />
+                <Route path="/products/category/:id" element={<ProductCategory />} />
+                <Route path="/products/item/:id" element={<ProductItem />} />
+                <Route path="/culture" element={<Culture />} />
+                <Route path="/quote" element={<Quote />} />
+                <Route path="/tour" element={<FactoryTour />} />
+              </Routes>
+            </main>
 
-          {/* Footer logic is mostly static, but it contains nav links */}
-          <Footer />
-          
-          <ChatWidget />
-        </div>
-      </Router>
-    </LanguageProvider>
+            {/* Footer logic is mostly static, but it contains nav links */}
+            <Footer />
+            
+            <ChatWidget />
+          </div>
+        </Router>
+      </LanguageProvider>
+    </HelmetProvider>
   );
 };
 

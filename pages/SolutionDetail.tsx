@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowLeft, CheckCircle2, Layers } from 'lucide-react';
 import { PinteLogo } from '../components/PinteLogo';
+import SEO from '../components/SEO';
 
 const SolutionDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +16,7 @@ const SolutionDetail: React.FC = () => {
   if (!solution) {
       return (
         <div className="min-h-screen flex items-center justify-center">
+            <SEO title="Solution Not Found" description="The requested solution could not be found." />
             <div className="text-center">
             <h2 className="text-2xl font-bold">Solution Not Found</h2>
             <button onClick={() => navigate('/')} className="mt-4 text-pinte-blue underline">Back Home</button>
@@ -27,6 +29,13 @@ const SolutionDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in fade-in duration-500">
+       <SEO 
+         title={`${solution.title} | PINTE Solutions`}
+         description={solution.description}
+         keywords={`${solution.title}, ${series.title}, hot stamping solution`}
+         image={solution.img}
+         type="article"
+       />
        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-neutral-100">
          <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
             <button 

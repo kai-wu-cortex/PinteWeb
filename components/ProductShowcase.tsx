@@ -8,7 +8,8 @@ import {
   LayoutGrid,
   List,
   ChevronDown,
-  Box
+  Box,
+  Sparkles
 } from 'lucide-react';
 import { PinteLogo } from './PinteLogo';
 import { ProductId, ProductDetail, CatalogItem, UILabels, FoilItem } from '../types';
@@ -35,7 +36,7 @@ const defaultUI = {
     techSpecs: "",
     tempRec: "",
     substrates: "",
-    applications: "",
+    applications: "Applications",
     needHelp: "",
     contactEng: "",
     tabs: { overview: "Overview", specs: "Specs", apps: "Apps" },
@@ -186,8 +187,9 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, cat
               {(Object.values(products) as ProductDetail[]).map((product) => {
                 const items = catalog[product.id] || [];
                 return (
-                  <div key={product.id} className="flex flex-col lg:flex-row gap-12 xl:gap-24 group/section">
-                     <div className="lg:w-1/4 shrink-0 flex flex-col justify-start items-start gap-8">
+                  <div key={product.id} className="flex flex-col lg:flex-row gap-12 xl:gap-24 group/section relative">
+                     {/* Left Sidebar - Sticky */}
+                     <div className="lg:w-1/4 shrink-0 flex flex-col justify-start items-start gap-8 lg:sticky lg:top-32 h-fit">
                         <div className="space-y-6">
                           <h2 className="text-3xl font-bold font-display leading-tight text-neutral-900">
                               {product.name}
@@ -204,35 +206,75 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ onBack, products, cat
                             ))}
                         </div>
                      </div>
-                     <div className="lg:w-3/4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                     
+                     {/* Right Grid - Enhanced Cards */}
+                     <div className="lg:w-3/4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                         {items.length > 0 ? (
                           items.map((item) => (
                             <div 
                                 key={item.id} 
-                                className="bg-neutral-50 hover:bg-white rounded-xl p-6 flex flex-col justify-between h-[360px] cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-neutral-200/50 border border-transparent hover:border-neutral-100 group/card"
+                                className="bg-white rounded-2xl border border-neutral-100 overflow-hidden hover:shadow-2xl hover:shadow-neutral-200/50 transition-all duration-300 group/card flex flex-col h-full cursor-pointer hover:-translate-y-1"
                                 onClick={() => onItemClick(item.id)}
                             >
-                                <div className="w-full h-40 mb-6 flex items-center justify-center relative overflow-hidden rounded-lg bg-white">
+                                {/* Image Section */}
+                                <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
                                     <img 
                                         src={item.image} 
                                         alt={item.name} 
-                                        className="w-full h-full object-cover mix-blend-normal group-hover/card:scale-105 transition-transform duration-700" 
+                                        className="w-full h-full object-cover mix-blend-multiply group-hover/card:scale-105 transition-transform duration-700" 
                                     />
                                     {item.tags && item.tags.length > 0 && (
-                                      <div className="absolute top-2 left-2 bg-neutral-100/80 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                                      <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg flex items-center gap-1.5 backdrop-blur-sm z-10">
+                                          <Sparkles size={10} className="text-yellow-200" />
                                           {item.tags[0]}
                                       </div>
                                     )}
                                 </div>
-                                <div>
-                                   <p className="text-xs font-medium text-neutral-400 mb-2 line-clamp-1">{item.description}</p>
-                                   <h3 className="font-bold text-lg leading-tight text-neutral-900 mb-6 pr-4">
-                                        {item.name}
-                                   </h3>
-                                   <div className="flex justify-between items-center border-t border-neutral-200 pt-4">
-                                      <span className="text-xs font-bold uppercase tracking-wider text-neutral-900 group-hover/card:text-pinte-blue transition-colors">{ui.viewDetails}</span>
-                                      <ArrowRight size={14} className="text-neutral-300 group-hover/card:text-pinte-blue group-hover/card:translate-x-1 transition-all" />
-                                   </div>
+
+                                {/* Body Section */}
+                                <div className="p-6 flex flex-col flex-1">
+                                    
+                                    {/* Title & Subtitle */}
+                                    <div className="mb-4">
+                                        <h3 className="font-bold text-xl text-neutral-900 leading-tight mb-1 group-hover/card:text-pinte-blue transition-colors">
+                                            {item.name}
+                                        </h3>
+                                        <p className="text-xs text-neutral-400 font-medium uppercase tracking-wider truncate">
+                                            {item.subtitle}
+                                        </p>
+                                    </div>
+
+                                    {/* Applications Highlight */}
+                                    {item.applications && item.applications.length > 0 && (
+                                        <div className="mb-5 bg-neutral-50 rounded-xl p-3 border border-neutral-100">
+                                             <p className="text-[10px] font-bold text-pinte-blue uppercase tracking-widest mb-2 flex items-center gap-1">
+                                                {ui.applications}
+                                             </p>
+                                             <div className="flex flex-wrap gap-1.5">
+                                                 {item.applications.slice(0, 3).map((app, i) => (
+                                                     <span key={i} className="px-2 py-1 rounded-md bg-white border border-neutral-100 text-neutral-600 text-[10px] font-bold shadow-sm">
+                                                         {app}
+                                                     </span>
+                                                 ))}
+                                                 {item.applications.length > 3 && (
+                                                    <span className="px-2 py-1 rounded-md bg-white border border-neutral-100 text-neutral-400 text-[10px] font-bold shadow-sm">+</span>
+                                                 )}
+                                             </div>
+                                        </div>
+                                    )}
+
+                                    {/* Description */}
+                                    <p className="text-sm text-neutral-500 line-clamp-2 mb-6 leading-relaxed flex-1">
+                                        {item.description}
+                                    </p>
+                                    
+                                    {/* Footer */}
+                                    <div className="mt-auto pt-4 border-t border-neutral-100 flex justify-between items-center">
+                                         <span className="text-xs font-bold uppercase tracking-wider text-neutral-900 group-hover/card:text-pinte-blue transition-colors">{ui.viewDetails}</span>
+                                         <div className="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center group-hover/card:bg-pinte-blue group-hover/card:text-white transition-all duration-300">
+                                            <ArrowRight size={14} />
+                                         </div>
+                                    </div>
                                 </div>
                             </div>
                           ))

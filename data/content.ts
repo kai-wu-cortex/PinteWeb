@@ -66,8 +66,8 @@ export const CONTENT_EN: ContentData = {
   PRODUCT_DATA:{
   "PK": {
     "id": "PK",
-    "name": "PK Coffee Glue Series",
-    "subtitle": "COFFEE GLUE SERIES",
+    "name": "PK Brown Back Series",
+    "subtitle": "BROWN BACK SERIES",
     "description": "Designed for rough surfaces with excellent coverage and stampability. Retains shine on heavy ink paper without oxidation.",
     "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pk.png",
     "features": [
@@ -133,8 +133,8 @@ export const CONTENT_EN: ContentData = {
   },
   "PC": {
     "id": "PC",
-    "name": "PC Plastic Series",
-    "subtitle": "PLASTIC SERIES",
+    "name": "PC Plastic/Cold Foils Series",
+    "subtitle": "PLASTIC/COLD FOILS SERIES",
     "description": "Uses special PC glue base, dedicated to plastic materials. Excellent alcohol resistance and slitting properties. Passes cross-cut test perfectly.",
     "heroImage": "https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pc.png",
     "features": [
@@ -1007,7 +1007,7 @@ export const CONTENT_ZH: ContentData = {
     PK: {
       id: 'PK',
       name: 'PK 咖啡底系列',
-      subtitle: 'COFFEE GLUE SERIES',
+      subtitle: 'Brown Back Foil Series',
       description: '专为粗糙表面设计，拥有极佳的遮盖率与上烫性。在重油墨纸张上也能保持光泽，不会氧化发黑。',
       heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pk.png',
       features: [
@@ -1028,8 +1028,8 @@ export const CONTENT_ZH: ContentData = {
     },
     PC: {
       id: 'PC',
-      name: 'PC 塑胶系列',
-      subtitle: 'PLASTIC SERIES',
+      name: 'PC 塑胶/冷烫系列',
+      subtitle: 'Plastic/Cold Foils Series',
       description: '采用特制PC胶底，专攻塑胶材质。具有卓越的耐酒精性与分切性。可完美通过百格测试。',
       heroImage: 'https://pintepic-1300269931.cos.ap-singapore.myqcloud.com/pc.png',
       features: [

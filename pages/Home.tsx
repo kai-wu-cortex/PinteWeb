@@ -10,6 +10,7 @@ import {
   Scissors, Microscope, Truck, Headphones
 } from 'lucide-react';
 import TechParticles from '../components/TechParticles';
+import SEO from '../components/SEO';
 
 // --- Helper Components ---
 const NumberTicker = ({ 
@@ -210,6 +211,23 @@ const Home: React.FC = () => {
 
   return (
     <main className="min-h-screen">
+      <SEO 
+        title="PINTE 品特 - 高端烫金膜专家 | Premium Hot Stamping Foils"
+        description="PINTE (品特) is a leading manufacturer of high-end hot stamping foils, offering specialized solutions for packaging, plastic, leather, and digital printing. 25 years of expertise in coating technology."
+        keywords="Hot Stamping Foil, Cold Foil, Digital Foil, Pigment Foil, Holographic Foil, 烫金膜, 电化铝, 颜料箔, PINTE, 品特"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "PINTE Foil",
+          "url": "https://www.pinte-foil.com",
+          "logo": "https://www.pinte-foil.com/logo.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+86-123456789",
+            "contactType": "sales"
+          }
+        }}
+      />
       {/* === HERO SECTION === */}
       <section id="home" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
          <div className="absolute inset-0 z-0">

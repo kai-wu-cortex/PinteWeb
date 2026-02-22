@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { ProductId } from '../types';
 import { ArrowLeft, Layers, Thermometer, CheckCircle2, Star, Box, Palette } from 'lucide-react';
 import QuoteRequest from '../components/QuoteRequest';
+import SEO from '../components/SEO';
 
 const ProductCategory: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +20,7 @@ const ProductCategory: React.FC = () => {
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <SEO title="Category Not Found" description="The requested product category could not be found." />
         <div className="text-center">
           <h2 className="text-2xl font-bold">Product Category Not Found</h2>
           <button onClick={() => navigate('/products')} className="mt-4 text-pinte-blue underline">Back to Catalog</button>
@@ -28,7 +30,12 @@ const ProductCategory: React.FC = () => {
   }
 
   if (showQuote) {
-     return <QuoteRequest onBack={() => setShowQuote(false)} ui={ui.quote} />;
+     return (
+       <>
+         <SEO title={`Request Quote - ${product.name}`} description={`Request a quote for ${product.name}`} />
+         <QuoteRequest onBack={() => setShowQuote(false)} ui={ui.quote} />
+       </>
+     );
   }
 
   // Helper for icons (needs to match map used in main app roughly or just use basic ones)
@@ -36,6 +43,12 @@ const ProductCategory: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 font-sans text-neutral-900 animate-in fade-in duration-500">
+      <SEO 
+        title={`${product.name} | PINTE Foil`}
+        description={product.description}
+        keywords={`${product.name}, ${product.subtitle}, hot stamping foil category`}
+        image={product.heroImage}
+      />
       <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
         <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
            <button 
